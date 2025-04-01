@@ -3,7 +3,16 @@ package gcd;
 import exceptions.CalculationException;
 
 import static exceptions.ExceptionMessages.INVALID_RESULT_GCD;
+import static java.lang.Math.abs;
 
+/**
+ * Class {@code GCD} provides utility methods for calculating the greatest common divisor (GCD)
+ * of two or more integers using the Euclidean algorithm.
+ *
+ * <p>This class contains methods to compute the GCD of two integers and four integers efficiently,
+ * handling special cases such as all zeros and invalid results.</p>
+ *
+ */
 public class GCD {
     /**
      * Calculates the greatest common divisor (GCD) of two integers using the Euclidean algorithm.
@@ -51,7 +60,7 @@ public class GCD {
         if (result == Integer.MIN_VALUE)
             throw new CalculationException(INVALID_RESULT_GCD.getMessage());
 
-        return Math.abs(result);
+        return abs(result);
     }
 
 }
