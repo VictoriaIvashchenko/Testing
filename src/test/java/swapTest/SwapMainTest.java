@@ -9,7 +9,14 @@ import static tools.ConsolePrintCheck.assertValidConsolePrint;
 import static tools.ExceptionMessagesTest.INVALID_TYPE_INPUT_SWAP_TEST;
 
 public class SwapMainTest extends SwapTest {
-    String SEPARATOR = System.lineSeparator();
+    String separator = System.lineSeparator();
+
+    Runnable mainMethod = new Runnable() {
+        @Override
+        public void run() {
+            SwapMain.main(new String[]{});
+        }
+    };
 
     @Test
     void overRangeInputTest(){
@@ -154,8 +161,8 @@ public class SwapMainTest extends SwapTest {
     }
 
     /**
-     * Overrides the base {@code assertSwapTwoNumbers} method to test the correctness of the
-     * {@code SwapMain.main()} method using console input and output.
+     * Overrides the base {@link SwapTest#assertSwapTwoNumbers} method to test the correctness of the
+     * {@link SwapMain#main(String[])} method using console input and output.
      *
      * <p>It simulates console input for two numbers and verifies whether the printed output
      * correctly reflects the swap of the two values as expected.</p>
@@ -165,9 +172,9 @@ public class SwapMainTest extends SwapTest {
      */
     @Override
     public void assertSwapTwoNumbers(int num1, int num2){
-        String input = num1 + SEPARATOR + num2;
+        String input = num1 + separator + num2;
 
-        String messageTemplate = join(SEPARATOR,
+        String messageTemplate = join(separator,
                 "Task 1. Enter two numbers x and y:",
                 "Before: x = %d y = %d",
                 "After: x = %d y = %d",
@@ -176,12 +183,12 @@ public class SwapMainTest extends SwapTest {
 
         String expectedOutput = String.format(messageTemplate, num1, num2, num2, num1);
 
-        assertValidConsolePrint(input, expectedOutput, ()->SwapMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, mainMethod, false);
 
     }
 
     /**
-     * Asserts that an invalid type input for the first argument is handled correctly by the {@code SwapMain.main()} method.
+     * Asserts that an invalid type input for the first argument is handled correctly by the {@link  SwapMain#main(String[])} method.
      *
      * <p>This method simulates console input for two values where the first value is of an invalid type,
      * and verifies that the output matches the expected error message.</p>
@@ -190,16 +197,15 @@ public class SwapMainTest extends SwapTest {
      * @param y the second input value
      */
     public void assertInvalidTypeFirstArgument(String x, String y){
-        String input = x + SEPARATOR + y;
-        String expectedOutput = format("Task 1. Enter two numbers x and y:" + SEPARATOR +
-                INVALID_TYPE_INPUT_SWAP_TEST.getTestMessage(), "x", x);
+        String input = x + separator + y;
+        String expectedOutput = format(INVALID_TYPE_INPUT_SWAP_TEST.getTestMessage(), "x", x);
 
-        assertValidConsolePrint(input, expectedOutput, ()->SwapMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
 
     }
 
     /**
-     * Asserts that an invalid type input for the second argument is handled correctly by the {@code SwapMain.main()} method.
+     * Asserts that an invalid type input for the second argument is handled correctly by the {@link SwapMain#main(String[])} method.
      *
      * <p>This method simulates console input for two values where the second value is of an invalid type,
      * and verifies that the output matches the expected error message.</p>
@@ -208,10 +214,9 @@ public class SwapMainTest extends SwapTest {
      * @param y the second input value (which will be tested for invalid type)
      */
     public void assertInvalidTypeSecondArgument(String x, String y){
-        String input = x + SEPARATOR + y;
-        String expectedOutput = format("Task 1. Enter two numbers x and y:" + SEPARATOR +
-                INVALID_TYPE_INPUT_SWAP_TEST.getTestMessage(), "y", y);
+        String input = x + separator + y;
+        String expectedOutput = format(INVALID_TYPE_INPUT_SWAP_TEST.getTestMessage(), "y", y);
 
-        assertValidConsolePrint(input, expectedOutput, ()->SwapMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
     }
 }
