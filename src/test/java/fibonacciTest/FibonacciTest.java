@@ -227,7 +227,7 @@ class FibonacciTest {
     /**
      * Asserts that the Fibonacci number at a given index is equal to the expected value.
      *
-     * <p>This method compares the result of the {@code fibonacci} method for the given index with the expected
+     * <p>This method compares the result of the {@link fibonacci} method for the given index with the expected
      * value. It ensures that the Fibonacci number returned for the specified index matches the expected value.</p>
      *
      * @param actualIndex the index in the Fibonacci sequence to check
@@ -241,12 +241,12 @@ class FibonacciTest {
         }
     }
     /**
-     * Asserts that the {@code fibonacci} method throws an {@link InvalidInputException} for a given invalid index.
+     * Asserts that the {@link fibonacci} method throws an {@link InvalidInputException} for a given invalid index.
      *
-     * <p>This method ensures that an {@code InvalidInputException} is thrown when calling the {@code fibonacci} method
+     * <p>This method ensures that an {@link InvalidInputException} is thrown when calling the {@link fibonacci} method
      * with an invalid index. It verifies that the exception message matches the expected one.</p>
      *
-     * @param index the index to test, which should cause an {@code InvalidInputException} when passed to the {@code fibonacci} method
+     * @param index the index to test, which should cause an {@link InvalidInputException} when passed to the {@link fibonacci} method
      */
     public void assertThrowsInvalidInputException(int index){
         String expectedMessage = String.format(INVALID_VALUE_INPUT_FIBONACCI.getMessage(), index);

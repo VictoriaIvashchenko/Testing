@@ -12,7 +12,9 @@ import static tools.ExceptionMessagesTest.INVALID_VALUE_INPUT_FIBONACCI_TEST;
 
 public class FibonacciMainTest extends FibonacciTest {
 
-    String SEPARATOR = System.lineSeparator();
+    String separator = System.lineSeparator();
+
+    Runnable mainMethod = ()->FibonacciMain.main(new String[]{});
 
     @Test
     void overRangeInputTest(){
@@ -87,14 +89,14 @@ public class FibonacciMainTest extends FibonacciTest {
     public void assertFibonacciEquals(int actualIndex, String expected){
         String input = valueOf(actualIndex);
 
-        String expectedOutput = format("Task 4. Enter index of number in fibonacci sequence:" + SEPARATOR +
+        String expectedOutput = format("Task 4. Enter index of number in fibonacci sequence:" + separator +
                 "F(%d) = %s", actualIndex, expected);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FibonacciMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, mainMethod, false);
     }
 
     /**
-     * Asserts that the {@code fibonacci} method throws an {@link InvalidInputException} for an invalid index.
+     * Asserts that the {@link fibonacci} method throws an {@link InvalidInputException} for an invalid index.
      *
      * <p>This method simulates console input for an invalid Fibonacci index and verifies that the correct exception
      * message is printed. It ensures that an error message for an invalid index is shown as expected.</p>
@@ -103,12 +105,11 @@ public class FibonacciMainTest extends FibonacciTest {
      */
     @Override
     public void assertThrowsInvalidInputException(int index){
-        String expectedOutput = format("Task 4. Enter index of number in fibonacci sequence:" + SEPARATOR +
-                INVALID_VALUE_INPUT_FIBONACCI_TEST.getTestMessage(), index);
-        assertValidConsolePrint(valueOf(index), expectedOutput, ()->FibonacciMain.main(new String[]{}));
+        String expectedOutput = format(INVALID_VALUE_INPUT_FIBONACCI_TEST.getTestMessage(), index);
+        assertValidConsolePrint(valueOf(index), expectedOutput, mainMethod, true);
     }
     /**
-     * Asserts that an invalid type argument for the Fibonacci index is handled correctly by the {@code FibonacciMain.main()} method.
+     * Asserts that an invalid type argument for the Fibonacci index is handled correctly by the {@link FibonacciMain#main(String[])} method.
      *
      * <p>This method simulates console input for an invalid type (non-numeric) and verifies that the expected error message is printed,
      * indicating that the input is not a valid Fibonacci index.</p>
@@ -116,9 +117,8 @@ public class FibonacciMainTest extends FibonacciTest {
      * @param input the invalid input to test (non-numeric or invalid format for a Fibonacci index)
      */
     public void assertInvalidTypeArguments(String input){
-        String expectedOutput = format("Task 4. Enter index of number in fibonacci sequence:" + SEPARATOR +
-                INVALID_TYPE_INPUT_FIBONACCI_TEST.getTestMessage(), "n", input);
-        assertValidConsolePrint(input, expectedOutput, ()->FibonacciMain.main(new String[]{}));
+        String expectedOutput = format(INVALID_TYPE_INPUT_FIBONACCI_TEST.getTestMessage(), "n", input);
+        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
     }
 
 }

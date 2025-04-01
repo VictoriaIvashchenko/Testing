@@ -7,6 +7,13 @@ import java.math.BigInteger;
 import static exceptions.ExceptionMessages.INVALID_VALUE_INPUT_FIBONACCI;
 import static java.lang.String.format;
 
+/**
+ * Class {@code Fibonacci} provides methods for calculating Fibonacci numbers using matrix exponentiation.
+ *
+ * <p>This class offers an efficient approach for computing Fibonacci numbers using matrix exponentiation.
+ * By representing the Fibonacci sequence with matrix multiplication, we can compute the n-th Fibonacci number
+ * in logarithmic time (O(log n)) through matrix exponentiation by squaring.</p>
+ */
 public class Fibonacci {
     /**
      * Computes the n-th Fibonacci number using matrix exponentiation.
