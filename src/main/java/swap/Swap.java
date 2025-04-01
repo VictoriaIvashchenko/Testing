@@ -1,5 +1,12 @@
 package swap;
 
+/**
+ * Class {@code Swap} provides a utility method to swap two integers without using a temporary variable.
+ *
+ * <p>This class contains a static method {@link swap} that demonstrates swapping two integer values
+ * using arithmetic operations. The method prints the values before and after the swap operation.</p>
+ *
+ */
 public class Swap {
     /**
      * Swaps the values of two integers without using a temporary variable.
