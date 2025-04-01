@@ -14,8 +14,8 @@ public enum ExceptionMessagesTest {
     INVALID_CALCULATIONS_FLATS_TEST("Task can't be calculated with input arguments: %d floors, %d flats on floor."),
     INVALID_TYPE_INPUT_FLATS_TEST("Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received."),
 
-    INVALID_VALUE_DAY_OF_NEW_YEAR_INPUT_CALENDAR_TEST("Invalid input day of New Year. Name of day was expected, but '%s' was received."),
-    INVALID_VALUE_MONTH_INPUT_CALENDAR_TEST("Invalid input number of month. Name of month was expected, but '%s' was received."),
+    INVALID_VALUE_DAY_OF_NEW_YEAR_INPUT_CALENDAR_TEST("Invalid input day of New Year. Number of day was expected, but '%d' was received."),
+    INVALID_VALUE_MONTH_INPUT_CALENDAR_TEST("Invalid input number of month. Number of month was expected, but '%d' was received."),
     INVALID_VALUE_DAY_INPUT_CALENDAR_TEST("Invalid input number of day. Number from 1 to %d was expected, but '%d' was received."),
     INVALID_TYPE_INPUT_CALENDAR_TEST("Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.");
 
