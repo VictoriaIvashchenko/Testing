@@ -324,10 +324,10 @@ class GCDTest {
     }
 
     /**
-     * Asserts that the method {@code gcdOfFour} correctly calculates the GCD of four integers for various permutations
+     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} correctly calculates the GCD of four integers for various permutations
      * and sign variations of the inputs.
      *
-     * <p>This method tests the {@code gcdOfFour} method by applying various permutations of four integers, including
+     * <p>This method tests the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method by applying various permutations of four integers, including
      * different sign combinations, and checks whether the calculated GCD matches the expected result.</p>
      *
      * @param expected the expected GCD result
@@ -365,10 +365,11 @@ class GCDTest {
     }
 
     /**
-     * Asserts that the method {@code gcdOfFour} correctly calculates the GCD of four integers for different sign combinations.
+     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} correctly calculates the GCD of four
+     * integers for different sign combinations.
      *
      * <p>This method ensures that the calculation of the GCD is correct even when the signs of the input integers vary.
-     * It calls the {@code assertGCDResult} method for all sign variations of the input integers.</p>
+     * It calls the {@link GCDTest#assertGCDResult(int, int, int, int, int)} method for all sign variations of the input integers.</p>
      *
      * @param expected the expected GCD result
      * @param a the first integer input
@@ -396,7 +397,7 @@ class GCDTest {
     }
 
     /**
-     * Asserts that the method {@code gcdOfFour} correctly calculates the GCD of four integers.
+     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} correctly calculates the GCD of four integers.
      *
      * <p>This method checks whether the GCD of the input integers is calculated correctly and compares the result with the
      * expected value. If an exception occurs during the calculation, it fails the test.</p>
@@ -416,11 +417,12 @@ class GCDTest {
     }
 
     /**
-     * Asserts that the {@code gcdOfFour} method throws a {@link CalculationException} for various permutations
-     * of four integer values.
+     * Asserts that the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method throws a {@link CalculationException}
+     * for various permutations of four integer values.
      *
-     * <p>This method tests all possible permutations of four input integers to ensure that the {@code gcdOfFour} method
-     * correctly throws a {@link CalculationException} for invalid or edge case inputs.</p>
+     * <p>This method tests all possible permutations of four input integers to ensure that the
+     * {@link gcd.GCD#gcdOfFour(int, int, int, int)} method correctly throws a {@link CalculationException} for invalid
+     * or edge case inputs.</p>
      *
      * @param a the first integer input
      * @param b the second integer input
@@ -457,9 +459,9 @@ class GCDTest {
     }
 
     /**
-     * Asserts that the {@code gcdOfFour} method throws a {@link CalculationException} for the given set of four integer values.
+     * Asserts that the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method throws a {@link CalculationException} for the given set of four integer values.
      *
-     * <p>This method tests the {@code gcdOfFour} method with a specific set of inputs and ensures that the appropriate exception
+     * <p>This method tests the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method with a specific set of inputs and ensures that the appropriate exception
      * is thrown when the input values are invalid or edge cases for GCD calculations.</p>
      *
      * @param a the first integer input
