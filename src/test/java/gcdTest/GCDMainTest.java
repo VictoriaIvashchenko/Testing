@@ -7,11 +7,24 @@ import static java.lang.String.format;
 import static tools.ConsolePrintCheck.assertValidConsolePrint;
 import static tools.ExceptionMessagesTest.INVALID_TYPE_INPUT_GCD_TEST;
 
+/**
+ * Unit test class for {@link GCDMain}.
+ *
+ * <p>This class extends {@link GCDTest} and provides specific test configurations
+ * for verifying the behavior of the {@link GCDMain} program. It sets up the main method
+ * for execution during tests and defines a system-dependent line separator.</p>
+ *
+ */
 public class GCDMainTest extends GCDTest {
-
-    String separator = System.lineSeparator();
-
-    Runnable mainMethod = ()->GCDMain.main(new String[]{});
+    /** System-dependent line separator used for formatting expected test output. */
+    final static String SEPARATOR = System.lineSeparator();
+    /**
+     * A {@link Runnable} reference to the {@code main} method of {@link GCDMain}.
+     *
+     * <p>This runnable executes {@link GCDMain#main(String[])} with an empty argument array,
+     * allowing test cases to simulate program execution.</p>
+     */
+    final static Runnable MAIN_METHOD = () -> GCDMain.main(new String[]{});
 
     @Test
     void overRangeInputTest(){
@@ -214,12 +227,13 @@ public class GCDMainTest extends GCDTest {
      */
     @Override
     public void assertGCDResult(int expected, int a, int b, int c, int d){
-        String input = a + separator + b + separator + c + separator + d;
+        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
 
-        String expectedOutput = format("Task 3. Enter four numbers for searching gcd:" + separator +
+        String expectedOutput = format(
+                "Task 3. Enter four numbers for searching gcd:" + SEPARATOR +
                 "GCD(%d, %d, %d, %d) = %d", a, b, c, d, expected);
 
-        assertValidConsolePrint(input, expectedOutput, mainMethod, false);
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
 
     }
     /**
@@ -237,13 +251,13 @@ public class GCDMainTest extends GCDTest {
      */
     @Override
     public void assertThrowsCalculationException(int a, int b, int c, int d){
-        String input = a + separator + b + separator + c + separator + d;
+        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
 
         String expectedOutput = format(
-                "Task 3. Enter four numbers for searching gcd:" + separator +
+                "Task 3. Enter four numbers for searching gcd:" + SEPARATOR +
                 "GCD(%d, %d, %d, %d) = 2147483648", a, b, c, d);
 
-        assertValidConsolePrint(input, expectedOutput, mainMethod, false);
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }
 
     /**
@@ -258,9 +272,11 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth argument as a string
      */
     public void assertInvalidFirstArgumentType(String a, String b, String c, String d){
-        String input = a + separator + b + separator + c + separator + d;
+        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
+
         String expectedOutput = format(INVALID_TYPE_INPUT_GCD_TEST.getTestMessage(), "a", a);
-        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
 
     }
     /**
@@ -276,9 +292,11 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth argument as a string
      */
     public void assertInvalidSecondArgumentType(String a, String b, String c, String d){
-        String input = a + separator + b + separator + c + separator + d;
+        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
+
         String expectedOutput = format(INVALID_TYPE_INPUT_GCD_TEST.getTestMessage(), "b", b);
-        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
 
     }
     /**
@@ -294,9 +312,11 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth argument as a string
      */
     public void assertInvalidThirdArgumentType(String a, String b, String c, String d){
-        String input = a + separator + b + separator + c + separator + d;
+        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
+
         String expectedOutput = format(INVALID_TYPE_INPUT_GCD_TEST.getTestMessage(), "c", c);
-        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
 
     }
     /**
@@ -311,9 +331,11 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth argument as a string (invalid type)
      */
     public void assertInvalidFourthArgumentType(String a, String b, String c, String d){
-        String input = a + separator + b + separator + c + separator + d;
+        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
+
         String expectedOutput = format(INVALID_TYPE_INPUT_GCD_TEST.getTestMessage(), "d", d);
-        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
 
 }

@@ -10,11 +10,24 @@ import static tools.ConsolePrintCheck.assertValidConsolePrint;
 import static tools.ExceptionMessagesTest.INVALID_TYPE_INPUT_FIBONACCI_TEST;
 import static tools.ExceptionMessagesTest.INVALID_VALUE_INPUT_FIBONACCI_TEST;
 
+/**
+ * Unit test class for {@link FibonacciMain}.
+ *
+ * <p>This class extends {@link FibonacciTest} and provides specific test configurations
+ * for verifying the behavior of the {@link FibonacciMain} program. It sets up the main method
+ * for execution during tests and defines a system-dependent line separator.</p>
+ *
+ */
 public class FibonacciMainTest extends FibonacciTest {
-
-    String separator = System.lineSeparator();
-
-    Runnable mainMethod = ()->FibonacciMain.main(new String[]{});
+    /** System-dependent line separator used for formatting expected test output. */
+    final static String SEPARATOR = System.lineSeparator();
+    /**
+     * A {@link Runnable} reference to the {@code main} method of {@link FibonacciMain}.
+     *
+     * <p>This runnable executes {@link FibonacciMain#main(String[])} with an empty argument array,
+     * allowing test cases to simulate program execution.</p>
+     */
+    final static Runnable MAIN_METHOD = () -> FibonacciMain.main(new String[]{});
 
     @Test
     void overRangeInputTest(){
@@ -89,10 +102,11 @@ public class FibonacciMainTest extends FibonacciTest {
     public void assertFibonacciEquals(int actualIndex, String expected){
         String input = valueOf(actualIndex);
 
-        String expectedOutput = format("Task 4. Enter index of number in fibonacci sequence:" + separator +
+        String expectedOutput = format(
+                "Task 4. Enter index of number in fibonacci sequence:" + SEPARATOR +
                 "F(%d) = %s", actualIndex, expected);
 
-        assertValidConsolePrint(input, expectedOutput, mainMethod, false);
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }
 
     /**
@@ -106,7 +120,8 @@ public class FibonacciMainTest extends FibonacciTest {
     @Override
     public void assertThrowsInvalidInputException(int index){
         String expectedOutput = format(INVALID_VALUE_INPUT_FIBONACCI_TEST.getTestMessage(), index);
-        assertValidConsolePrint(valueOf(index), expectedOutput, mainMethod, true);
+
+        assertValidConsolePrint(valueOf(index), expectedOutput, MAIN_METHOD, true);
     }
     /**
      * Asserts that an invalid type argument for the Fibonacci index is handled correctly by the {@link FibonacciMain#main(String[])} method.
@@ -118,7 +133,8 @@ public class FibonacciMainTest extends FibonacciTest {
      */
     public void assertInvalidTypeArguments(String input){
         String expectedOutput = format(INVALID_TYPE_INPUT_FIBONACCI_TEST.getTestMessage(), "n", input);
-        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
 
 }

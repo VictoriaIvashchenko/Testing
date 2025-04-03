@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static exceptions.ExceptionMessages.*;
 import static java.lang.Integer.MAX_VALUE;
-import static flats.Flats.numbers;
+import static flats.Flats.flats;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +14,6 @@ import static tools.ExceptionMessagesTest.INVALID_CALCULATIONS_FLATS_TEST;
 
 class FlatsTest {
 
-    //32
     @Test
     void limitValuesTest(){
         //граничні точки
@@ -60,7 +59,6 @@ class FlatsTest {
         assertEqualsApart(1, MAX_VALUE - 1, MAX_VALUE - 1, 1, 1);
     }
 
-    //72
     @Test
     void floorConstTest(){
         //будинок 10-4
@@ -123,6 +121,12 @@ class FlatsTest {
         assertEqualsApart(10, 4, 2147483638, 10, 53687091);
         assertEqualsApart(10, 4, 2147483639, 10, 53687091);
 
+        //останній під'їзд для дому 10-4, 2 поверхи 53687092 під'їзд
+        assertEqualsApart(10, 4, 2147483645, 2, 53687092);
+        assertEqualsApart(10, 4, 2147483647, 2, 53687092);
+        //сусідні точки
+        assertEqualsApart(10, 4, 2147483646, 2, 53687092);
+
         //будинок 46339-5
         assertEqualsApart(46339, 5, 1, 1, 1);//перша квартира - 1 поверх 1 під'їзд
         assertEqualsApart(46339, 5, 5, 1, 1);//остання квартира - 1 поверх 1 під'їзд
@@ -184,32 +188,37 @@ class FlatsTest {
 
     }
 
-    //28
     @Test
     void floorEqualEntranceTest(){
         //будинок 100-5
         //1-1
-        assertEqualsApart(100, 5, 1, 1, 1);
-        assertEqualsApart(100, 5, 5, 1, 1);
+        assertEqualsApart(10, 5, 1, 1, 1);
+        assertEqualsApart(10, 5, 5, 1, 1);
         //сусідні точки
-        assertEqualsApart(100, 5, 4, 1, 1);
-        assertEqualsApart(100, 5, 6, 2, 1);
+        assertEqualsApart(10, 5, 4, 1, 1);
+        assertEqualsApart(10, 5, 6, 2, 1);
 
-        //55-55
-        assertEqualsApart(100, 5, 27271, 55, 55);
-        assertEqualsApart(100, 5, 27275, 55, 55);
+        //5-21474836
+        assertEqualsApart(10, 5, 1073741771, 5, 21474836);
+        assertEqualsApart(10, 5, 1073741775, 5, 21474836);
         //сусідні точки
-        assertEqualsApart(100, 5, 27274, 55, 55);
-        assertEqualsApart(100, 5, 27270, 54, 55);
-        assertEqualsApart(100, 5, 27276, 56, 55);
+        assertEqualsApart(10, 5, 1073741770, 4, 21474836);
+        assertEqualsApart(10, 5, 1073741774, 5, 21474836);
+        assertEqualsApart(10, 5, 1073741776, 6, 21474836);
 
-        //100-100
-        assertEqualsApart(100, 5, 49996, 100, 100);
-        assertEqualsApart(100, 5, 50000, 100, 100);
+        //10-21474836
+        assertEqualsApart(10, 5, 1073741796, 10, 21474836);
+        assertEqualsApart(10, 5, 1073741800, 10, 21474836);
         //сусідні точки
-        assertEqualsApart(100, 5, 49999, 100, 100);
-        assertEqualsApart(100, 5, 49995, 99, 100);
-        assertEqualsApart(100, 5, 50001, 1, 101);
+        assertEqualsApart(10, 5, 1073741795, 9, 21474836);
+        assertEqualsApart(10, 5, 1073741799, 10, 21474836);
+        assertEqualsApart(10, 5, 1073741801, 1, 21474837);
+
+        //10-42949673
+        assertEqualsApart(10, 5, 2147483646, 10, 42949673);
+        assertEqualsApart(10, 5, 2147483647, 10, 42949673);
+        //сусідні точки
+        assertEqualsApart(10, 5, 2147483645, 9, 42949673);
 
         //будинок 46340-4
         //1-1
@@ -220,23 +229,21 @@ class FlatsTest {
         assertEqualsApart(46340, 4, 5, 2, 1);
 
         //5793-5793
-        assertEqualsApart(46340, 4, 1073628289, 5793, 5793);
-        assertEqualsApart(46340, 4, 1073628292, 5793, 5793);
+        assertEqualsApart(46340, 4, 1073697797, 23170, 5793);
+        assertEqualsApart(46340, 4, 1073697800, 23170, 5793);
         //сусідні точки
-        assertEqualsApart(46340, 4, 1073628291, 5793, 5793);
-        assertEqualsApart(46340, 4, 1073628288, 5792, 5793);
-        assertEqualsApart(46340, 4, 1073628293, 5794, 5793);
+        assertEqualsApart(46340, 4, 1073697796, 23169, 5793);
+        assertEqualsApart(46340, 4, 1073697799, 23170, 5793);
+        assertEqualsApart(46340, 4, 1073697801, 23171, 5793);
 
         //11585-11585
-        assertEqualsApart(46340, 4, 2147256577, 11585, 11585);
-        assertEqualsApart(46340, 4, 2147256580, 11585, 11585);
+        assertEqualsApart(46340, 4, 2147483645, 22012, 11586);
+        assertEqualsApart(46340, 4, 2147483647, 22012, 11586);
         //сусідні точки
-        assertEqualsApart(46340, 4, 2147256579, 11585, 11585);
-        assertEqualsApart(46340, 4, 2147256576, 11584, 11585);
-        assertEqualsApart(46340, 4, 2147256581, 11586, 11585);
-
+        assertEqualsApart(46340, 4, 2147483644, 22011, 11586);
+        assertEqualsApart(46340, 4, 2147483646, 22012, 11586);
     }
-    //42
+
     @Test
     void entrancesConstTest(){
         //будинок 7-4
@@ -254,19 +261,19 @@ class FlatsTest {
         assertEqualsApart(7, 4, 23, 6, 1);
         assertEqualsApart(7, 4, 29, 1, 2);
 
-        //під'їзд=76695844
-        assertEqualsApart(7, 4, 2147483605, 1, 76695844);
-        assertEqualsApart(7, 4, 2147483632, 7, 76695844);
-        assertEqualsApart(7, 4, 2147483609, 2, 76695844);
-        assertEqualsApart(7, 4, 2147483628, 6, 76695844);
-        //сусідні точки
-        assertEqualsApart(7, 4, 2147483606, 1, 76695844);
-        assertEqualsApart(7, 4, 2147483608, 1, 76695844);
-        assertEqualsApart(7, 4, 2147483631, 7, 76695844);
-        assertEqualsApart(7, 4, 2147483610, 2, 76695844);
-        assertEqualsApart(7, 4, 2147483629, 7, 76695844);
-        assertEqualsApart(7, 4, 2147483627, 6, 76695844);
+        //під'їзд=76695845
         assertEqualsApart(7, 4, 2147483633, 1, 76695845);
+        assertEqualsApart(7, 4, 2147483647, 4, 76695845);
+        assertEqualsApart(7, 4, 2147483637, 2, 76695845);
+        assertEqualsApart(7, 4, 2147483644, 3, 76695845);
+        //сусідні точки
+        assertEqualsApart(7, 4, 2147483634, 1, 76695845);
+        assertEqualsApart(7, 4, 2147483636, 1, 76695845);
+        assertEqualsApart(7, 4, 2147483646, 4, 76695845);
+        assertEqualsApart(7, 4, 2147483637, 2, 76695845);
+        assertEqualsApart(7, 4, 2147483645, 4, 76695845);
+        assertEqualsApart(7, 4, 2147483643, 3, 76695845);
+        assertEqualsApart(7, 4, 2147483632, 7, 76695844);
 
         //будинок 46342-5
         assertEqualsApart(46342, 5, 1, 1, 1);
@@ -404,7 +411,6 @@ class FlatsTest {
 
     }
 
-    //8
     @Test
     void checkArithmeticsException(){
         assertThrowsCalculationException(1073741824, 2, 2147483647);
@@ -417,7 +423,6 @@ class FlatsTest {
         assertThrowsCalculationException(2147483647, 2147483647, 2147483647);
     }
 
-    //5
     @Test
     void invalidFloorsInputTest() {
         assertThrowsIllegalFloorsException(0, 4, 1);
@@ -427,7 +432,6 @@ class FlatsTest {
         assertThrowsIllegalFloorsException(-2147483648, 4, 1);
     }
 
-    //5
     @Test
     void invalidFlatsOnFloorInputTest() {
         assertThrowsIllegalFlatsOnFloorException(9, 0, 4);
@@ -436,7 +440,7 @@ class FlatsTest {
         assertThrowsIllegalFlatsOnFloorException(9, -2147483647, 4);
         assertThrowsIllegalFlatsOnFloorException(9, -2147483648, 4);
     }
-    //5
+
     @Test
     void invalidFlatNumberInputTest() {
         assertThrowsIllegalFlatNumberException(5, 4, 0);
@@ -446,7 +450,6 @@ class FlatsTest {
         assertThrowsIllegalFlatNumberException(5, 4, -2147483648);
     }
 
-    //10
     @Test
     void randomInputValuesTest(){
         assertEqualsApart(28331, 4671, 19647, 5, 1);
@@ -461,7 +464,6 @@ class FlatsTest {
         assertEqualsApart(3654686, 5, 551436116, 646644, 31);
     }
 
-    //10
     @Test
     void specialValuesTest(){
         assertEqualsApart(9, 4, 51, 4, 2);
@@ -477,7 +479,7 @@ class FlatsTest {
     }
 
     /**
-     * Asserts that the method {@code numbers} correctly calculates the floor and entrance for the given apartment number.
+     * Asserts that the method {@link flats} correctly calculates the floor and entrance for the given apartment number.
      * It compares the actual result with the expected floor and entrance values, and fails the test if an exception is thrown.
      *
      * <p>This method simulates the calculation of the floor and entrance in an apartment building, given the total number
@@ -492,16 +494,16 @@ class FlatsTest {
      */
     public void assertEqualsApart(int floors, int flatsOnFloor, int flatNumber, int expectedFloor, int expectedEntrance){
         try{
-            assertArrayEquals(new int[] {expectedFloor, expectedEntrance}, numbers(floors, flatsOnFloor, flatNumber));
+            assertArrayEquals(new int[] {expectedFloor, expectedEntrance}, flats(floors, flatsOnFloor, flatNumber));
         }catch (InvalidInputException | CalculationException e){
             fail("Expected no InvalidInputException or CalculationException, but got one.");
         }
     }
 
     /**
-     * Asserts that the method {@code numbers} throws an exception with the correct error message when an invalid floor number is provided.
+     * Asserts that the method {@link flats} throws an exception with the correct error message when an invalid floor number is provided.
      *
-     * <p>This method verifies that the given floor number causes the {@code numbers} method to throw an {@link InvalidInputException}
+     * <p>This method verifies that the given floor number causes the {@link flats} method to throw an {@link InvalidInputException}
      * with the expected error message for invalid floor input.</p>
      *
      * @param floor the floor number that is being validated
@@ -516,9 +518,9 @@ class FlatsTest {
     }
 
     /**
-     * Asserts that an {@code InvalidInputException} is thrown when an invalid number of flats on a floor is provided.
+     * Asserts that an {@link InvalidInputException} is thrown when an invalid number of flats on a floor is provided.
      *
-     * <p>Verifies that the {@code numbers} method throws the expected exception with the correct message
+     * <p>Verifies that the {@link flats} method throws the expected exception with the correct message
      * when the number of flats on a floor is invalid.</p>
      *
      * @param floor the total number of floors in the building
@@ -532,9 +534,9 @@ class FlatsTest {
 
     }
     /**
-     * Asserts that an {@code InvalidInputException} is thrown when an invalid flat number is provided.
+     * Asserts that an {@link InvalidInputException} is thrown when an invalid flat number is provided.
      *
-     * <p>Verifies that the {@code numbers} method throws the expected exception with the correct message
+     * <p>Verifies that the {@link flats} method throws the expected exception with the correct message
      * when the flat number is invalid.</p>
      *
      * @param floor the total number of floors in the building
@@ -548,9 +550,9 @@ class FlatsTest {
     }
 
     /**
-     * Asserts that an {@code InvalidInputException} is thrown when invalid input is provided (e.g., invalid floor, flats on floor, or flat number).
+     * Asserts that an {@link InvalidInputException} is thrown when invalid input is provided (e.g., invalid floor, flats on floor, or flat number).
      *
-     * <p>This method is used to verify that the {@code numbers} method throws an exception with the expected error message
+     * <p>This method is used to verify that the {@link flats} method throws an exception with the expected error message
      * for invalid input parameters such as the floor, flats per floor, or flat number.</p>
      *
      * @param floor the total number of floors in the building
@@ -560,7 +562,7 @@ class FlatsTest {
      */
     public void assertThrowsInvalidArgument(int floor, int flatsOnFloor, int flatNumber, String expectedMessage){
         try{
-            numbers(floor, flatsOnFloor, flatNumber);
+            flats(floor, flatsOnFloor, flatNumber);
             fail("Expected InvalidInputException to be thrown.");
         }catch (InvalidInputException e){
             assertEquals(expectedMessage, e.getMessage());
@@ -569,10 +571,10 @@ class FlatsTest {
         }
     }
     /**
-     * Asserts that a {@code CalculationException} is thrown when the provided input values are invalid
+     * Asserts that a {@link CalculationException} is thrown when the provided input values are invalid
      * for calculating the floor and entrance for a flat.
      *
-     * <p>This method verifies that the {@code numbers} method throws a {@code CalculationException}
+     * <p>This method verifies that the {@link flats} method throws a {@link CalculationException}
      * with the expected error message when invalid floor, flats on floor, or flat number values are provided.</p>
      *
      * @param floor the total number of floors in the building
@@ -581,7 +583,7 @@ class FlatsTest {
      */
     public void assertThrowsCalculationException(int floor, int flatsOnFloor, int flatNumber){
         try{
-            numbers(floor, flatsOnFloor, flatNumber);
+            flats(floor, flatsOnFloor, flatNumber);
             fail("Expected InvalidInputException to be thrown.");
         }catch (CalculationException e){
             String expectedMessage = String.format(INVALID_CALCULATIONS_FLATS_TEST.getTestMessage(), floor, flatsOnFloor);

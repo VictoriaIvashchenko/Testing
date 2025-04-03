@@ -28,6 +28,7 @@ public class CheckConsoleInput {
      */
     public static Integer readInteger(Scanner in, String varName, String message) throws InvalidInputException {
         String input = in.nextLine().trim();
+
         try {
             return parseInt(input);
         } catch (NumberFormatException e) {

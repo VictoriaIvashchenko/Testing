@@ -1,6 +1,7 @@
 package flats;
 
 import exceptions.CalculationException;
+import exceptions.ExceptionMessages;
 import exceptions.InvalidInputException;
 
 import static exceptions.ExceptionMessages.*;
@@ -26,16 +27,10 @@ public class Flats {
      * @throws InvalidInputException if any input parameter is non-positive
      * @throws CalculationException if an overflow occurs during calculations
      */
-    public static int [] numbers(int floors, int flatsOnFloor, int flatNumber) throws InvalidInputException, CalculationException{
-
-        if(floors <= 0)
-            throw new InvalidInputException(format(INVALID_VALUE_FLOORS_INPUT_FLATS.getMessage(), floors));
-
-        if(flatsOnFloor <= 0)
-            throw new InvalidInputException(format(INVALID_VALUE_FLATS_ON_FLOOR_INPUT_FLATS.getMessage(), flatsOnFloor));
-
-        if(flatNumber <= 0)
-            throw new InvalidInputException(format(INVALID_VALUE_FLAT_NUMBER_INPUT_FLATS.getMessage(), flatNumber));
+    public static int[] flats(int floors, int flatsOnFloor, int flatNumber) throws InvalidInputException, CalculationException{
+        checkValues(floors, INVALID_VALUE_FLOORS_INPUT_FLATS);
+        checkValues(flatsOnFloor, INVALID_VALUE_FLATS_ON_FLOOR_INPUT_FLATS);
+        checkValues(flatNumber, INVALID_VALUE_FLAT_NUMBER_INPUT_FLATS);
 
         if (floors > Integer.MAX_VALUE / flatsOnFloor)
             throw new CalculationException(format(INVALID_CALCULATIONS_FLATS.getMessage(), floors, flatsOnFloor));
@@ -45,7 +40,13 @@ public class Flats {
         int floorNumber = (((flatNumber - 1) % apartmentsPerEntrance) / flatsOnFloor + 1);
 
         System.out.printf("Floor: %d, entrance: %d", floorNumber, numOfEntrance);
-        return new int [] {floorNumber, numOfEntrance};
 
+        return new int [] {floorNumber, numOfEntrance};
+    }
+
+    private static void checkValues(int value, ExceptionMessages message) throws InvalidInputException {
+        if(value <= 0){
+            throw new InvalidInputException(format(message.getMessage(), value));
+        }
     }
 }

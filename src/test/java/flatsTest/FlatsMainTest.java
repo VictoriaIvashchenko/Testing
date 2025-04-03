@@ -7,10 +7,24 @@ import static java.lang.String.format;
 import static tools.ConsolePrintCheck.assertValidConsolePrint;
 import static tools.ExceptionMessagesTest.*;
 
-
+/**
+ * Unit test class for {@link FlatsMain}.
+ *
+ * <p>This class extends {@link FlatsTest} and provides specific test configurations
+ * for verifying the behavior of the {@link FlatsMain} program. It sets up the main method
+ * for execution during tests and defines a system-dependent line separator.</p>
+ *
+ */
 public class FlatsMainTest extends FlatsTest {
-
-    String SEPARATOR = System.lineSeparator();
+    /** System-dependent line separator used for formatting expected test output. */
+    final static String SEPARATOR = System.lineSeparator();
+    /**
+     * A {@link Runnable} reference to the {@code main} method of {@link FlatsMain}.
+     *
+     * <p>This runnable executes {@link FlatsMain#main(String[])} with an empty argument array,
+     * allowing test cases to simulate program execution.</p>
+     */
+    final static Runnable MAIN_METHOD = () -> FlatsMain.main(new String[]{});
 
     @Test
     void overRangeTypeTest(){
@@ -361,7 +375,7 @@ public class FlatsMainTest extends FlatsTest {
                 "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
                 "Floor: %d, entrance: %d", expectedFloor, expectedEntrance);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FlatsMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }
     /**
      * Asserts that an illegal value for the number of floors in the building results in the expected error message.
@@ -377,11 +391,9 @@ public class FlatsMainTest extends FlatsTest {
     public void assertThrowsIllegalFloorsException(int floor, int flatsOnFloor, int flatNumber){
         String input = floor + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
 
-        String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
-                INVALID_VALUE_FLOORS_INPUT_FLATS_TEST.getTestMessage(), floor);
+        String expectedOutput = format(INVALID_VALUE_FLOORS_INPUT_FLATS_TEST.getTestMessage(), floor);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FlatsMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
     /**
      * Asserts that an illegal value for the number of flats on each floor results in the expected error message.
@@ -397,11 +409,9 @@ public class FlatsMainTest extends FlatsTest {
     public void assertThrowsIllegalFlatsOnFloorException(int floor, int flatsOnFloor, int flatNumber){
         String input = floor + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
 
-        String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
-                INVALID_VALUE_FLATS_ON_FLOOR_INPUT_FLATS_TEST.getTestMessage(), flatsOnFloor);
+        String expectedOutput = format(INVALID_VALUE_FLATS_ON_FLOOR_INPUT_FLATS_TEST.getTestMessage(), flatsOnFloor);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FlatsMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
     /**
      * Asserts that an illegal flat number results in the expected error message in the console output.
@@ -417,11 +427,9 @@ public class FlatsMainTest extends FlatsTest {
     public void assertThrowsIllegalFlatNumberException(int floor, int flatsOnFloor, int flatNumber){
         String input = floor + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
 
-        String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
-                INVALID_VALUE_FLAT_NUMBER_INPUT_FLATS_TEST.getTestMessage(), flatNumber);
+        String expectedOutput = format(INVALID_VALUE_FLAT_NUMBER_INPUT_FLATS_TEST.getTestMessage(), flatNumber);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FlatsMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
     /**
      * Asserts that a calculation exception is thrown for the given input values.
@@ -437,11 +445,9 @@ public class FlatsMainTest extends FlatsTest {
     public void assertThrowsCalculationException(int floor, int flatsOnFloor, int flatNumber) {
         String input = floor + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
 
-        String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
-                INVALID_CALCULATIONS_FLATS_TEST.getTestMessage(), floor, flatsOnFloor);
+        String expectedOutput = format(INVALID_CALCULATIONS_FLATS_TEST.getTestMessage(), floor, flatsOnFloor);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FlatsMain.main(new String[]{}));    }
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);    }
     /**
      * Asserts that an invalid type for the number of floors results in the expected error message in the console output.
      *
@@ -454,11 +460,11 @@ public class FlatsMainTest extends FlatsTest {
      */
     public void assertInvalidFloorsType(String floors, String flatsOnFloor, String flatNumber){
         String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
-                INVALID_TYPE_INPUT_FLATS_TEST.getTestMessage(), "number of floors", floors);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FlatsMain.main(new String[]{}));    }
+        String expectedOutput = format(INVALID_TYPE_INPUT_FLATS_TEST.getTestMessage(), "number of floors", floors);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+    }
     /**
      * Asserts that an invalid type for the number of flats on each floor results in the expected error message in the console output.
      *
@@ -471,11 +477,11 @@ public class FlatsMainTest extends FlatsTest {
      */
     public void assertInvalidFlatsOnFloorType(String floors, String flatsOnFloor, String flatNumber){
         String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
-                INVALID_TYPE_INPUT_FLATS_TEST.getTestMessage(), "number of flats on floors", flatsOnFloor);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FlatsMain.main(new String[]{}));    }
+        String expectedOutput = format(INVALID_TYPE_INPUT_FLATS_TEST.getTestMessage(), "number of flats on floors", flatsOnFloor);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+    }
     /**
      * Asserts that an invalid type for the flat number results in the expected error message in the console output.
      *
@@ -488,11 +494,10 @@ public class FlatsMainTest extends FlatsTest {
      */
     public void assertInvalidFlatNumberType(String floors, String flatsOnFloor, String flatNumber){
         String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
-                INVALID_TYPE_INPUT_FLATS_TEST.getTestMessage(), "number of flat", flatNumber);
 
-        assertValidConsolePrint(input, expectedOutput, ()->FlatsMain.main(new String[]{}));
+        String expectedOutput = format(INVALID_TYPE_INPUT_FLATS_TEST.getTestMessage(), "number of flat", flatNumber);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
 
 }

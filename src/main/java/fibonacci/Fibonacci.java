@@ -34,22 +34,27 @@ public class Fibonacci {
      */
     public static BigInteger fibonacci(int n) throws InvalidInputException{
         if(n < 0){
-            throw new InvalidInputException(
-                    format(INVALID_VALUE_INPUT_FIBONACCI.getMessage(), n));
+            throw new InvalidInputException(format(INVALID_VALUE_INPUT_FIBONACCI.getMessage(), n));
         }
+
         if(n == 0){
             return BigInteger.ZERO;
         }
+
         if(n == 1){
             return BigInteger.ONE;
         }
+
         BigInteger [][] result = new BigInteger[][]{{BigInteger.ONE,BigInteger.ZERO},{BigInteger.ZERO, BigInteger.ONE}};
         BigInteger [][] base = new BigInteger[][]{{BigInteger.ONE,BigInteger.ONE},{BigInteger.ONE, BigInteger.ZERO}};
+
         n -= 1;
+
         while(n > 0){
             if(n % 2 == 1){
                 result = matrixMultiple(result, base);
             }
+
             base = matrixMultiple(base, base);
             n /= 2;
         }

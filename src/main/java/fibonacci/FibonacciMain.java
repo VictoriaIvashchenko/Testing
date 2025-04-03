@@ -29,13 +29,15 @@ public class FibonacciMain {
      */
     public static void main(String [] args){
         Scanner in = new Scanner(System.in);
+
         System.out.println("Task 4. Enter index of number in fibonacci sequence:");
+
         try {
             Integer n = readInteger(in, "n", INVALID_TYPE_INPUT_FIBONACCI.getMessage());
+
             System.out.printf("F(%d) = %s", n, fibonacci(n).toString());
         }catch (InvalidInputException e){
             System.err.print(e.getMessage());
-
         }
     }
 }

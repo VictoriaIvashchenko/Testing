@@ -3,66 +3,193 @@ package calendarTest;
 import org.junit.jupiter.api.Test;
 import calendar.CalendarMain;
 
-import java.time.DayOfWeek;
 import java.time.Month;
 
 import static java.lang.String.format;
 import static tools.ConsolePrintCheck.assertValidConsolePrint;
 import static tools.ExceptionMessagesTest.*;
 
+/**
+ * Unit test class for {@link CalendarMain}.
+ *
+ * <p>This class extends {@link CalendarTest} and provides specific test configurations
+ * for verifying the behavior of the {@link CalendarMain} program. It sets up the main method
+ * for execution during tests and defines a system-dependent line separator.</p>
+ *
+ */
 public class CalendarMainTest extends CalendarTest {
-
-    String SEPARATOR = System.lineSeparator();
+    /** System-dependent line separator used for formatting expected test output. */
+    final static String SEPARATOR = System.lineSeparator();
+    /**
+     * A {@link Runnable} reference to the {@code main} method of {@link CalendarMain}.
+     *
+     * <p>This runnable executes {@link CalendarMain#main(String[])} with an empty argument array,
+     * allowing test cases to simulate program execution.</p>
+     */
+    final static Runnable MAIN_METHOD = () -> CalendarMain.main(new String[]{});
 
     @Test
     void overRangeInputTest(){
-        assertInvalidDayInput("Monday", "-2147483649", "January");
-        assertInvalidDayInput("Thursday", "-2147483649", "January");
-        assertInvalidDayInput("Sunday", "-2147483649", "January");
-
-        assertInvalidDayInput("Monday", "-2147483649", "June");
-        assertInvalidDayInput("Thursday", "-2147483649", "June");
-        assertInvalidDayInput("Sunday", "-2147483649", "June");
-
-        assertInvalidDayInput("Monday", "-2147483649", "December");
-        assertInvalidDayInput("Thursday", "-2147483649", "December");
-        assertInvalidDayInput("Sunday", "-2147483649", "December");
-
-        assertInvalidDayInput("Monday", "-2147483650", "January");
-        assertInvalidDayInput("Thursday", "-2147483650", "January");
-        assertInvalidDayInput("Sunday", "-2147483650", "January");
-
-        assertInvalidDayInput("Monday", "-2147483650", "June");
-        assertInvalidDayInput("Thursday", "-2147483650", "June");
-        assertInvalidDayInput("Sunday", "-2147483650", "June");
-
-        assertInvalidDayInput("Monday", "-2147483650", "December");
-        assertInvalidDayInput("Thursday", "-2147483650", "December");
-        assertInvalidDayInput("Sunday", "-2147483650", "December");
-
-        assertInvalidDayInput("Monday", "2147483648", "January");
-        assertInvalidDayInput("Thursday", "2147483648", "January");
-        assertInvalidDayInput("Sunday", "2147483648", "January");
-
-        assertInvalidDayInput("Monday", "2147483648", "June");
-        assertInvalidDayInput("Thursday", "2147483648", "June");
-        assertInvalidDayInput("Sunday", "2147483648", "June");
-
-        assertInvalidDayInput("Monday", "2147483648", "December");
-        assertInvalidDayInput("Thursday", "2147483648", "December");
-        assertInvalidDayInput("Sunday", "2147483648", "December");
-
-        assertInvalidDayInput("Monday", "2147483649", "January");
-        assertInvalidDayInput("Thursday", "2147483649", "January");
-        assertInvalidDayInput("Sunday", "2147483649", "January");
-
-        assertInvalidDayInput("Monday", "2147483649", "June");
-        assertInvalidDayInput("Thursday", "2147483649", "June");
-        assertInvalidDayInput("Sunday", "2147483649", "June");
-
-        assertInvalidDayInput("Monday", "2147483649", "December");
-        assertInvalidDayInput("Thursday", "2147483649", "December");
-        assertInvalidDayInput("Sunday", "2147483649", "December");
+        //(MAX, MIN, MAX)
+        assertInvalidNewYearInput("2147483648", "-2147483648", "2147483647");//(MAX + 1, MIN, MAX)
+        assertInvalidNewYearInput("2147483648", "-2147483648", "2147483648");//(MAX + 1, MIN, MAX + 1)
+        assertInvalidNewYearInput("2147483648", "-2147483648", "2147483646");//(MAX + 1, MIN, MAX - 1)
+        assertInvalidNewYearInput("2147483648", "-2147483649", "2147483647");//(MAX + 1, MIN - 1, MAX)
+        assertInvalidNewYearInput("2147483648", "-2147483649", "2147483648");//(MAX + 1, MIN - 1, MAX + 1)
+        assertInvalidNewYearInput("2147483648", "-2147483647", "2147483648");//(MAX + 1, MIN + 1, MAX + 1)
+        assertInvalidNewYearInput("2147483648", "-2147483647", "2147483646");//(MAX + 1, MIN + 1, MAX - 1)
+        assertInvalidNewYearInput("2147483648", "-2147483649", "2147483646");//(MAX + 1, MIN - 1, MAX - 1)
+        assertInvalidNewYearInput("2147483648", "-2147483647", "2147483647");//(MAX + 1, MIN - 1, MAX)
+        assertInvalidDayInput("2147483647", "-2147483649", "2147483647");//(MAX, MIN - 1, MAX)
+        assertInvalidDayInput("2147483647", "-2147483649", "2147483648");//(MAX, MIN - 1, MAX + 1)
+        assertInvalidDayInput("2147483647", "-2147483649", "2147483646");//(MAX, MIN - 1, MAX - 1)
+        assertInvalidDayInput("2147483646", "-2147483649", "2147483647");//(MAX - 1, MIN - 1, MAX)
+        assertInvalidDayInput("2147483646", "-2147483649", "2147483648");//(MAX - 1, MIN - 1, MAX + 1)
+        assertInvalidDayInput("2147483646", "-2147483649", "2147483646");//(MAX - 1, MIN - 1, MAX - 1)
+        assertThrowsIllegalMonth("2147483646", "-2147483647", "2147483648");//(MAX - 1, MIN + 1, MAX + 1)
+        assertThrowsIllegalMonth("2147483646", "-2147483648", "2147483648");//(MAX - 1, MIN, MAX + 1)
+        assertThrowsIllegalMonth("2147483647", "-2147483647", "2147483648");//(MAX, MIN + 1, MAX + 1)
+        assertThrowsIllegalMonth("2147483647", "-2147483648", "2147483648");//(MAX, MIN, MAX + 1)
+        //(MAX, MIN, MIN)
+        assertInvalidNewYearInput("2147483648", "-2147483648", "-2147483648");//(MAX + 1, MIN, MIN)
+        assertInvalidNewYearInput("2147483648", "-2147483648", "-2147483649");//(MAX + 1, MIN, MIN - 1)
+        assertInvalidNewYearInput("2147483648", "-2147483648", "-2147483647");//(MAX + 1, MIN, MIN + 1)
+        assertInvalidNewYearInput("2147483648", "-2147483649", "-2147483648");//(MAX + 1, MIN - 1, MIN)
+        assertInvalidNewYearInput("2147483648", "-2147483649", "-2147483649");//(MAX + 1, MIN - 1, MIN - 1)
+        assertInvalidNewYearInput("2147483648", "-2147483649", "-2147483647");//(MAX + 1, MIN - 1, MIN + 1)
+        assertInvalidNewYearInput("2147483648", "-2147483647", "-2147483648");//(MAX + 1, MIN + 1, MIN)
+        assertInvalidNewYearInput("2147483648", "-2147483647", "-2147483649");//(MAX + 1, MIN + 1, MIN - 1)
+        assertInvalidNewYearInput("2147483648", "-2147483647", "-2147483647");//(MAX + 1, MIN + 1, MIN + 1)
+        assertInvalidDayInput("2147483646", "-2147483649", "-2147483648");//(MAX - 1, MIN - 1, MIN)
+        assertInvalidDayInput("2147483646", "-2147483649", "-2147483649");//(MAX - 1, MIN - 1, MIN - 1)
+        assertInvalidDayInput("2147483646", "-2147483649", "-2147483647");//(MAX - 1, MIN - 1, MIN + 1)
+        assertInvalidDayInput("2147483647", "-2147483649", "-2147483648");//(MAX, MIN - 1, MIN)
+        assertInvalidDayInput("2147483647", "-2147483649", "-2147483649");//(MAX, MIN - 1, MIN - 1)
+        assertThrowsIllegalMonth("2147483647", "-2147483647", "-2147483649");//(MAX, MIN + 1, MIN - 1)
+        assertThrowsIllegalMonth("2147483646", "-2147483647", "-2147483649");//(MAX - 1, MIN + 1, MIN - 1)
+        assertThrowsIllegalMonth("2147483646", "-2147483648", "-2147483649");//(MAX - 1, MIN, MIN - 1)
+        assertThrowsIllegalMonth("2147483647", "-2147483648", "-2147483649");//(MAX, MIN, MIN - 1)
+        assertThrowsIllegalMonth("2147483647", "-2147483648", "-2147483649");//(MAX, MIN, MIN - 1)
+        //(MAX, MAX, MIN)
+        assertInvalidNewYearInput("2147483648", "2147483647", "-2147483648");//(MAX + 1, MAX, MIN)
+        assertInvalidNewYearInput("2147483648", "2147483647", "-2147483649");//(MAX + 1, MAX, MIN - 1)
+        assertInvalidNewYearInput("2147483648", "2147483647", "-2147483647");//(MAX + 1, MAX, MIN + 1)
+        assertInvalidNewYearInput("2147483648", "2147483648", "-2147483648");//(MAX + 1, MAX + 1, MIN)
+        assertInvalidNewYearInput("2147483648", "2147483648", "-2147483649");//(MAX + 1, MAX + 1, MIN - 1)
+        assertInvalidNewYearInput("2147483648", "2147483648", "-2147483647");//(MAX + 1, MAX + 1, MIN + 1)
+        assertInvalidNewYearInput("2147483648", "2147483646", "-2147483648");//(MAX + 1, MAX - 1, MIN)
+        assertInvalidNewYearInput("2147483648", "2147483646", "-2147483649");//(MAX + 1, MAX - 1, MIN - 1)
+        assertInvalidNewYearInput("2147483648", "2147483646", "-2147483647");//(MAX + 1, MAX - 1,  + 1)
+        assertInvalidDayInput("2147483647", "2147483648", "-2147483648");//(MAX, MAX + 1, MIN)
+        assertInvalidDayInput("2147483647", "2147483648", "-2147483649");//(MAX, MAX + 1, MIN - 1)
+        assertInvalidDayInput("2147483647", "2147483648", "-2147483647");//(MAX, MAX + 1, MIN + 1)
+        assertInvalidDayInput("2147483646", "2147483648", "-2147483648");//(MAX - 1, MAX + 1, MIN)
+        assertInvalidDayInput("2147483646", "2147483648", "-2147483649");//(MAX - 1, MAX + 1, MIN - 1)
+        assertInvalidDayInput("2147483646", "2147483648", "-2147483647");//(MAX - 1, MAX + 1, MIN + 1)
+        assertThrowsIllegalMonth("2147483647", "2147483646", "-2147483649");//(MAX, MAX - 1, MIN - 1)
+        assertThrowsIllegalMonth("2147483647", "2147483647", "-2147483649");//(MAX, MAX, MIN - 1)
+        assertThrowsIllegalMonth("2147483646", "2147483647", "-2147483649");//(MAX - 1, MAX, MIN - 1)
+        assertThrowsIllegalMonth("2147483646", "2147483646", "-2147483649");//(MAX - 1, MAX - 1, MIN - 1)
+        //(MAX, MAX, MAX)
+        assertInvalidNewYearInput("2147483648", "2147483647", "2147483647");//(MAX + 1, MAX, MAX)
+        assertInvalidNewYearInput("2147483648", "2147483647", "2147483648");//(MAX + 1, MAX, MAX + 1)
+        assertInvalidNewYearInput("2147483648", "2147483647", "2147483646");//(MAX + 1, MAX, MAX - 1)
+        assertInvalidNewYearInput("2147483648", "2147483648", "2147483647");//(MAX + 1, MAX + 1, MAX)
+        assertInvalidNewYearInput("2147483648", "2147483648", "2147483648");//(MAX + 1, MAX + 1, MAX + 1)
+        assertInvalidNewYearInput("2147483648", "2147483648", "2147483646");//(MAX + 1, MAX + 1, MAX - )
+        assertInvalidNewYearInput("2147483648", "2147483646", "2147483647");//(MAX + 1, MAX - 1, MAX)
+        assertInvalidNewYearInput("2147483648", "2147483646", "2147483648");//(MAX + 1, MAX - 1, MAX + 1)
+        assertInvalidNewYearInput("2147483648", "2147483646", "2147483646");//(MAX + 1, MAX - 1, MAX - 1)
+        assertInvalidDayInput("2147483646", "2147483648", "2147483647");//(MAX - 1, MAX + 1, MAX)
+        assertInvalidDayInput("2147483646", "2147483648", "2147483648");//(MAX - 1, MAX + 1, MAX + 1)
+        assertInvalidDayInput("2147483646", "2147483648", "2147483646");//(MAX - 1, MAX + 1, MAX - 1)
+        assertInvalidDayInput("2147483647", "2147483648", "2147483647");//(MAX, MAX + 1, MAX)
+        assertInvalidDayInput("2147483647", "2147483648", "2147483648");//(MAX, MAX + 1, MAX + 1)
+        assertInvalidDayInput("2147483647", "2147483648", "2147483646");//(MAX, MAX + 1, MAX - 1)
+        assertThrowsIllegalMonth("2147483647", "2147483646", "2147483648");//(MAX, MAX - 1, MAX + 1)
+        assertThrowsIllegalMonth("2147483647", "2147483647", "2147483648");//(MAX, MAX, MAX + 1)
+        assertThrowsIllegalMonth("2147483646", "2147483647", "2147483648");//(MAX - 1, MAX, MAX + 1)
+        assertThrowsIllegalMonth("2147483646", "2147483646", "2147483648");//(MAX - 1, MAX - 1, MAX + 1)
+        //(MIN, MAX, MIN)
+        assertInvalidNewYearInput("-2147483649", "2147483647", "-2147483648");//(MIN - 1, MAX, MIN)
+        assertInvalidNewYearInput("-2147483649", "2147483647", "-2147483649");//(MIN - 1, MAX, MIN - 1)
+        assertInvalidNewYearInput("-2147483649", "2147483647", "-2147483647");//(MIN - 1, MAX, MIN + 1)
+        assertInvalidNewYearInput("-2147483649", "2147483648", "-2147483648");//(MIN - 1, MAX + 1, MIN)
+        assertInvalidNewYearInput("-2147483649", "2147483648", "-2147483649");//(MIN - 1, MAX + 1, MIN - 1)
+        assertInvalidNewYearInput("-2147483649", "2147483648", "-2147483647");//(MIN - 1, MAX + 1, MIN + 1)
+        assertInvalidNewYearInput("-2147483649", "2147483646", "-2147483648");//(MIN - 1, MAX - 1, MIN)
+        assertInvalidNewYearInput("-2147483649", "2147483646", "-2147483649");//(MIN - 1, MAX - 1, MIN - 1)
+        assertInvalidNewYearInput("-2147483649", "2147483646", "-2147483647");//(MIN - 1, MAX - 1, MIN + 1)
+        assertInvalidDayInput("-2147483647", "2147483648", "-2147483648");//(MIN + 1, MAX + 1, MIN)
+        assertInvalidDayInput("-2147483647", "2147483648", "-2147483649");//(MIN + 1, MAX + 1, MIN - 1)
+        assertInvalidDayInput("-2147483647", "2147483648", "-2147483647");//(MIN + 1, MAX + 1, MIN + 1)
+        assertInvalidDayInput("-2147483648", "2147483648", "-2147483648");//(MIN, MAX + 1, MIN)
+        assertInvalidDayInput("-2147483648", "2147483648", "-2147483649");//(MIN, MAX + 1, MIN - 1)
+        assertInvalidDayInput("-2147483648", "2147483648", "-2147483647");//(MIN, MAX + 1, MIN + 1)
+        assertThrowsIllegalMonth("-2147483648", "2147483646", "-2147483649");//(MIN, MAX - 1, MIN - 1)
+        assertThrowsIllegalMonth("-2147483648", "2147483647", "-2147483649");//(MIN, MAX, MIN - 1)
+        assertThrowsIllegalMonth("-2147483647", "2147483647", "-2147483649");//(MIN + 1, MAX, MIN - 1)
+        assertThrowsIllegalMonth("-2147483647", "2147483646", "-2147483649");//(MIN + 1, MAX - 1, MIN - 1)
+        //(MIN, MAX, MAX)
+        assertInvalidNewYearInput("-2147483649", "2147483647", "2147483647");//(MIN - 1, MAX, MAX)
+        assertInvalidNewYearInput("-2147483649", "2147483647", "2147483648");//(MIN - 1, MAX, MAX + 1)
+        assertInvalidNewYearInput("-2147483649", "2147483647", "2147483646");//(MIN - 1, MAX, MAX - 1)
+        assertInvalidNewYearInput("-2147483649", "2147483648", "2147483647");//(MIN - 1, MAX + 1, MAX)
+        assertInvalidNewYearInput("-2147483649", "2147483648", "2147483648");//(MIN - 1, MAX + 1, MAX + 1)
+        assertInvalidNewYearInput("-2147483649", "2147483648", "2147483646");//(MIN - 1, MAX + 1, MAX - 1)
+        assertInvalidNewYearInput("-2147483649", "2147483646", "2147483647");//(MIN - 1, MAX - 1, MAX)
+        assertInvalidNewYearInput("-2147483649", "2147483646", "2147483648");//(MIN - 1, MAX - 1, MAX + 1)
+        assertInvalidNewYearInput("-2147483649", "2147483646", "2147483646");//(MIN - 1, MAX - 1, MAX - 1)
+        assertInvalidDayInput("-2147483648", "2147483648", "2147483647");//(MIN, MAX + 1, MAX)
+        assertInvalidDayInput("-2147483648", "2147483648", "2147483648");//(MIN, MAX + 1, MAX + 1)
+        assertInvalidDayInput("-2147483648", "2147483648", "2147483646");//(MIN, MAX + 1, MAX - 1)
+        assertInvalidDayInput("-2147483647", "2147483648", "2147483647");//(MIN + 1, MAX + 1, MAX)
+        assertInvalidDayInput("-2147483647", "2147483648", "2147483648");//(MIN + 1, MAX + 1, MAX + 1)
+        assertInvalidDayInput("-2147483647", "2147483648", "2147483646");//(MIN + 1, MAX + 1, MAX - 1)
+        assertThrowsIllegalMonth("-2147483648", "2147483647", "2147483648");//(MIN, MAX, MAX + 1)
+        assertThrowsIllegalMonth("-2147483648", "2147483646", "2147483648");//(MIN, MAX - 1, MAX + 1)
+        assertThrowsIllegalMonth("-2147483647", "2147483647", "2147483648");//(MIN + 1, MAX, MAX + 1)
+        assertThrowsIllegalMonth("-2147483647", "2147483646", "2147483648");//(MIN + 1, MAX - 1, MAX + 1)
+        //(MIN, MIN, MAX)
+        assertInvalidNewYearInput("-2147483649", "-2147483648", "2147483647");//(MIN - 1, MIN, MAX)
+        assertInvalidNewYearInput("-2147483649", "-2147483648", "2147483648");//(MIN - 1, MIN, MAX + 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483648", "2147483646");//(MIN - 1, MIN, MAX - 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483649", "2147483647");//(MIN - 1, MIN - 1, MAX)
+        assertInvalidNewYearInput("-2147483649", "-2147483649", "2147483648");//(MIN - 1, MIN - 1, MAX + 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483649", "2147483646");//(MIN - 1, MIN - 1, MAX - 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483647", "2147483647");//(MIN - 1, MIN + 1, MAX)
+        assertInvalidNewYearInput("-2147483649", "-2147483647", "2147483648");//(MIN - 1, MIN + 1, MAX + 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483647", "2147483646");//(MIN - 1, MIN + 1, MAX - 1)
+        assertInvalidDayInput("-2147483648", "-2147483649", "2147483647");//(MIN, MIN - 1, MAX)
+        assertInvalidDayInput("-2147483648", "-2147483649", "2147483648");//(MIN, MIN - 1, MAX + 1)
+        assertInvalidDayInput("-2147483648", "-2147483649", "2147483646");//(MIN, MIN - 1, MAX - 1)
+        assertInvalidDayInput("-2147483647", "-2147483649", "2147483647");//(MIN + 1, MIN - 1, MAX)
+        assertInvalidDayInput("-2147483647", "-2147483649", "2147483648");//(MIN + 1, MIN - 1, MAX + 1)
+        assertInvalidDayInput("-2147483647", "-2147483649", "2147483646");//(MIN + 1, MIN - 1, MAX - 1)
+        assertThrowsIllegalMonth("-2147483647", "-2147483647", "2147483648");//(MIN + 1, MIN + 1, MAX + 1)
+        assertThrowsIllegalMonth("-2147483648", "-2147483647", "2147483648");//(MIN, MIN + 1, MAX + 1)
+        assertThrowsIllegalMonth("-2147483648", "-2147483648", "2147483648");//(MIN, MIN, MAX + 1)
+        assertThrowsIllegalMonth("-2147483647", "-2147483648", "2147483648");//(MIN + 1, MIN, MAX + 1)
+        //(MIN, MIN, MIN)
+        assertInvalidNewYearInput("-2147483649", "-2147483648", "-2147483648");//(MIN - 1, MIN, MIN)
+        assertInvalidNewYearInput("-2147483649", "-2147483648", "-2147483649");//(MIN - 1, MIN, MIN - 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483648", "-2147483647");//(MIN - 1, MIN, MIN + 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483649", "-2147483648");//(MIN - 1, MIN - 1, MIN)
+        assertInvalidNewYearInput("-2147483649", "-2147483649", "-2147483649");//(MIN - 1, MIN - 1, MIN - 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483649", "-2147483647");//(MIN - 1, MIN - 1, MIN + 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483647", "-2147483648");//(MIN - 1, MIN + 1, MIN)
+        assertInvalidNewYearInput("-2147483649", "-2147483647", "-2147483649");//(MIN - 1, MIN + 1, MIN - 1)
+        assertInvalidNewYearInput("-2147483649", "-2147483647", "-2147483647");//(MIN - 1, MIN + 1, MIN + 1)
+        assertInvalidDayInput("-2147483647", "-2147483649", "-2147483648");//(MIN + 1, MIN - 1, MIN)
+        assertInvalidDayInput("-2147483647", "-2147483649", "-2147483649");//(MIN + 1, MIN - 1, MIN - 1)
+        assertInvalidDayInput("-2147483647", "-2147483649", "-2147483647");//(MIN + 1, MIN - 1, MIN + 1)
+        assertInvalidDayInput("-2147483648", "-2147483649", "-2147483648");//(MIN, MIN - 1, MIN)
+        assertInvalidDayInput("-2147483648", "-2147483649", "-2147483649");//(MIN, MIN - 1, MIN - 1)
+        assertInvalidDayInput("-2147483648", "-2147483649", "-2147483647");//(MIN, MIN - 1, MIN + 1)
+        assertThrowsIllegalMonth("-2147483647", "-2147483647", "-2147483649");//(MIN + 1, MIN + 1, MIN - 1)
+        assertThrowsIllegalMonth("-2147483648", "-2147483648", "-2147483649");//(MIN, MIN, MIN - 1)
+        assertThrowsIllegalMonth("-2147483648", "-2147483647", "-2147483649");//(MIN, MIN + 1, MIN - 1)
+        assertThrowsIllegalMonth("-2147483647", "-2147483648", "-2147483649");//(MIN + 1, MIN, MIN - 1)
 
     }
 
@@ -105,64 +232,64 @@ public class CalendarMainTest extends CalendarTest {
 
     @Test
     void invalidDayTypeTest(){
-        assertInvalidDayInput("Monday", "a", "a");
-        assertInvalidDayInput("Monday", "z", "z");
+        assertInvalidDayInput("1", "a", "a");
+        assertInvalidDayInput("1", "z", "z");
 
-        assertInvalidDayInput("Monday", "A", "A");
-        assertInvalidDayInput("Monday", "Z", "Z");
+        assertInvalidDayInput("1", "A", "A");
+        assertInvalidDayInput("1", "Z", "Z");
 
-        assertInvalidDayInput("Monday", "a", "26");
-        assertInvalidDayInput("Monday", "z", "68");
+        assertInvalidDayInput("1", "a", "26");
+        assertInvalidDayInput("1", "z", "68");
 
-        assertInvalidDayInput("Monday", "D", "123");
-        assertInvalidDayInput("Monday", "Z", "895");
+        assertInvalidDayInput("1", "D", "123");
+        assertInvalidDayInput("1", "Z", "895");
 
-        assertInvalidDayInput("Monday", "!", "!");
-        assertInvalidDayInput("Monday", "#", "$");
-        assertInvalidDayInput("Monday", "@", "@");
+        assertInvalidDayInput("1", "!", "!");
+        assertInvalidDayInput("1", "#", "$");
+        assertInvalidDayInput("1", "@", "@");
 
-        assertInvalidDayInput("Monday", "!", "45");
-        assertInvalidDayInput("Monday", "?", "88");
-        assertInvalidDayInput("Monday", "@", "89");
+        assertInvalidDayInput("1", "!", "45");
+        assertInvalidDayInput("1", "?", "88");
+        assertInvalidDayInput("1", "@", "89");
 
-        assertInvalidDayInput("Monday", "#364977", "#259689");
-        assertInvalidDayInput("Monday", "#562111", "#136569");
-        assertInvalidDayInput("Monday", "#562236", "#566846");
+        assertInvalidDayInput("1", "#364977", "#259689");
+        assertInvalidDayInput("1", "#562111", "#136569");
+        assertInvalidDayInput("1", "#562236", "#566846");
 
-        assertInvalidDayInput("Monday", "#862669", "45");
-        assertInvalidDayInput("Monday", "#566224", "88");
-        assertInvalidDayInput("Monday", "#466256", "89");
+        assertInvalidDayInput("1", "#862669", "45");
+        assertInvalidDayInput("1", "#566224", "88");
+        assertInvalidDayInput("1", "#466256", "89");
 
-        assertInvalidDayInput("Monday", "1 1", "71");
-        assertInvalidDayInput("Monday", "e 1", "71");
-        assertInvalidDayInput("Monday", "$ 1", "71");
-        assertInvalidDayInput("Monday", "#111111 1", "71");
-        assertInvalidDayInput("Monday", "18.23 1", "71");
+        assertInvalidDayInput("1", "1 1", "71");
+        assertInvalidDayInput("1", "e 1", "71");
+        assertInvalidDayInput("1", "$ 1", "71");
+        assertInvalidDayInput("1", "#111111 1", "71");
+        assertInvalidDayInput("1", "18.23 1", "71");
 
     }
 
     @Test
     void invalidMonthTypeTest(){
-        assertThrowsIllegalMonth("Monday", 1, "a");
-        assertThrowsIllegalMonth("Monday", 8, "z");
+        assertThrowsIllegalMonth("1", "1", "a");
+        assertThrowsIllegalMonth("1", "8", "z");
 
-        assertThrowsIllegalMonth("Monday", 1, "!");
-        assertThrowsIllegalMonth("Monday", 3, "$");
-        assertThrowsIllegalMonth("Monday", 4, "@");
+        assertThrowsIllegalMonth("1", "1", "!");
+        assertThrowsIllegalMonth("1", "3", "$");
+        assertThrowsIllegalMonth("1", "4", "@");
 
-        assertThrowsIllegalMonth("Monday", 4, "#259689");
-        assertThrowsIllegalMonth("Monday", 5, "#136569");
-        assertThrowsIllegalMonth("Monday", 5, "#566846");
+        assertThrowsIllegalMonth("1", "4", "#259689");
+        assertThrowsIllegalMonth("1", "5", "#136569");
+        assertThrowsIllegalMonth("1", "5", "#566846");
 
-        assertThrowsIllegalMonth("Monday", 1, "1 1");
-        assertThrowsIllegalMonth("Monday", 2, "e 1");
-        assertThrowsIllegalMonth("Monday", 4, "$ 1");
-        assertThrowsIllegalMonth("Monday", 5, "#111111 1");
-        assertThrowsIllegalMonth("Monday", 6, "18.23 1");
+        assertThrowsIllegalMonth("1", "1", "1 1");
+        assertThrowsIllegalMonth("1", "2", "e 1");
+        assertThrowsIllegalMonth("1", "4", "$ 1");
+        assertThrowsIllegalMonth("1", "5", "#111111 1");
+        assertThrowsIllegalMonth("1", "6", "18.23 1");
     }
 
     /**
-     * Asserts that the method {@code calendar} produces the correct output when given valid input for day of the week,
+     * Asserts that the method {@link calendar} produces the correct output when given valid input for day of the week,
      * day of the month, and month.
      *
      * <p>This method simulates user input by providing the day of the week, the specific day of the month, and the month,
@@ -175,17 +302,17 @@ public class CalendarMainTest extends CalendarTest {
      * @param month the month in which the day is located
      */
     @Override
-    public void assertCalendar(String expected, DayOfWeek dayOfStart, int day, Month month){
+    public void assertCalendar(String expected, int dayOfStart, int day, int month){
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
 
         String expectedOutput = format(
                 "Task 5. Enter number day of New Year, day and month of searching day:" + SEPARATOR +
                 "It is %s" + SEPARATOR, expected);
 
-        assertValidConsolePrint(input, expectedOutput, ()->CalendarMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }
     /**
-     * Asserts that the method {@code calendar} correctly handles invalid day values by throwing an appropriate exception
+     * Asserts that the method {@link calendar} correctly handles invalid day values by throwing an appropriate exception
      * with a message indicating the invalid day and month combination.
      *
      * <p>This method simulates user input with an invalid day of the month and checks whether the correct error message
@@ -196,17 +323,57 @@ public class CalendarMainTest extends CalendarTest {
      * @param month the month in which the day is located
      */
     @Override
-    public void assertThrowsIllegalDayValue(DayOfWeek dayOfStart, int day, Month month){
+    public void assertThrowsIllegalDayValue(int dayOfStart, int day, int month){
+        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
+        int daysInMonth = Month.of(month).length(false);
+
+        String expectedOutput = format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST.getTestMessage(), daysInMonth, day);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+    }
+
+    /**
+     * Asserts that an invalid month value results in the correct console output.
+     *
+     * <p>This method simulates user input for the day of the year, day, and month. It then checks if the console
+     * outputs the expected error message when the "month" value is invalid. The expected error message is
+     * formatted using the provided {@code month} value, and the method uses the {@link tools.ConsolePrintCheck#assertValidConsolePrint(String, String, Runnable, boolean)}
+     * method to validate the console output.</p>
+     *
+     * @param dayOfStart the day of the week on which the year starts (1 for Monday, 7 for Sunday)
+     * @param day the specific day of the month
+     * @param month the month number (1 for January, 12 for December)
+     */
+    @Override
+    public void assertThrowsIllegalMonthValue(int dayOfStart, int day, int month){
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
 
-        String expectedOutput = format(
-                "Task 5. Enter number day of New Year, day and month of searching day:" + SEPARATOR +
-                INVALID_VALUE_DAY_INPUT_CALENDAR_TEST.getTestMessage(), month.length(false), day);
+        String expectedOutput = format(INVALID_VALUE_MONTH_INPUT_CALENDAR_TEST.getTestMessage(), month);
 
-        assertValidConsolePrint(input, expectedOutput, ()->CalendarMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
     /**
-     * Asserts that the method {@code calendar} correctly handles invalid month input by throwing an appropriate exception
+     * Asserts that an invalid day of the year value results in the correct console output.
+     *
+     * <p>This method simulates user input for the day of new year, day, and month. It then checks if the console
+     * outputs the expected error message when the day of new year value is invalid. The expected error message is
+     * formatted using the provided {@code dayOfStart} value, and the method uses the {@link tools.ConsolePrintCheck#assertValidConsolePrint(String, String, Runnable, boolean)}
+     * method to validate the console output.</p>
+     *
+     * @param dayOfStart the day of the week on which the year starts (1 for Monday, 7 for Sunday)
+     * @param day the specific day of the month
+     * @param month the month number (1 for January, 12 for December)
+     */
+    @Override
+    public void assertThrowsIllegalDayOfNewYearValue(int dayOfStart, int day, int month){
+        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
+
+        String expectedOutput = format(INVALID_VALUE_DAY_OF_NEW_YEAR_INPUT_CALENDAR_TEST.getTestMessage(), dayOfStart);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+    }
+    /**
+     * Asserts that the method {@link calendar} correctly handles invalid month input by throwing an appropriate exception
      * with a message indicating the invalid month.
      *
      * <p>This method simulates user input with an invalid month and checks whether the correct error message is produced.
@@ -216,17 +383,15 @@ public class CalendarMainTest extends CalendarTest {
      * @param day the specific day of the month to check
      * @param month the invalid month input to be tested
      */
-    public void assertThrowsIllegalMonth(String dayOfStart, int day, String month){
+    public void assertThrowsIllegalMonth(String dayOfStart, String day, String month){
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
 
-        String expectedOutput = format(
-                "Task 5. Enter number day of New Year, day and month of searching day:" + SEPARATOR +
-                INVALID_VALUE_MONTH_INPUT_CALENDAR_TEST.getTestMessage(), month);
+        String expectedOutput = format(INVALID_TYPE_INPUT_CALENDAR_TEST.getTestMessage(), "month", month);
 
-        assertValidConsolePrint(input, expectedOutput, ()->CalendarMain.main(new String[]{}));
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
     /**
-     * Asserts that the method {@code calendar} correctly handles invalid New Year input by throwing an appropriate exception
+     * Asserts that the method {@link calendar} correctly handles invalid New Year input by throwing an appropriate exception
      * with a message indicating the invalid New Year day input.
      *
      * <p>This method simulates user input with an invalid New Year day and checks whether the correct error message
@@ -238,14 +403,13 @@ public class CalendarMainTest extends CalendarTest {
      */
     public void assertInvalidNewYearInput(String dayOfStart, String day, String month){
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-        String expectedOutput = format(
-                "Task 5. Enter number day of New Year, day and month of searching day:" + SEPARATOR +
-                INVALID_VALUE_DAY_OF_NEW_YEAR_INPUT_CALENDAR_TEST.getTestMessage(), dayOfStart);
 
-        assertValidConsolePrint(input, expectedOutput, ()->CalendarMain.main(new String[]{}));
+        String expectedOutput = format(INVALID_TYPE_INPUT_CALENDAR_TEST.getTestMessage(), "day of New Year", dayOfStart);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
     /**
-     * Asserts that the method {@code calendar} correctly handles invalid day input by throwing an appropriate exception
+     * Asserts that the method {@link calendar} correctly handles invalid day input by throwing an appropriate exception
      * with a message indicating the invalid day input.
      *
      * <p>This method simulates user input with an invalid day and checks whether the correct error message is produced,
@@ -257,11 +421,10 @@ public class CalendarMainTest extends CalendarTest {
      */
     public void assertInvalidDayInput(String dayOfStart, String day, String month){
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-        String expectedOutput = format(
-                "Task 5. Enter number day of New Year, day and month of searching day:" + SEPARATOR +
-                INVALID_TYPE_INPUT_CALENDAR_TEST.getTestMessage(), "day", day);
 
-        assertValidConsolePrint(input, expectedOutput, ()->CalendarMain.main(new String[]{}));
+        String expectedOutput = format(INVALID_TYPE_INPUT_CALENDAR_TEST.getTestMessage(), "day", day);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
 
 }

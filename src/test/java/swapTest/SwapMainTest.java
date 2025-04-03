@@ -4,14 +4,27 @@ import org.junit.jupiter.api.Test;
 import swap.SwapMain;
 
 import static java.lang.String.format;
-import static java.lang.String.join;
 import static tools.ConsolePrintCheck.assertValidConsolePrint;
 import static tools.ExceptionMessagesTest.INVALID_TYPE_INPUT_SWAP_TEST;
 
+/**
+ * Unit test class for {@link SwapMain}.
+ *
+ * <p>This class extends {@link SwapTest} and provides specific test configurations
+ * for verifying the behavior of the {@link SwapMain} program. It sets up the main method
+ * for execution during tests and defines a system-dependent line separator.</p>
+ *
+ */
 public class SwapMainTest extends SwapTest {
-    String separator = System.lineSeparator();
-
-    Runnable mainMethod = new Runnable() {
+    /** System-dependent line separator used for formatting expected test output. */
+    final static String SEPARATOR = System.lineSeparator();
+    /**
+     * A {@link Runnable} reference to the {@code main} method of {@link SwapMain}.
+     *
+     * <p>This runnable executes {@link SwapMain#main(String[])} with an empty argument array,
+     * allowing test cases to simulate program execution.</p>
+     */
+    final static Runnable MAIN_METHOD = new Runnable() {
         @Override
         public void run() {
             SwapMain.main(new String[]{});
@@ -172,18 +185,15 @@ public class SwapMainTest extends SwapTest {
      */
     @Override
     public void assertSwapTwoNumbers(int num1, int num2){
-        String input = num1 + separator + num2;
+        String input = num1 + SEPARATOR + num2;
 
-        String messageTemplate = join(separator,
-                "Task 1. Enter two numbers x and y:",
-                "Before: x = %d y = %d",
-                "After: x = %d y = %d",
-                ""
-        );
+        String expectedOutput = String.format(
+                        "Task 1. Enter two numbers x and y:" + SEPARATOR +
+                        "Before: x = %d y = %d" + SEPARATOR +
+                        "After: x = %d y = %d" + SEPARATOR,
+                num1, num2, num2, num1);
 
-        String expectedOutput = String.format(messageTemplate, num1, num2, num2, num1);
-
-        assertValidConsolePrint(input, expectedOutput, mainMethod, false);
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
 
     }
 
@@ -197,10 +207,11 @@ public class SwapMainTest extends SwapTest {
      * @param y the second input value
      */
     public void assertInvalidTypeFirstArgument(String x, String y){
-        String input = x + separator + y;
+        String input = x + SEPARATOR + y;
+
         String expectedOutput = format(INVALID_TYPE_INPUT_SWAP_TEST.getTestMessage(), "x", x);
 
-        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
 
     }
 
@@ -214,9 +225,10 @@ public class SwapMainTest extends SwapTest {
      * @param y the second input value (which will be tested for invalid type)
      */
     public void assertInvalidTypeSecondArgument(String x, String y){
-        String input = x + separator + y;
+        String input = x + SEPARATOR + y;
+
         String expectedOutput = format(INVALID_TYPE_INPUT_SWAP_TEST.getTestMessage(), "y", y);
 
-        assertValidConsolePrint(input, expectedOutput, mainMethod, true);
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
 }

@@ -28,6 +28,7 @@ public class GCDMain {
      */
     public static void main(String[] args){
         Scanner in = new Scanner(System.in);
+
         System.out.println("Task 3. Enter four numbers for searching gcd:");
 
         String message = INVALID_TYPE_INPUT_GCD.getMessage();
@@ -43,6 +44,7 @@ public class GCDMain {
             Integer d = readInteger(in, "d", message);
 
             System.out.printf("GCD(%d, %d, %d, %d) = ", a, b, c, d);
+
             System.out.print(gcdOfFour(a, b, c, d));
         }catch (InvalidInputException | CalculationException e){
             if(e.getMessage().equals(INVALID_RESULT_GCD.getMessage())){

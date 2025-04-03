@@ -57,7 +57,7 @@ class GCDTest {
         assertGCD(2, MAX_VALUE - 1, MAX_VALUE - 1, MAX_VALUE - 1, MIN_VALUE);
         assertGCD(1, MAX_VALUE - 1, MAX_VALUE - 1, MAX_VALUE - 1, MIN_VALUE + 1);
     }
-    //12
+
     @Test
     void primeNumbersTest(){
         //найбільші та найменші значення на обл. визначення
@@ -78,7 +78,7 @@ class GCDTest {
         assertGCD(1, 500009, 500029, 500041, 500051);
         assertGCD(1, 1200023, 1700021, 2300021, 800029);
     }
-    //12
+
     @Test
     void mutuallyPrimeNumbersTest(){
         //границі класу
@@ -99,7 +99,7 @@ class GCDTest {
         assertGCD(1, 1001211, 2023, 3307, 5009);
         assertGCD(1, 1456823, 11, 6856871, 598755);
     }
-    //12
+
     @Test
     void nokEvenTwoTest(){
         //границі класу
@@ -120,7 +120,7 @@ class GCDTest {
         assertGCD(128, 4977280, 2272128, 650624, 15159936);
         assertGCD(1456, 3204656, 6113744, 10467184, 52397072);
     }
-    //12
+
     @Test
     void nokEvenThreeTest(){
         //границі класу
@@ -141,7 +141,7 @@ class GCDTest {
         assertGCD(93, 17391, 88040589, 5690019, 15560853);
         assertGCD(1416, 202488, 4577928, 11400216, 14730648);
     }
-    //12
+
     @Test
     void nokEvenFiveTest(){
         //границі класу
@@ -162,7 +162,7 @@ class GCDTest {
         assertGCD(145, 20735, 521855, 1508435, 1227135);
         assertGCD(655, 93665, 10742655, 286235, 4432385);
     }
-    //12
+
     @Test
     void nokEvenSevenTest(){
         //границі класу
@@ -183,7 +183,7 @@ class GCDTest {
         assertGCD(364, 92092, 491036, 191828, 3566108);
         assertGCD(105, 15015, 380205, 2128665, 239295);
     }
-    //12
+
     @Test
     void notMultipleToOneInputNumberTest(){
         //границі класу
@@ -204,7 +204,7 @@ class GCDTest {
         assertGCD(161, -1479751, 30601109, 2703029, -306367061);
         assertGCD(10009, 91992719,1902400621, 168041101, -1011919909);
     }
-    //12
+
     @Test
     void multipleToOneNumberTest(){
         //границі класу
@@ -225,7 +225,7 @@ class GCDTest {
         assertGCD(964, 2208524, 964, 1707244, 463684);
         assertGCD(49049, 49049, 98098, 147147, 196196);
     }
-    //12
+
     @Test
     void sameNumbersTest(){
         //межі класу
@@ -247,7 +247,7 @@ class GCDTest {
         assertGCD(7345, -7345, -7345, -7345, -7345);
 
     }
-    //9
+
     @Test
     void zeroInInputTest(){
         assertGCD(0, 0, 0, 0, 0);
@@ -266,7 +266,7 @@ class GCDTest {
         assertGCD(63, 0, 0, 0, 63);
         assertGCD(78923, 0, 0, 0, 78923);
     }
-    //4
+
     @Test
     void invalidInputDataOverLimit(){
         assertGCDThrowsCalculationException(MIN_VALUE, 0, 0, 0);
@@ -274,7 +274,7 @@ class GCDTest {
         assertGCDThrowsCalculationException(MIN_VALUE, MIN_VALUE, MIN_VALUE, 0);
         assertGCDThrowsCalculationException(MIN_VALUE, MIN_VALUE, MIN_VALUE, MIN_VALUE);
     }
-    //13
+
     @Test
     void subjectArea(){
         assertGCD(1, 2147483643, 2147483642, 214748641, 2147483640);
@@ -293,7 +293,7 @@ class GCDTest {
         assertGCD(16, 144, 896, 208, 3360);
         assertGCD(30, 2700, 990, 60, 1260);
     }
-    //10
+
     @Test
     void randomValues(){
         assertGCD(1, -515929210, -692535889, 882746751, 956640265);
@@ -308,7 +308,7 @@ class GCDTest {
         assertGCD(3, 1500033, 210006, 270009, 330012);
 
     }
-    //10
+
     @Test
     void specialValues(){
         assertGCD(4, 12, 4, 16, 8);
