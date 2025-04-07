@@ -3,24 +3,26 @@ package flats;
 import exceptions.CalculationException;
 import exceptions.InvalidInputException;
 
-import static java.lang.String.format;
-
 public class Flats {
+
     /**
      * Error message for an invalid number of floors input in flat calculations.
      */
     private final static String INVALID_VALUE_FLOORS_INPUT_MESSAGE =
             "Invalid input number of floors. Number from 1 to 2147483647 was expected, but '%s' was received.";
+
     /**
      * Error message for an invalid number of flats per floor in flat calculations.
      */
     private final static String INVALID_VALUE_FLATS_ON_FLOOR_INPUT_MESSAGE =
             "Invalid input number of flats on floor. Number from 1 to 2147483647 was expected, but '%s' was received.";
+
     /**
      * Error message for an invalid flat number input.
      */
     private final static String INVALID_VALUE_FLAT_NUMBER_INPUT_MESSAGE =
             "Invalid input number of flat. Number from 1 to 2147483647 was expected, but '%s' was received.";
+
     /**
      * Error message when calculations with the given flat parameters are not possible.
      */
@@ -52,7 +54,8 @@ public class Flats {
         checkValues(flatNumber, INVALID_VALUE_FLAT_NUMBER_INPUT_MESSAGE);
 
         if (floors > Integer.MAX_VALUE / flatsOnFloor)
-            throw new CalculationException(format(INVALID_CALCULATIONS_MESSAGE, floors, flatsOnFloor));
+            throw new CalculationException(
+                    String.format(INVALID_CALCULATIONS_MESSAGE, floors, flatsOnFloor));
 
         int apartmentsPerEntrance = floors * flatsOnFloor;
         int numOfEntrance = ((flatNumber - 1) / apartmentsPerEntrance + 1);
@@ -63,7 +66,8 @@ public class Flats {
 
     private static void checkValues(int value, String message) throws InvalidInputException {
         if (value <= 0) {
-            throw new InvalidInputException(format(message, value));
+            throw new InvalidInputException(
+                    String.format(message, value));
         }
     }
 }

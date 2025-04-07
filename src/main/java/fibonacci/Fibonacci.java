@@ -12,8 +12,13 @@ import java.math.BigInteger;
  * in logarithmic time (O(log n)) through matrix exponentiation by squaring.</p>
  */
 public class Fibonacci {
+
+    /**
+     * Error message for an invalid index input in Fibonacci sequence.
+     */
     private static final String INVALID_VALUE_INPUT_MESSAGE =
             "Invalid value of index. Positive integer from 0 to 2147483647 was expected, but '%d' was received.";
+
     /**
      * Computes the n-th Fibonacci number using matrix exponentiation.
      *
@@ -33,7 +38,8 @@ public class Fibonacci {
      */
     public static BigInteger fibonacci(int n) throws InvalidInputException {
         if (n < 0) {
-            throw new InvalidInputException(String.format(INVALID_VALUE_INPUT_MESSAGE, n));
+            throw new InvalidInputException(
+                    String.format(INVALID_VALUE_INPUT_MESSAGE, n));
         }
 
         if (n == 0) {

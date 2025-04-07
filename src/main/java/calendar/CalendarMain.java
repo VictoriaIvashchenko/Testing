@@ -35,7 +35,8 @@ public class CalendarMain {
             Month month = checkMonth(monthNumber);
             
             String result = calendar(weekdayOfNewYear, day, month);
-            System.out.println("It is " + result);
+
+            printResult(result);
 
         } catch (InvalidInputException e) {
             System.err.print(e.getMessage());
@@ -60,6 +61,9 @@ public class CalendarMain {
         }
     }
 
+    private static void printResult(String result){
+        System.out.println("It is " + result);
+    }
 
 
 }

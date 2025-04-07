@@ -6,8 +6,6 @@ import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.Arrays;
 
-import static java.lang.String.format;
-
 /**
  * Class {@code Calendar} provides a utility method for working with calendars.
  *
@@ -18,10 +16,11 @@ import static java.lang.String.format;
  * acceptable ranges. If any input is invalid, an {@link InvalidInputException} is thrown.</p>
  */
 public class Calendar {
+
     /**
      * Error message for an invalid day input in calendar calculations.
      */
-    private final static String INVALID_VALUE_DAY_INPUT_CALENDAR =
+    private final static String INVALID_VALUE_DAY_IN_MONTH_MESSAGE =
             "Invalid input number of day. Number from 1 to %d was expected, but '%d' was received.";
 
     /**
@@ -48,7 +47,8 @@ public class Calendar {
         int daysInMonth = month.length(false);
 
         if (day > daysInMonth || day < 1) {
-            throw new InvalidInputException(format(INVALID_VALUE_DAY_INPUT_CALENDAR, daysInMonth, day));
+            throw new InvalidInputException(
+                    String.format(INVALID_VALUE_DAY_IN_MONTH_MESSAGE, daysInMonth, day));
         }
 
         int days = Arrays.stream(Month.values())

@@ -4,6 +4,7 @@ package exceptions;
  * Thrown to indicate that a calculation error occurs
  */
 public class CalculationException extends Exception {
+
     /**
      * Constructs a new {@code CalculationException} with the specified detail message.
      *

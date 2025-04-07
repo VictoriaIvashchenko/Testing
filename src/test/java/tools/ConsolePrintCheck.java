@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * <p>The class restores the original system input, output, and error streams after the task is executed.</p>
  */
 public class ConsolePrintCheck {
+
     /**
      * Validates the console output or error stream for a given task.
      *
@@ -54,6 +55,7 @@ public class ConsolePrintCheck {
             task.run();
 
             String actualOutput = outputStream.toString();
+
             assertEquals(expectedOutput, actualOutput);
         } finally {
             System.setIn(originalIn);

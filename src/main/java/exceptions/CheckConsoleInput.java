@@ -10,6 +10,7 @@ import java.util.Scanner;
  *
  */
 public class CheckConsoleInput {
+
     /**
      * Reads an integer value from the input scanner and validates it.
      *

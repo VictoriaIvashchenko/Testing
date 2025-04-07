@@ -20,10 +20,12 @@ public class FlatsMainTest extends FlatsTest {
      */
     final static String INVALID_INPUT_TYPE_MESSAGE =
             "Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.";
+
     /**
      * System-dependent line separator used for formatting expected test output.
      */
     final static String SEPARATOR = System.lineSeparator();
+
     /**
      * A {@link Runnable} reference to the {@code main} method of {@link FlatsMain}.
      *

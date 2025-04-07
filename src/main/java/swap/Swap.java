@@ -7,6 +7,7 @@ package swap;
  * using arithmetic operations.</p>
  */
 public class Swap {
+
     /**
      * Swaps the values of two integers without using a temporary variable.
      *

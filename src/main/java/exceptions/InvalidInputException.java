@@ -4,6 +4,7 @@ package exceptions;
  * Thrown to indicate that an argument with an incorrect type or value was passed to the method.
  */
 public class InvalidInputException extends Exception{
+
     /**
      * Constructs a new {@code InvalidInputException} with the specified detail message.
      *

@@ -39,5 +39,4 @@ public class SwapMain {
     private static void printValues(String label, int x, int y, String separator) {
         System.out.printf("%s: x = %d y = %d" + separator, label, x, y);
     }
-
 }
