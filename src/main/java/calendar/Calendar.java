@@ -6,7 +6,6 @@ import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.Arrays;
 
-import static exceptions.ExceptionMessages.*;
 import static java.lang.String.format;
 
 /**
@@ -18,7 +17,12 @@ import static java.lang.String.format;
  * <p>It validates the inputs, ensuring that the day, month, and start day of the year are within
  * acceptable ranges. If any input is invalid, an {@link InvalidInputException} is thrown.</p>
  */
-public class Calendar{
+public class Calendar {
+    /**
+     * Error message for an invalid day input in calendar calculations.
+     */
+    private final static String INVALID_VALUE_DAY_INPUT_CALENDAR =
+            "Invalid input number of day. Number from 1 to %d was expected, but '%d' was received.";
 
     /**
      * Calculates the day of the week for a given date.
@@ -30,54 +34,34 @@ public class Calendar{
      * <p>If any input is invalid (e.g., an out-of-range day or month), an {@link InvalidInputException}
      * is thrown with a corresponding error message.</p>
      *
-     * @param dayOfStart the day of the week on which the year starts (1 for Monday, 7 for Sunday)
-     * @param day the specific day of the month
-     * @param monthNumber the month number (1 for January, 12 for December)
+     * @param weekdayOfNewYear  the day of the week on which the year starts (1 for Monday, 7 for Sunday)
+     * @param day         the specific day of the month
+     * @param month the month number (1 for January, 12 for December)
      * @return the name of the day of the week (e.g., "MONDAY", "TUESDAY", etc.)
      * @throws InvalidInputException if any of the input values are invalid (e.g., day or month out of range)
      */
-    public static String calendar(int dayOfStart, int day, int monthNumber) throws InvalidInputException{
+    public static String calendar(DayOfWeek weekdayOfNewYear, int day, Month month) throws InvalidInputException {
         int daysInWeek = DayOfWeek.values().length;
 
-        int monthsInYear = Month.values().length;
+        int monthNumber = month.getValue();
+        int dayOfStart = weekdayOfNewYear.getValue();
+        int daysInMonth = month.length(false);
 
-        checkValue(dayOfStart, daysInWeek, INVALID_VALUE_DAY_OF_NEW_YEAR_INPUT.getMessage());
-        checkValue(monthNumber, monthsInYear, INVALID_VALUE_MONTH_INPUT_CALENDAR.getMessage());
-
-        int daysInMonth = Month.of(monthNumber).length(false);
-
-        if(day > daysInMonth || day < 1){
-            throw new InvalidInputException(format(INVALID_VALUE_DAY_INPUT_CALENDAR.getMessage(), daysInMonth, day));
+        if (day > daysInMonth || day < 1) {
+            throw new InvalidInputException(format(INVALID_VALUE_DAY_INPUT_CALENDAR, daysInMonth, day));
         }
 
         int days = Arrays.stream(Month.values())
                 .filter(m -> m.getValue() < monthNumber)
                 .mapToInt(m -> m.length(false))
                 .sum() + day;
+        int dayIndex = (days + dayOfStart - 1) % daysInWeek;
 
-        int dayOfWeek = (days + dayOfStart - 1) % daysInWeek;
-
-        if (dayOfWeek == 0) {
-            dayOfWeek = daysInWeek;
+        if (dayIndex == 0) {
+            dayIndex = daysInWeek;
         }
 
-        return formatDayOfWeek(dayOfWeek);
-    }
-    /**
-     * Checks whether the given value is within an acceptable range.
-     *
-     * <p>This helper method validates if the provided value is greater than 0 and less than or equal to
-     * the maximum allowed value. If the value is out of range, an {@link InvalidInputException} is thrown.</p>
-     *
-     * @param value the value to be checked
-     * @param maxValue the maximum allowed value
-     * @param message the error message to be used in case of an invalid value
-     * @throws InvalidInputException if the value is out of the acceptable range
-     */
-    private static void checkValue(int value, int maxValue, String message) throws InvalidInputException{
-        if(value > maxValue || value < 1){
-            throw new InvalidInputException(format(message, value));
-        }
+        return formatDayOfWeek(dayIndex);
     }
 
     /**
@@ -92,9 +76,7 @@ public class Calendar{
      */
     private static String formatDayOfWeek(int dayOfWeek) {
         DayOfWeek day = DayOfWeek.of(dayOfWeek);
-
         String name = day.name().toLowerCase();
-
         return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 

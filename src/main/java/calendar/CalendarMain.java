@@ -2,53 +2,64 @@ package calendar;
 
 import exceptions.InvalidInputException;
 
+import java.time.DayOfWeek;
+import java.time.Month;
 import java.util.Scanner;
 
 import static exceptions.CheckConsoleInput.*;
 import static calendar.Calendar.calendar;
-import static exceptions.ExceptionMessages.*;
 
 /**
  * Class {@code CalendarMain} provides calculating the day of the week based on a given date util.
  *
  * <p>This class provides the entry point for the application. It prompts the user to input the starting
  * day of the year, a specific day, and the month number. It then calculates the day of the week for the
- * specified date using the {@link Calendar#calendar(int, int, int)} method.</p>
+ * specified date using the {@link Calendar#calendar(DayOfWeek, int, Month)} method.</p>
  *
  * <p>If any input is invalid (e.g., an invalid day, month, or starting day of the year), the program will
  * catch an {@link InvalidInputException} and display an error message.</p>
  */
 public class CalendarMain {
-    /**
-     * The main method for calculating the day of the week for a given date.
-     *
-     * <p>This method prompts the user to enter the starting day of the year, a specific day, and the
-     * month number, then calculates which day of the week the specified date falls on. It uses the
-     * {@link Calendar#calendar(int, int, int)} method to perform the calculation.</p>
-     *
-     * <p>If the user enters invalid input (e.g., a day or month outside the valid range), an
-     * {@link InvalidInputException} is caught, and an error message is displayed.</p>
-     *
-     * @param args command-line arguments (not used in this program)
-     */
-    public static void main(String [] args){
+
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        String message = "Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.";
 
         System.out.println("Task 5. Enter number day of New Year, day and month of searching day:");
-
-        String message = INVALID_TYPE_INPUT_CALENDAR.getMessage();
-
         try {
-            Integer dayOfStart = readInteger(in, "day of New Year", message);
+            int dayOfStart = readInteger(in, "day of New Year", message);
+            int day = readInteger(in, "day", message);
+            int monthNumber = readInteger(in, "month", message);
 
-            Integer day = readInteger(in, "day", message);
+            DayOfWeek weekdayOfNewYear = checkWeekday(dayOfStart);
+            Month month = checkMonth(monthNumber);
+            
+            String result = calendar(weekdayOfNewYear, day, month);
+            System.out.println("It is " + result);
 
-            Integer month = readInteger(in, "month", message);
-
-            System.out.println("It is " + calendar(dayOfStart, day, month));
-        }catch (InvalidInputException e){
+        } catch (InvalidInputException e) {
             System.err.print(e.getMessage());
         }
     }
+
+    private static DayOfWeek checkWeekday(int value) throws InvalidInputException {
+        if (value <= 7 & value >= 1) {
+            return DayOfWeek.of(value);
+        }else {
+            throw new InvalidInputException(
+                    String.format("Invalid input day of New Year. Number of day was expected, but '%d' was received.", value));
+        }
+    }
+
+    private static Month checkMonth(int value) throws InvalidInputException {
+        if (value <= 12 & value >= 1) {
+            return Month.of(value);
+        }else {
+            throw new InvalidInputException(
+                    String.format("Invalid input number of month. Number of month was expected, but '%d' was received.", value));
+        }
+    }
+
+
 
 }

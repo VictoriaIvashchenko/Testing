@@ -3,11 +3,11 @@ package calendarTest;
 import org.junit.jupiter.api.Test;
 import calendar.CalendarMain;
 
+import java.time.DayOfWeek;
 import java.time.Month;
 
 import static java.lang.String.format;
 import static tools.ConsolePrintCheck.assertValidConsolePrint;
-import static tools.ExceptionMessagesTest.*;
 
 /**
  * Unit test class for {@link CalendarMain}.
@@ -15,10 +15,12 @@ import static tools.ExceptionMessagesTest.*;
  * <p>This class extends {@link CalendarTest} and provides specific test configurations
  * for verifying the behavior of the {@link CalendarMain} program. It sets up the main method
  * for execution during tests and defines a system-dependent line separator.</p>
- *
  */
 public class CalendarMainTest extends CalendarTest {
-    /** System-dependent line separator used for formatting expected test output. */
+
+    /**
+     * System-dependent line separator used for formatting expected test output.
+     */
     final static String SEPARATOR = System.lineSeparator();
     /**
      * A {@link Runnable} reference to the {@code main} method of {@link CalendarMain}.
@@ -27,9 +29,24 @@ public class CalendarMainTest extends CalendarTest {
      * allowing test cases to simulate program execution.</p>
      */
     final static Runnable MAIN_METHOD = () -> CalendarMain.main(new String[]{});
+    /**
+     * Error message for an invalid New Year's starting day input in calendar calculations.
+     */
+    final static String INVALID_DAY_OF_NEW_YEAR_INPUT_VALUE_MESSAGE =
+            "Invalid input day of New Year. Number of day was expected, but '%s' was received.";
+    /**
+     * Error message for an invalid month input in calendar calculations.
+     */
+    final static String INVALID_MONTH_INPUT_VALUE_MESSAGE =
+            "Invalid input number of month. Number of month was expected, but '%s' was received.";
+    /**
+     * Error message for an invalid type input in calendar calculations.
+     */
+    final static String INVALID_INPUT_TYPE_MESSAGE =
+            "Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.";
 
     @Test
-    void overRangeInputTest(){
+    void overRangeInputTest() {
         //(MAX, MIN, MAX)
         assertInvalidNewYearInput("2147483648", "-2147483648", "2147483647");//(MAX + 1, MIN, MAX)
         assertInvalidNewYearInput("2147483648", "-2147483648", "2147483648");//(MAX + 1, MIN, MAX + 1)
@@ -194,7 +211,7 @@ public class CalendarMainTest extends CalendarTest {
     }
 
     @Test
-    void invalidTypeDayOfNewYearTest(){
+    void invalidTypeDayOfNewYearTest() {
         assertInvalidNewYearInput("a", "1", "a");
         assertInvalidNewYearInput("z", "z", "z");
 
@@ -231,7 +248,7 @@ public class CalendarMainTest extends CalendarTest {
     }
 
     @Test
-    void invalidDayTypeTest(){
+    void invalidDayTypeTest() {
         assertInvalidDayInput("1", "a", "a");
         assertInvalidDayInput("1", "z", "z");
 
@@ -269,7 +286,7 @@ public class CalendarMainTest extends CalendarTest {
     }
 
     @Test
-    void invalidMonthTypeTest(){
+    void invalidMonthTypeTest() {
         assertThrowsIllegalMonth("1", "1", "a");
         assertThrowsIllegalMonth("1", "8", "z");
 
@@ -288,141 +305,138 @@ public class CalendarMainTest extends CalendarTest {
         assertThrowsIllegalMonth("1", "6", "18.23 1");
     }
 
+    @Test
+    void invalidValueDayOfNewYearTest() {
+        assertInvalidValueDayOfNewYear("0", "1", "1");
+        assertInvalidValueDayOfNewYear("-1", "1", "1");
+        assertInvalidValueDayOfNewYear("-2147483647", "1", "1");
+        assertInvalidValueDayOfNewYear("-2147483648", "1", "1");
+
+        assertInvalidValueDayOfNewYear("8", "1", "1");
+        assertInvalidValueDayOfNewYear("9", "1", "1");
+        assertInvalidValueDayOfNewYear("2147483646", "1", "1");
+        assertInvalidValueDayOfNewYear("2147483647", "1", "1");
+    }
+
+    @Test
+    void invalidMonthValueTest() {
+        assertInvalidValueMonth("1", "1", "0");
+        assertInvalidValueMonth("1", "1", "-1");
+        assertInvalidValueMonth("1", "1", "-2147483647");
+        assertInvalidValueMonth("1", "1", "-2147483648");
+
+        assertInvalidValueMonth("1", "1", "13");
+        assertInvalidValueMonth("1", "1", "14");
+        assertInvalidValueMonth("1", "1", "2147483646");
+        assertInvalidValueMonth("1", "1", "2147483647");
+    }
+
     /**
-     * Asserts that the method {@link calendar} produces the correct output when given valid input for day of the week,
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} produces the correct output when given valid input for day of the week,
      * day of the month, and month.
      *
-     * <p>This method simulates user input by providing the day of the week, the specific day of the month, and the month,
-     * then checks whether the output matches the expected formatted string, which indicates the corresponding day
-     * of the week and month.</p>
-     *
-     * @param expected the expected output string, which represents the correct result for the given input
+     * @param expected   the expected output string, which represents the correct result for the given input
      * @param dayOfStart the starting day of the week for the given date
-     * @param day the specific day of the month to check
-     * @param month the month in which the day is located
+     * @param day        the specific day of the month to check
+     * @param month      the month in which the day is located
      */
     @Override
-    public void assertCalendar(String expected, int dayOfStart, int day, int month){
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-
+    public void assertCalendar(String expected, DayOfWeek dayOfStart, int day, Month month) {
+        String input = dayOfStart.getValue() + SEPARATOR + day + SEPARATOR + month.getValue();
         String expectedOutput = format(
                 "Task 5. Enter number day of New Year, day and month of searching day:" + SEPARATOR +
-                "It is %s" + SEPARATOR, expected);
+                        "It is %s" + SEPARATOR, expected);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }
+
     /**
-     * Asserts that the method {@link calendar} correctly handles invalid day values by throwing an appropriate exception
-     * with a message indicating the invalid day and month combination.
-     *
-     * <p>This method simulates user input with an invalid day of the month and checks whether the correct error message
-     * is produced. The message should indicate the invalid day and the length of the month for the given input.</p>
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly handles
+     * invalid day values by throwing an appropriate exception with a message indicating the invalid day and month combination.
      *
      * @param dayOfStart the starting day of the week for the given date
-     * @param day the specific day of the month to check, which is invalid in this case
-     * @param month the month in which the day is located
+     * @param day        the specific day of the month to check, which is invalid in this case
+     * @param month      the month in which the day is located
      */
     @Override
-    public void assertThrowsIllegalDayValue(int dayOfStart, int day, int month){
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-        int daysInMonth = Month.of(month).length(false);
-
-        String expectedOutput = format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST.getTestMessage(), daysInMonth, day);
+    public void assertThrowsIllegalDayValue(DayOfWeek dayOfStart, int day, Month month) {
+        String input = dayOfStart.getValue() + SEPARATOR + day + SEPARATOR + month.getValue();
+        String expectedOutput = format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST, month.length(false), day);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
 
     /**
-     * Asserts that an invalid month value results in the correct console output.
-     *
-     * <p>This method simulates user input for the day of the year, day, and month. It then checks if the console
-     * outputs the expected error message when the "month" value is invalid. The expected error message is
-     * formatted using the provided {@code month} value, and the method uses the {@link tools.ConsolePrintCheck#assertValidConsolePrint(String, String, Runnable, boolean)}
-     * method to validate the console output.</p>
-     *
-     * @param dayOfStart the day of the week on which the year starts (1 for Monday, 7 for Sunday)
-     * @param day the specific day of the month
-     * @param month the month number (1 for January, 12 for December)
-     */
-    @Override
-    public void assertThrowsIllegalMonthValue(int dayOfStart, int day, int month){
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-
-        String expectedOutput = format(INVALID_VALUE_MONTH_INPUT_CALENDAR_TEST.getTestMessage(), month);
-
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
-    }
-    /**
-     * Asserts that an invalid day of the year value results in the correct console output.
-     *
-     * <p>This method simulates user input for the day of new year, day, and month. It then checks if the console
-     * outputs the expected error message when the day of new year value is invalid. The expected error message is
-     * formatted using the provided {@code dayOfStart} value, and the method uses the {@link tools.ConsolePrintCheck#assertValidConsolePrint(String, String, Runnable, boolean)}
-     * method to validate the console output.</p>
-     *
-     * @param dayOfStart the day of the week on which the year starts (1 for Monday, 7 for Sunday)
-     * @param day the specific day of the month
-     * @param month the month number (1 for January, 12 for December)
-     */
-    @Override
-    public void assertThrowsIllegalDayOfNewYearValue(int dayOfStart, int day, int month){
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-
-        String expectedOutput = format(INVALID_VALUE_DAY_OF_NEW_YEAR_INPUT_CALENDAR_TEST.getTestMessage(), dayOfStart);
-
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
-    }
-    /**
-     * Asserts that the method {@link calendar} correctly handles invalid month input by throwing an appropriate exception
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly handles invalid month input by throwing an appropriate exception
      * with a message indicating the invalid month.
      *
-     * <p>This method simulates user input with an invalid month and checks whether the correct error message is produced.
-     * The message should indicate the invalid month input provided by the user.</p>
-     *
      * @param dayOfStart the starting day of the week for the given date
-     * @param day the specific day of the month to check
-     * @param month the invalid month input to be tested
+     * @param day        the specific day of the month to check
+     * @param month      the invalid month input to be tested
      */
-    public void assertThrowsIllegalMonth(String dayOfStart, String day, String month){
+    public void assertThrowsIllegalMonth(String dayOfStart, String day, String month) {
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-
-        String expectedOutput = format(INVALID_TYPE_INPUT_CALENDAR_TEST.getTestMessage(), "month", month);
+        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "month", month);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
+
     /**
-     * Asserts that the method {@link calendar} correctly handles invalid New Year input by throwing an appropriate exception
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly handles invalid New Year input by throwing an appropriate exception
      * with a message indicating the invalid New Year day input.
      *
-     * <p>This method simulates user input with an invalid New Year day and checks whether the correct error message
-     * is produced, indicating the issue with the provided day of the start of the year.</p>
-     *
      * @param dayOfStart the invalid starting day of the week for the New Year
-     * @param day the specific day of the month to check
-     * @param month the month in which the day is located
+     * @param day        the specific day of the month to check
+     * @param month      the month in which the day is located
      */
-    public void assertInvalidNewYearInput(String dayOfStart, String day, String month){
+    public void assertInvalidNewYearInput(String dayOfStart, String day, String month) {
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-
-        String expectedOutput = format(INVALID_TYPE_INPUT_CALENDAR_TEST.getTestMessage(), "day of New Year", dayOfStart);
+        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "day of New Year", dayOfStart);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
+
     /**
-     * Asserts that the method {@link calendar} correctly handles invalid day input by throwing an appropriate exception
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly handles invalid day input by throwing an appropriate exception
      * with a message indicating the invalid day input.
      *
-     * <p>This method simulates user input with an invalid day and checks whether the correct error message is produced,
-     * indicating the issue with the provided day input.</p>
+     * @param dayOfStart the starting day of the week for the given date
+     * @param day        the invalid specific day of the month to be tested
+     * @param month      the month in which the day is located
+     */
+    public void assertInvalidDayInput(String dayOfStart, String day, String month) {
+        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
+        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "day", day);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+    }
+
+    /**
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly handles invalid day input by throwing an appropriate exception
+     * with a message indicating the invalid input value number weekday of New Year.
+     *
+     * @param dayOfStart the invalid starting day of the week for the given date
+     * @param day        the specific day of the month to be tested
+     * @param month      the month in which the day is located
+     */
+    public void assertInvalidValueDayOfNewYear(String dayOfStart, String day, String month) {
+        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
+        String expectedOutput = format(INVALID_DAY_OF_NEW_YEAR_INPUT_VALUE_MESSAGE, dayOfStart);
+
+        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+    }
+
+    /**
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly handles invalid day input by throwing an appropriate exception
+     * with a message indicating the invalid input value of month number.
      *
      * @param dayOfStart the starting day of the week for the given date
-     * @param day the invalid specific day of the month to be tested
-     * @param month the month in which the day is located
+     * @param day        the specific day of the month to be tested
+     * @param month      the invalid month in which the day is located
      */
-    public void assertInvalidDayInput(String dayOfStart, String day, String month){
+    public void assertInvalidValueMonth(String dayOfStart, String day, String month) {
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-
-        String expectedOutput = format(INVALID_TYPE_INPUT_CALENDAR_TEST.getTestMessage(), "day", day);
+        String expectedOutput = format(INVALID_MONTH_INPUT_VALUE_MESSAGE, month);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }
