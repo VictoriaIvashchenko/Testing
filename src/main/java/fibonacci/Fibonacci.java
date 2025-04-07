@@ -4,9 +4,6 @@ import exceptions.InvalidInputException;
 
 import java.math.BigInteger;
 
-import static exceptions.ExceptionMessages.INVALID_VALUE_INPUT_FIBONACCI;
-import static java.lang.String.format;
-
 /**
  * Class {@code Fibonacci} provides methods for calculating Fibonacci numbers using matrix exponentiation.
  *
@@ -15,6 +12,8 @@ import static java.lang.String.format;
  * in logarithmic time (O(log n)) through matrix exponentiation by squaring.</p>
  */
 public class Fibonacci {
+    private static final String INVALID_VALUE_INPUT_MESSAGE =
+            "Invalid value of index. Positive integer from 0 to 2147483647 was expected, but '%d' was received.";
     /**
      * Computes the n-th Fibonacci number using matrix exponentiation.
      *
@@ -32,29 +31,27 @@ public class Fibonacci {
      * @return the n-th Fibonacci number as a {@link BigInteger}
      * @throws InvalidInputException if {@code n} is negative
      */
-    public static BigInteger fibonacci(int n) throws InvalidInputException{
-        if(n < 0){
-            throw new InvalidInputException(format(INVALID_VALUE_INPUT_FIBONACCI.getMessage(), n));
+    public static BigInteger fibonacci(int n) throws InvalidInputException {
+        if (n < 0) {
+            throw new InvalidInputException(String.format(INVALID_VALUE_INPUT_MESSAGE, n));
         }
 
-        if(n == 0){
+        if (n == 0) {
             return BigInteger.ZERO;
         }
 
-        if(n == 1){
+        if (n == 1) {
             return BigInteger.ONE;
         }
 
-        BigInteger [][] result = new BigInteger[][]{{BigInteger.ONE,BigInteger.ZERO},{BigInteger.ZERO, BigInteger.ONE}};
-        BigInteger [][] base = new BigInteger[][]{{BigInteger.ONE,BigInteger.ONE},{BigInteger.ONE, BigInteger.ZERO}};
+        BigInteger[][] result = new BigInteger[][]{{BigInteger.ONE, BigInteger.ZERO}, {BigInteger.ZERO, BigInteger.ONE}};
+        BigInteger[][] base = new BigInteger[][]{{BigInteger.ONE, BigInteger.ONE}, {BigInteger.ONE, BigInteger.ZERO}};
 
         n -= 1;
-
-        while(n > 0){
-            if(n % 2 == 1){
+        while (n > 0) {
+            if (n % 2 == 1) {
                 result = matrixMultiple(result, base);
             }
-
             base = matrixMultiple(base, base);
             n /= 2;
         }
@@ -83,7 +80,7 @@ public class Fibonacci {
      * @param a the first 2×2 matrix
      * @param b the second 2×2 matrix
      * @return the resulting 2×2 matrix after multiplication
-     * @throws NullPointerException if any of the input matrices or their elements are null
+     * @throws NullPointerException           if any of the input matrices or their elements are null
      * @throws ArrayIndexOutOfBoundsException if the input matrices are not properly structured as 2×2
      */
     public static BigInteger[][] matrixMultiple(BigInteger[][] a, BigInteger[][] b) {

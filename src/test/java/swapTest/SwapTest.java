@@ -103,7 +103,7 @@ class SwapTest {
     }
 
     @Test
-    void swapNegativePositiveTest(){
+    void swapNegativePositiveTest() {
         //межі класу
         assertSwap(-1, 1);
         assertSwap(-1, MAX_VALUE);
@@ -200,7 +200,7 @@ class SwapTest {
     }
 
     @Test
-    void subjectArea(){
+    void subjectArea() {
         //граничні значення
         assertSwap(1_000_000, 1_000_000);
         assertSwap(1_000_000, -1_000_000);
@@ -253,7 +253,7 @@ class SwapTest {
     }
 
     @Test
-    void swapOverloadTest(){
+    void swapOverloadTest() {
         assertSwap(MAX_VALUE, 1);
         assertSwap(1, MAX_VALUE);
         assertSwap(MIN_VALUE, -1);
@@ -278,7 +278,7 @@ class SwapTest {
     }
 
     @Test
-    void swapRandomDataTest(){
+    void swapRandomDataTest() {
         assertSwap(353851604, 1276041920);
         assertSwap(721411601, 1431759193);
         assertSwap(1286380921, 391044354);
@@ -289,17 +289,17 @@ class SwapTest {
         assertSwap(-1824162098, 913867164);
         assertSwap(-518402351, 265193048);
         assertSwap(-4436602, -310334831);
-}
+    }
 
     @Test
-    void swapSpecialValuesTest(){
+    void swapSpecialValuesTest() {
         assertSwap(30011965, 13071970);
         assertSwap(11012016, 20072002);
         assertSwap(18111993, 2111989);
         assertSwap(25092000, 26012002);
         assertSwap(21082001, 1081999);
         assertSwap(5092002, 25011998);
-        assertSwap(740301,510104);
+        assertSwap(740301, 510104);
         assertSwap(20190804, 20241230);
         assertSwap(20200145, 2024789);
         assertSwap(1040202, 795136210);
@@ -312,7 +312,7 @@ class SwapTest {
      * @param num1 the first number to test
      * @param num2 the second number to test
      */
-    public void assertSwap(int num1, int num2){
+    public void assertSwap(int num1, int num2) {
         assertSwapDifferentSign(num1, num2);
         assertSwapDifferentSign(num2, num1);
     }
@@ -324,10 +324,10 @@ class SwapTest {
      * @param num1 the first number to test (in multiple sign variations)
      * @param num2 the second number to test (in multiple sign variations)
      */
-    public void assertSwapDifferentSign(int num1, int num2){
+    public void assertSwapDifferentSign(int num1, int num2) {
         assertSwapTwoNumbers(num1, num2);
         assertSwapTwoNumbers(-num1, num2);
-        assertSwapTwoNumbers(num1,- num2);
+        assertSwapTwoNumbers(num1, -num2);
         assertSwapTwoNumbers(-num1, -num2);
     }
 
@@ -339,8 +339,8 @@ class SwapTest {
      * @param num1 the first number to be swapped
      * @param num2 the second number to be swapped
      */
-    public void assertSwapTwoNumbers(int num1, int num2){
-        assertArrayEquals(new int [] {num2, num1}, swap(num1, num2));
+    public void assertSwapTwoNumbers(int num1, int num2) {
+        assertArrayEquals(new int[]{num2, num1}, swap(num1, num2));
     }
 
 }

@@ -5,7 +5,6 @@ import gcd.GCDMain;
 
 import static java.lang.String.format;
 import static tools.ConsolePrintCheck.assertValidConsolePrint;
-import static tools.ExceptionMessagesTest.INVALID_TYPE_INPUT_GCD_TEST;
 
 /**
  * Unit test class for {@link GCDMain}.
@@ -13,10 +12,17 @@ import static tools.ExceptionMessagesTest.INVALID_TYPE_INPUT_GCD_TEST;
  * <p>This class extends {@link GCDTest} and provides specific test configurations
  * for verifying the behavior of the {@link GCDMain} program. It sets up the main method
  * for execution during tests and defines a system-dependent line separator.</p>
- *
  */
 public class GCDMainTest extends GCDTest {
-    /** System-dependent line separator used for formatting expected test output. */
+
+    /**
+     * Error message for an invalid type input in GCD calculations.
+     */
+    final static String INVALID_INPUT_TYPE_MESSAGE =
+            "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
+    /**
+     * System-dependent line separator used for formatting expected test output.
+     */
     final static String SEPARATOR = System.lineSeparator();
     /**
      * A {@link Runnable} reference to the {@code main} method of {@link GCDMain}.
@@ -27,7 +33,7 @@ public class GCDMainTest extends GCDTest {
     final static Runnable MAIN_METHOD = () -> GCDMain.main(new String[]{});
 
     @Test
-    void overRangeInputTest(){
+    void overRangeInputTest() {
         assertInvalidFirstArgumentType("2147483648", "2147483648", "2147483648", "2147483648");
         assertInvalidSecondArgumentType("1", "2147483648", "2147483648", "2147483648");
         assertInvalidThirdArgumentType("1", "1", "2147483648", "2147483648");
@@ -40,7 +46,7 @@ public class GCDMainTest extends GCDTest {
     }
 
     @Test
-    void invalidFirstArgumentTypeTest(){
+    void invalidFirstArgumentTypeTest() {
         assertInvalidFirstArgumentType("a", "a", "a", "a");
         assertInvalidFirstArgumentType("b", "c", "d", "e");
         assertInvalidFirstArgumentType("y", "r", "x", "q");
@@ -95,7 +101,7 @@ public class GCDMainTest extends GCDTest {
     }
 
     @Test
-    void invalidSecondArgumentTypeTest(){
+    void invalidSecondArgumentTypeTest() {
         assertInvalidSecondArgumentType("1", "a", "a", "a");
         assertInvalidSecondArgumentType("1", "c", "d", "e");
         assertInvalidSecondArgumentType("1", "r", "x", "q");
@@ -144,7 +150,7 @@ public class GCDMainTest extends GCDTest {
     }
 
     @Test
-    void invalidThirdArgumentTypeTest(){
+    void invalidThirdArgumentTypeTest() {
         assertInvalidThirdArgumentType("367", "56", "a", "a");
         assertInvalidThirdArgumentType("463", "123", "d", "e");
         assertInvalidThirdArgumentType("45", "563", "x", "q");
@@ -157,7 +163,7 @@ public class GCDMainTest extends GCDTest {
 
         assertInvalidThirdArgumentType("1", "1", "a", "462");
         assertInvalidThirdArgumentType("1", "1", "b", "256");
-        assertInvalidThirdArgumentType("1", "1",  "y", "5300");
+        assertInvalidThirdArgumentType("1", "1", "y", "5300");
         assertInvalidThirdArgumentType("1", "44", "z", "144");
 
         assertInvalidThirdArgumentType("1", "55", "!", "!");
@@ -180,7 +186,7 @@ public class GCDMainTest extends GCDTest {
     }
 
     @Test
-    void invalidFourthArgumentTypeTest(){
+    void invalidFourthArgumentTypeTest() {
         assertInvalidFourthArgumentType("1", "1", "1", "a");
         assertInvalidFourthArgumentType("1", "1", "1", "b");
         assertInvalidFourthArgumentType("1", "1", "1", "y");
@@ -214,35 +220,26 @@ public class GCDMainTest extends GCDTest {
      * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} correctly calculates the GCD of four
      * integers and prints the expected output.
      *
-     * <p>This method tests the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method by providing four integer inputs,
-     * and it checks if the calculated
-     * GCD matches the expected result. It also verifies that the correct output is printed to the console. The input values
-     * and expected output are formatted into a message that is then compared to the actual console output.</p>
-     *
      * @param expected the expected GCD result
-     * @param a the first integer input
-     * @param b the second integer input
-     * @param c the third integer input
-     * @param d the fourth integer input
+     * @param a        the first integer input
+     * @param b        the second integer input
+     * @param c        the third integer input
+     * @param d        the fourth integer input
      */
     @Override
-    public void assertGCDResult(int expected, int a, int b, int c, int d){
+    public void assertGCDResult(int expected, int a, int b, int c, int d) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-
         String expectedOutput = format(
                 "Task 3. Enter four numbers for searching gcd:" + SEPARATOR +
-                "GCD(%d, %d, %d, %d) = %d", a, b, c, d, expected);
+                        "GCD(%d, %d, %d, %d) = %d", a, b, c, d, expected);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
 
     }
+
     /**
      * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws a {@link exceptions.CalculationException}
-     * when calculating the GCD for four integers.
-     *
-     * <p>This method verifies that when certain inputs are provided, the method {@link gcd.GCD#gcdOfFour(int, int, int, int)}
-     * throws a {@link exceptions.CalculationException}.
-     * It also checks if the appropriate output message is printed to the console when the exception occurs.</p>
+     * when calculating the GCD for four integers and also checks if the appropriate output message is printed to the console when the exception occurs.</p>
      *
      * @param a the first integer input
      * @param b the second integer input
@@ -250,12 +247,11 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth integer input
      */
     @Override
-    public void assertThrowsCalculationException(int a, int b, int c, int d){
+    public void assertThrowsCalculationException(int a, int b, int c, int d) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-
         String expectedOutput = format(
                 "Task 3. Enter four numbers for searching gcd:" + SEPARATOR +
-                "GCD(%d, %d, %d, %d) = 2147483648", a, b, c, d);
+                        "GCD(%d, %d, %d, %d) = 2147483648", a, b, c, d);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }
@@ -263,77 +259,61 @@ public class GCDMainTest extends GCDTest {
     /**
      * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the first argument.
      *
-     * <p>This method tests the scenario where the first argument passed to the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method is of an invalid type.
-     * It ensures that the correct error message is printed in the console, indicating the invalid type for the first argument.</p>
-     *
      * @param a the first argument as a string (invalid type)
      * @param b the second argument as a string
      * @param c the third argument as a string
      * @param d the fourth argument as a string
      */
-    public void assertInvalidFirstArgumentType(String a, String b, String c, String d){
+    public void assertInvalidFirstArgumentType(String a, String b, String c, String d) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-
-        String expectedOutput = format(INVALID_TYPE_INPUT_GCD_TEST.getTestMessage(), "a", a);
+        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "a", a);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
 
     }
+
     /**
      * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the second argument.
-     *
-     * <p>This method tests the scenario where the second argument passed to the {@link gcd.GCD#gcdOfFour(int, int, int, int)}
-     * method is of an invalid type.
-     * It ensures that the correct error message is printed in the console, indicating the invalid type for the second argument.</p>
      *
      * @param a the first argument as a string
      * @param b the second argument as a string (invalid type)
      * @param c the third argument as a string
      * @param d the fourth argument as a string
      */
-    public void assertInvalidSecondArgumentType(String a, String b, String c, String d){
+    public void assertInvalidSecondArgumentType(String a, String b, String c, String d) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-
-        String expectedOutput = format(INVALID_TYPE_INPUT_GCD_TEST.getTestMessage(), "b", b);
+        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "b", b);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
 
     }
+
     /**
      * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the third argument.
-     *
-     * <p>This method tests the scenario where the third argument passed to the {@link gcd.GCD#gcdOfFour(int, int, int, int)}
-     * method is of an invalid type.
-     * It ensures that the correct error message is printed in the console, indicating the invalid type for the third argument.</p>
      *
      * @param a the first argument as a string
      * @param b the second argument as a string
      * @param c the third argument as a string (invalid type)
      * @param d the fourth argument as a string
      */
-    public void assertInvalidThirdArgumentType(String a, String b, String c, String d){
+    public void assertInvalidThirdArgumentType(String a, String b, String c, String d) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-
-        String expectedOutput = format(INVALID_TYPE_INPUT_GCD_TEST.getTestMessage(), "c", c);
+        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "c", c);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
-
     }
+
     /**
      * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the fourth argument.
-     *
-     * <p>This method tests the scenario where the fourth argument passed to the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method is of an invalid type.
-     * It ensures that the correct error message is printed in the console, indicating the invalid type for the fourth argument.</p>
      *
      * @param a the first argument as a string
      * @param b the second argument as a string
      * @param c the third argument as a string
      * @param d the fourth argument as a string (invalid type)
      */
-    public void assertInvalidFourthArgumentType(String a, String b, String c, String d){
+    public void assertInvalidFourthArgumentType(String a, String b, String c, String d) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-
-        String expectedOutput = format(INVALID_TYPE_INPUT_GCD_TEST.getTestMessage(), "d", d);
+        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "d", d);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
     }

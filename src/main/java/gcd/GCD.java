@@ -2,7 +2,6 @@ package gcd;
 
 import exceptions.CalculationException;
 
-import static exceptions.ExceptionMessages.INVALID_RESULT_GCD;
 import static java.lang.Math.abs;
 
 /**
@@ -11,9 +10,14 @@ import static java.lang.Math.abs;
  *
  * <p>This class contains methods to compute the GCD of two integers and four integers efficiently,
  * handling special cases such as all zeros and invalid results.</p>
- *
  */
 public class GCD {
+
+    /**
+     * Error message when modulus of Integer.MIN_VALUE is attempted.
+     */
+    private static final String INVALID_RESULT_MESSAGE = "Absolut value of a -2147483648 can't be calculated.";
+
     /**
      * Calculates the greatest common divisor (GCD) of two integers using the Euclidean algorithm.
      *
@@ -51,14 +55,15 @@ public class GCD {
      * @return the greatest common divisor of the four integers (always non-negative)
      * @throws CalculationException if the computed GCD is invalid
      */
-    public static int gcdOfFour(int a, int b, int c, int d) throws CalculationException{
+    public static int gcdOfFour(int a, int b, int c, int d) throws CalculationException {
         if (a == 0 & b == 0 & c == 0 & d == 0) {
             return 0;
         }
         int result = gcd(gcd(gcd(a, b), c), d);
 
-        if (result == Integer.MIN_VALUE)
-            throw new CalculationException(INVALID_RESULT_GCD.getMessage());
+        if (result == Integer.MIN_VALUE) {
+            throw new CalculationException(INVALID_RESULT_MESSAGE);
+        }
 
         return abs(result);
     }

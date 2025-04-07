@@ -2,9 +2,6 @@ package exceptions;
 
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.String.format;
-
 /**
  * The {@code CheckConsoleInput} class provides utility methods for reading and validating user input.
  *
@@ -22,7 +19,7 @@ public class CheckConsoleInput {
      *
      * @param in the {@link Scanner} object used for reading user input
      * @param varName the name of the variable being read (used for error messages)
-     * @param message the error message format string in case of invalid input
+     * @param message the error message format string with two string arguments: name of variable and input, in case of invalid input
      * @return the parsed integer value
      * @throws InvalidInputException if the input cannot be parsed as an integer
      */
@@ -30,9 +27,10 @@ public class CheckConsoleInput {
         String input = in.nextLine().trim();
 
         try {
-            return parseInt(input);
+            return Integer.parseInt(input);
+
         } catch (NumberFormatException e) {
-            throw new InvalidInputException(format(message, varName, input));
+            throw new InvalidInputException(String.format(message, varName, input));
         }
     }
 

@@ -28,12 +28,12 @@ public class ConsolePrintCheck {
      *
      * <p>After the task is executed, the method restores the original system input, output, and error streams.</p>
      *
-     * @param input the input to simulate in the console
-     * @param expectedOutput the expected output or error output to compare with the task's actual output
-     * @param task the task to be executed (e.g., a method or block of code)
+     * @param input            the input to simulate in the console
+     * @param expectedOutput   the expected output or error output to compare with the task's actual output
+     * @param task             the task to be executed (e.g., a method or block of code)
      * @param checkErrorStream if {@code true}, checks the error stream, otherwise checks the standard output
      */
-    public static void assertValidConsolePrint(String input, String expectedOutput, Runnable task, boolean checkErrorStream){
+    public static void assertValidConsolePrint(String input, String expectedOutput, Runnable task, boolean checkErrorStream) {
         InputStream originalIn = System.in;
         PrintStream originalOut = System.out;
         PrintStream originalErr = System.err;

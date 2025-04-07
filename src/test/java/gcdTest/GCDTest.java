@@ -3,7 +3,6 @@ package gcdTest;
 import exceptions.CalculationException;
 import org.junit.jupiter.api.Test;
 
-import static exceptions.ExceptionMessages.INVALID_RESULT_GCD;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 import static gcd.GCD.gcdOfFour;
@@ -11,6 +10,11 @@ import static gcd.GCD.gcdOfFour;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GCDTest {
+
+    /**
+     * Error message when modulus of Integer.MIN_VALUE is attempted.
+     */
+    private static final String INVALID_RESULT_MESSAGE = "Absolut value of a -2147483648 can't be calculated.";
 
     @Test
     void limitValuesTest() {
@@ -327,9 +331,6 @@ class GCDTest {
      * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} correctly calculates the GCD of four integers for various permutations
      * and sign variations of the inputs.
      *
-     * <p>This method tests the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method by applying various permutations of four integers, including
-     * different sign combinations, and checks whether the calculated GCD matches the expected result.</p>
-     *
      * @param expected the expected GCD result
      * @param a the first integer input
      * @param b the second integer input
@@ -367,9 +368,6 @@ class GCDTest {
     /**
      * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} correctly calculates the GCD of four
      * integers for different sign combinations.
-     *
-     * <p>This method ensures that the calculation of the GCD is correct even when the signs of the input integers vary.
-     * It calls the {@link GCDTest#assertGCDResult(int, int, int, int, int)} method for all sign variations of the input integers.</p>
      *
      * @param expected the expected GCD result
      * @param a the first integer input
@@ -461,9 +459,6 @@ class GCDTest {
     /**
      * Asserts that the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method throws a {@link CalculationException} for the given set of four integer values.
      *
-     * <p>This method tests the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method with a specific set of inputs and ensures that the appropriate exception
-     * is thrown when the input values are invalid or edge cases for GCD calculations.</p>
-     *
      * @param a the first integer input
      * @param b the second integer input
      * @param c the third integer input
@@ -474,7 +469,7 @@ class GCDTest {
             gcdOfFour(a, b, c, d);
             fail("Expected CalculationException to be thrown");
         }catch (CalculationException e){
-            assertEquals(INVALID_RESULT_GCD.getMessage(), e.getMessage());
+            assertEquals(INVALID_RESULT_MESSAGE, e.getMessage());
         }
     }
 
