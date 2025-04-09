@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CalendarTest {
 
     /** Error message for an invalid day input in calendar calculations. */
-    final static String INVALID_VALUE_DAY_INPUT_CALENDAR_TEST =
+    protected final static String INVALID_VALUE_DAY_INPUT_CALENDAR_TEST =
             "Invalid input number of day. Number from 1 to %d was expected, but '%d' was received.";
 
     @Test

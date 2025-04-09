@@ -18,13 +18,13 @@ public class FlatsMainTest extends FlatsTest {
     /**
      * Error message for an invalid type input in flat calculations.
      */
-    final static String INVALID_INPUT_TYPE_MESSAGE =
+    private final static String INVALID_INPUT_TYPE_MESSAGE =
             "Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.";
 
     /**
      * System-dependent line separator used for formatting expected test output.
      */
-    final static String SEPARATOR = System.lineSeparator();
+    private final static String SEPARATOR = System.lineSeparator();
 
     /**
      * A {@link Runnable} reference to the {@code main} method of {@link FlatsMain}.
@@ -32,7 +32,7 @@ public class FlatsMainTest extends FlatsTest {
      * <p>This runnable executes {@link FlatsMain#main(String[])} with an empty argument array,
      * allowing test cases to simulate program execution.</p>
      */
-    final static Runnable MAIN_METHOD = () -> FlatsMain.main(new String[]{});
+    private final static Runnable MAIN_METHOD = () -> FlatsMain.main(new String[]{});
 
     @Test
     void overRangeTypeTest() {

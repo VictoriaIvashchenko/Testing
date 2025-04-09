@@ -20,13 +20,13 @@ public class FibonacciMainTest extends FibonacciTest {
     /**
      * Error message for an invalid type input in Fibonacci calculations.
      */
-    final static String INVALID_INPUT_TYPE_MESSAGE =
+    private final static String INVALID_INPUT_TYPE_MESSAGE =
             "Invalid type of %s. Number from 0 to 2147483647 was expected, but '%s' was received.";
 
     /**
      * System-dependent line separator used for formatting expected test output.
      */
-    final static String SEPARATOR = System.lineSeparator();
+    private final static String SEPARATOR = System.lineSeparator();
 
     /**
      * A {@link Runnable} reference to the {@code main} method of {@link FibonacciMain}.
@@ -34,7 +34,7 @@ public class FibonacciMainTest extends FibonacciTest {
      * <p>This runnable executes {@link FibonacciMain#main(String[])} with an empty argument array,
      * allowing test cases to simulate program execution.</p>
      */
-    final static Runnable MAIN_METHOD = () -> FibonacciMain.main(new String[]{});
+    private final static Runnable MAIN_METHOD = () -> FibonacciMain.main(new String[]{});
 
     @Test
     void overRangeInputTest() {

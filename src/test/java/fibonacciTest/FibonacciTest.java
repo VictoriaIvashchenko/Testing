@@ -13,7 +13,7 @@ class FibonacciTest {
     /**
      * Error message for an invalid Fibonacci index input.
      */
-    final static String INVALID_INPUT_VALUE_MESSAGE =
+    protected final static String INVALID_INPUT_VALUE_MESSAGE =
             "Invalid value of index. Positive integer from 0 to 2147483647 was expected, but '%s' was received.";
 
     @Test

@@ -48,7 +48,7 @@ public class CalendarMain {
             return DayOfWeek.of(value);
         }else {
             throw new InvalidInputException(
-                    String.format("Invalid input day of New Year. Number of day was expected, but '%d' was received.", value));
+                    String.format("Invalid input day of New Year. Number of weekday was expected, but '%d' was received.", value));
         }
     }
 

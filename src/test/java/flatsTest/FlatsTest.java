@@ -15,25 +15,25 @@ class FlatsTest {
     /**
      * Error message for an invalid number of floors input in flat calculations.
      */
-    final static String INVALID_FLOORS_INPUT_VALUE_MESSAGE =
+    protected final static String INVALID_FLOORS_INPUT_VALUE_MESSAGE =
             "Invalid input number of floors. Number from 1 to 2147483647 was expected, but '%s' was received.";
 
     /**
      * Error message for an invalid number of flats per floor in flat calculations.
      */
-    final static String INVALID_FLATS_ON_FLOOR_INPUT_VALUE_MESSAGE =
+    protected final static String INVALID_FLATS_ON_FLOOR_INPUT_VALUE_MESSAGE =
             "Invalid input number of flats on floor. Number from 1 to 2147483647 was expected, but '%s' was received.";
 
     /**
      * Error message for an invalid flat number input.
      */
-    final static String INVALID_FLAT_NUMBER_INPUT_VALUE_MESSAGE =
+    protected final static String INVALID_FLAT_NUMBER_INPUT_VALUE_MESSAGE =
             "Invalid input number of flat. Number from 1 to 2147483647 was expected, but '%s' was received.";
 
     /**
      * Error message when calculations with the given flat parameters are not possible.
      */
-    final static String INVALID_CALCULATIONS_MESSAGE =
+    protected final static String INVALID_CALCULATIONS_MESSAGE =
             "Task can't be calculated with input arguments: %d floors, %d flats on floor.";
 
     @Test

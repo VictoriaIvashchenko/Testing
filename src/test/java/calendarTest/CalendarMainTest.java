@@ -21,7 +21,7 @@ public class CalendarMainTest extends CalendarTest {
     /**
      * System-dependent line separator used for formatting expected test output.
      */
-    final static String SEPARATOR = System.lineSeparator();
+    private final static String SEPARATOR = System.lineSeparator();
 
     /**
      * A {@link Runnable} reference to the {@code main} method of {@link CalendarMain}.
@@ -29,24 +29,24 @@ public class CalendarMainTest extends CalendarTest {
      * <p>This runnable executes {@link CalendarMain#main(String[])} with an empty argument array,
      * allowing test cases to simulate program execution.</p>
      */
-    final static Runnable MAIN_METHOD = () -> CalendarMain.main(new String[]{});
+    private final static Runnable MAIN_METHOD = () -> CalendarMain.main(new String[]{});
 
     /**
      * Error message for an invalid New Year's starting day input in calendar calculations.
      */
-    final static String INVALID_DAY_OF_NEW_YEAR_INPUT_VALUE_MESSAGE =
-            "Invalid input day of New Year. Number of day was expected, but '%s' was received.";
+    private final static String INVALID_DAY_OF_NEW_YEAR_INPUT_VALUE_MESSAGE =
+            "Invalid input day of New Year. Number of weekday was expected, but '%s' was received.";
 
     /**
      * Error message for an invalid month input in calendar calculations.
      */
-    final static String INVALID_MONTH_INPUT_VALUE_MESSAGE =
+    private final static String INVALID_MONTH_INPUT_VALUE_MESSAGE =
             "Invalid input number of month. Number of month was expected, but '%s' was received.";
 
     /**
      * Error message for an invalid type input in calendar calculations.
      */
-    final static String INVALID_INPUT_TYPE_MESSAGE =
+    private final static String INVALID_INPUT_TYPE_MESSAGE =
             "Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.";
 
     @Test

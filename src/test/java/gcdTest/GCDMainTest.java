@@ -18,13 +18,13 @@ public class GCDMainTest extends GCDTest {
     /**
      * Error message for an invalid type input in GCD calculations.
      */
-    final static String INVALID_INPUT_TYPE_MESSAGE =
+    private final static String INVALID_INPUT_TYPE_MESSAGE =
             "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
 
     /**
      * System-dependent line separator used for formatting expected test output.
      */
-    final static String SEPARATOR = System.lineSeparator();
+    private final static String SEPARATOR = System.lineSeparator();
 
     /**
      * A {@link Runnable} reference to the {@code main} method of {@link GCDMain}.
@@ -32,7 +32,7 @@ public class GCDMainTest extends GCDTest {
      * <p>This runnable executes {@link GCDMain#main(String[])} with an empty argument array,
      * allowing test cases to simulate program execution.</p>
      */
-    final static Runnable MAIN_METHOD = () -> GCDMain.main(new String[]{});
+    private final static Runnable MAIN_METHOD = () -> GCDMain.main(new String[]{});
 
     @Test
     void overRangeInputTest() {
