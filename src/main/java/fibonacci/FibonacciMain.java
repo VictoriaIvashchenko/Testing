@@ -5,7 +5,7 @@ import exceptions.InvalidInputException;
 import java.math.BigInteger;
 import java.util.Scanner;
 
-import static exceptions.CheckConsoleInput.readInteger;
+import static tools.CheckConsoleInput.readInteger;
 import static fibonacci.Fibonacci.fibonacci;
 
 /**

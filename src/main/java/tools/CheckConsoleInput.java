@@ -1,4 +1,6 @@
-package exceptions;
+package tools;
+
+import exceptions.InvalidInputException;
 
 import java.util.Scanner;
 

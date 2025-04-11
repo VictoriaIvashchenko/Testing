@@ -5,7 +5,7 @@ import exceptions.InvalidInputException;
 
 import java.util.Scanner;
 
-import static exceptions.CheckConsoleInput.readInteger;
+import static tools.CheckConsoleInput.readInteger;
 import static flats.Flats.flatLocation;
 
 /**

@@ -6,7 +6,7 @@ import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.Scanner;
 
-import static exceptions.CheckConsoleInput.*;
+import static tools.CheckConsoleInput.*;
 import static calendar.Calendar.calendar;
 
 /**

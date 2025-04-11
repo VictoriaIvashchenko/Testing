@@ -33,11 +33,11 @@ public class Calendar {
      * <p>If any input is invalid (e.g., an out-of-range day or month), an {@link InvalidInputException}
      * is thrown with a corresponding error message.</p>
      *
-     * @param weekdayOfNewYear the day of the week on which the year starts (1 for Monday, 7 for Sunday)
+     * @param weekdayOfNewYear the day of the week on which the year starts
      * @param day              the specific day of the month
-     * @param month            the month number (1 for January, 12 for December)
+     * @param month            the specific month
      * @return the name of the day of the week (e.g., "Monday", "Tuesday", etc.)
-     * @throws InvalidInputException if any of the input values are invalid (e.g., day or month out of range)
+     * @throws InvalidInputException if any of the input values are invalid (e.g., day out of range)
      */
     public static String calendar(DayOfWeek weekdayOfNewYear, int day, Month month) throws InvalidInputException {
         int daysInWeek = DayOfWeek.values().length;
