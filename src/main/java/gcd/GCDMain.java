@@ -17,28 +17,31 @@ import static gcd.GCD.gcdOfFour;
  */
 public class GCDMain {
 
+    /**
+     * Exceptional case when we can't use int variable to show the answer.
+     */
+    private static final String EXCEPTIONAL_CASE = "2147483648";
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String message = "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
-        String exceptionalCase = "2147483648";
 
         System.out.println("Task 3. Enter four numbers for searching gcd:");
         try {
-            int a = readInteger(in, "a", message);
-            int b = readInteger(in, "b", message);
-            int c = readInteger(in, "c", message);
-            int d = readInteger(in, "d", message);
+            int a = readInteger(in, "a");
+            int b = readInteger(in, "b");
+            int c = readInteger(in, "c");
+            int d = readInteger(in, "d");
 
             printGCDMessage(a, b, c, d);
 
-            int result = gcdOfFour(a, b, c, d);
-            System.out.print(result);
+            int gcd = gcdOfFour(a, b, c, d);
+            System.out.print(gcd);
 
         } catch (InvalidInputException e) {
             System.err.print(e.getMessage());
 
         } catch (CalculationException e) {
-            System.out.print(exceptionalCase);
+            System.out.print(EXCEPTIONAL_CASE);
         }
     }
 

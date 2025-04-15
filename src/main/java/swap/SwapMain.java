@@ -15,28 +15,28 @@ import static swap.Swap.swap;
  */
 public class SwapMain {
 
+    private static final String SEPARATOR = System.lineSeparator();
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String separator = System.lineSeparator();
-        String message = "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
 
         System.out.println("Task 1. Enter two numbers x and y:");
         try {
-            int x = readInteger(in, "x", message);
-            int y = readInteger(in, "y", message);
+            int x = readInteger(in, "x");
+            int y = readInteger(in, "y");
 
-            printValues("Before", x, y, separator);
+            printValues("Before", x, y);
 
-            int[] result = swap(x, y);
+            int[] swapped = swap(x, y);
 
-            printValues("After", result[0], result[1], separator);
+            printValues("After", swapped[0], swapped[1]);
 
         } catch (InvalidInputException e) {
             System.err.print(e.getMessage());
         }
     }
 
-    private static void printValues(String label, int x, int y, String separator) {
-        System.out.printf("%s: x = %d y = %d" + separator, label, x, y);
+    private static void printValues(String label, int x, int y) {
+        System.out.printf("%s: x = %d y = %d%s", label, x, y, SEPARATOR);
     }
 }

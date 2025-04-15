@@ -19,7 +19,7 @@ public class FlatsMainTest extends FlatsTest {
      * Error message for an invalid type input in flat calculations.
      */
     private final static String INVALID_INPUT_TYPE_MESSAGE =
-            "Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.";
+            "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
 
     /**
      * System-dependent line separator used for formatting expected test output.
@@ -375,8 +375,8 @@ public class FlatsMainTest extends FlatsTest {
     public void assertEqualsApart(int floors, int flatsOnFloor, int flatNumber, int expectedFloor, int expectedEntrance) {
         String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
         String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:" + SEPARATOR +
-                        "Floor: %d, entrance: %d", expectedFloor, expectedEntrance);
+                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:%s" +
+                        "Floor: %d, entrance: %d", SEPARATOR, expectedFloor, expectedEntrance);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }

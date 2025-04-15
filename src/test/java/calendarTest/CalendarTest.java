@@ -12,7 +12,6 @@ import static java.time.DayOfWeek.*;
 import static java.time.Month.*;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalendarTest {
@@ -362,8 +361,7 @@ class CalendarTest {
      * @param month the month in which the day is located
      */
     public void assertThrowsIllegalDayValue(DayOfWeek dayOfStart, int day, Month month){
-        String expectedMessage = format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST,
-                month.length(false), day);
+        String expectedMessage = String.format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST, month.length(false), day);
 
         assertThrowsInvalidArgument(dayOfStart, day, month, expectedMessage);
     }

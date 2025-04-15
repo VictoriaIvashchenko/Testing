@@ -19,22 +19,21 @@ public class FibonacciMain {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String message = "Invalid type of %s. Number from 0 to 2147483647 was expected, but '%s' was received.";
 
         System.out.println("Task 4. Enter index of number in fibonacci sequence:");
         try {
-            int n = readInteger(in, "n", message);
+            int n = readInteger(in, "n");
 
-            BigInteger result = fibonacci(n);
+            BigInteger numberInFibonacciSequence = fibonacci(n);
 
-            printResult(n, result);
+            printResult(n, numberInFibonacciSequence);
 
         } catch (InvalidInputException e) {
             System.err.print(e.getMessage());
         }
     }
 
-    private static void printResult(int index, BigInteger number){
+    private static void printResult(int index, BigInteger number) {
         System.out.printf("F(%d) = %s", index, number.toString());
 
     }

@@ -47,7 +47,7 @@ public class CalendarMainTest extends CalendarTest {
      * Error message for an invalid type input in calendar calculations.
      */
     private final static String INVALID_INPUT_TYPE_MESSAGE =
-            "Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.";
+            "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
 
     @Test
     void overRangeInputTest() {
@@ -348,8 +348,8 @@ public class CalendarMainTest extends CalendarTest {
     public void assertCalendar(String expected, DayOfWeek dayOfStart, int day, Month month) {
         String input = dayOfStart.getValue() + SEPARATOR + day + SEPARATOR + month.getValue();
         String expectedOutput = format(
-                "Task 5. Enter number day of New Year, day and month of searching day:" + SEPARATOR +
-                        "It is %s" + SEPARATOR, expected);
+                "Task 5. Enter number day of New Year, day and month of searching day:%s" +
+                        "It is %s%s", SEPARATOR, expected, SEPARATOR);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }

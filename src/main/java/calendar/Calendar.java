@@ -6,6 +6,8 @@ import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.Arrays;
 
+import static java.lang.Character.toUpperCase;
+
 /**
  * Class {@code Calendar} provides a utility method for working with calendars.
  *
@@ -24,6 +26,11 @@ public class Calendar {
             "Invalid input number of day. Number from 1 to %d was expected, but '%d' was received.";
 
     /**
+     * Number days in week
+     */
+    private final static int DAYS_IN_WEEK = 7;
+
+    /**
      * Calculates the day of the week for a given date.
      *
      * <p>This method takes the starting day of the year, the specific day of the month, and the
@@ -40,8 +47,6 @@ public class Calendar {
      * @throws InvalidInputException if any of the input values are invalid (e.g., day out of range)
      */
     public static String calendar(DayOfWeek weekdayOfNewYear, int day, Month month) throws InvalidInputException {
-        int daysInWeek = DayOfWeek.values().length;
-
         int monthNumber = month.getValue();
         int dayOfStart = weekdayOfNewYear.getValue();
         int daysInMonth = month.length(false);
@@ -54,30 +59,31 @@ public class Calendar {
         int days = Arrays.stream(Month.values())
                 .filter(m -> m.getValue() < monthNumber)
                 .mapToInt(m -> m.length(false))
-                .sum() + day;
-        int dayIndex = (days + dayOfStart - 1) % daysInWeek;
+                .sum() + day + dayOfStart;
+
+        int dayIndex = (days - 1) % DAYS_IN_WEEK;
 
         if (dayIndex == 0) {
-            dayIndex = daysInWeek;
+            dayIndex = DAYS_IN_WEEK;
         }
 
-        return formatDayOfWeek(dayIndex);
+        DayOfWeek weekday = DayOfWeek.of(dayIndex);
+
+        return formatDayOfWeek(weekday);
     }
 
     /**
      * Formats the day of the week as a capitalized string.
      *
-     * <p>This method converts a numeric day of the week (1 = Monday, ..., 7 = Sunday)
+     * <p>This method converts day of the week
      * into its corresponding {@link DayOfWeek} name, formats it in lowercase,
      * and then capitalizes the first letter.</p>
      *
-     * @param dayOfWeek the numeric value representing the day of the week (1 for Monday, ..., 7 for Sunday)
+     * @param dayOfWeek the day of the week (MONDAY, ..., SUNDAY)
      * @return the formatted name of the day with the first letter capitalized (e.g., "Monday", "Tuesday")
      */
-    private static String formatDayOfWeek(int dayOfWeek) {
-        DayOfWeek day = DayOfWeek.of(dayOfWeek);
-        String name = day.name().toLowerCase();
-        return Character.toUpperCase(name.charAt(0)) + name.substring(1);
+    private static String formatDayOfWeek(DayOfWeek dayOfWeek) {
+        String name = dayOfWeek.name().toLowerCase();
+        return toUpperCase(name.charAt(0)) + name.substring(1);
     }
-
 }

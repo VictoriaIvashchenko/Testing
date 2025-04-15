@@ -14,6 +14,12 @@ import java.util.Scanner;
 public class CheckConsoleInput {
 
     /**
+     * The error message format string with two string arguments: name of variable and input, in case of invalid input
+     */
+    private final static String INVALID_TYPE_MESSAGE =
+            "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
+
+    /**
      * Reads an integer value from the input scanner and validates it.
      *
      * <p>This method reads a line of input, trims it, and attempts to parse it as an integer.
@@ -22,18 +28,16 @@ public class CheckConsoleInput {
      *
      * @param in the {@link Scanner} object used for reading user input
      * @param varName the name of the variable being read (used for error messages)
-     * @param message the error message format string with two string arguments: name of variable and input, in case of invalid input
      * @return the parsed integer value
      * @throws InvalidInputException if the input cannot be parsed as an integer
      */
-    public static Integer readInteger(Scanner in, String varName, String message) throws InvalidInputException {
+    public static Integer readInteger(Scanner in, String varName) throws InvalidInputException {
         String input = in.nextLine().trim();
-
         try {
             return Integer.parseInt(input);
 
         } catch (NumberFormatException e) {
-            throw new InvalidInputException(String.format(message, varName, input));
+            throw new InvalidInputException(String.format(INVALID_TYPE_MESSAGE, varName, input));
         }
     }
 

@@ -187,10 +187,9 @@ public class SwapMainTest extends SwapTest {
     public void assertSwapTwoNumbers(int num1, int num2) {
         String input = num1 + SEPARATOR + num2;
         String expectedOutput = String.format(
-                "Task 1. Enter two numbers x and y:" + SEPARATOR +
-                        "Before: x = %d y = %d" + SEPARATOR +
-                        "After: x = %d y = %d" + SEPARATOR,
-                num1, num2, num2, num1);
+                "Task 1. Enter two numbers x and y:%s" +
+                        "Before: x = %d y = %d%s" +
+                        "After: x = %d y = %d%s", SEPARATOR, num1, num2, SEPARATOR, num2, num1,SEPARATOR);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
 

@@ -232,8 +232,8 @@ public class GCDMainTest extends GCDTest {
     public void assertGCDResult(int expected, int a, int b, int c, int d) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
         String expectedOutput = format(
-                "Task 3. Enter four numbers for searching gcd:" + SEPARATOR +
-                        "GCD(%d, %d, %d, %d) = %d", a, b, c, d, expected);
+                "Task 3. Enter four numbers for searching gcd:%sGCD(%d, %d, %d, %d) = %d",
+                SEPARATOR, a, b, c, d, expected);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
 
@@ -252,8 +252,8 @@ public class GCDMainTest extends GCDTest {
     public void assertThrowsCalculationException(int a, int b, int c, int d) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
         String expectedOutput = format(
-                "Task 3. Enter four numbers for searching gcd:" + SEPARATOR +
-                        "GCD(%d, %d, %d, %d) = 2147483648", a, b, c, d);
+                "Task 3. Enter four numbers for searching gcd:%s" +
+                        "GCD(%d, %d, %d, %d) = 2147483648", SEPARATOR, a, b, c, d);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }

@@ -4,6 +4,9 @@ import exceptions.InvalidInputException;
 
 import java.math.BigInteger;
 
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.ZERO;
+
 /**
  * Class {@code Fibonacci} provides methods for calculating Fibonacci numbers using matrix exponentiation.
  *
@@ -37,33 +40,49 @@ public class Fibonacci {
      * @throws InvalidInputException if {@code n} is negative
      */
     public static BigInteger fibonacci(int n) throws InvalidInputException {
+        // Check for an invalid value
         if (n < 0) {
             throw new InvalidInputException(
                     String.format(INVALID_VALUE_INPUT_MESSAGE, n));
         }
 
+        // F(0) = 0
         if (n == 0) {
-            return BigInteger.ZERO;
+            return ZERO;
         }
 
+        // F(1) = 1
         if (n == 1) {
-            return BigInteger.ONE;
+            return ONE;
         }
 
-        BigInteger[][] result = new BigInteger[][]{{BigInteger.ONE, BigInteger.ZERO}, {BigInteger.ZERO, BigInteger.ONE}};
-        BigInteger[][] base = new BigInteger[][]{{BigInteger.ONE, BigInteger.ONE}, {BigInteger.ONE, BigInteger.ZERO}};
+        // Initial unit matrix 2x2
+        BigInteger[][] result = new BigInteger[][]{
+                {ONE, ZERO},
+                {ZERO, ONE}};
+        // Base matrix for calculating Fibonacci numbers:
+        // [1 1]
+        // [1 0]
+        BigInteger[][] base = new BigInteger[][]{
+                {ONE, ONE},
+                {ONE, ZERO}};
 
+        // Reduce the indicator by 1, since it starts with F(1)
         n -= 1;
+        // Quickly raise a matrix to the power of n
         while (n > 0) {
+            // If the current degree is odd, multiply the result by the base matrix
             if (n % 2 == 1) {
                 result = matrixMultiple(result, base);
             }
+            // Each time we raise the base to the power of 2
             base = matrixMultiple(base, base);
+            // Divide the power by 2
             n /= 2;
         }
 
+        // Return the upper left value from the result matrix - this is F(n)
         return result[0][0];
-
     }
 
     /**
@@ -89,12 +108,34 @@ public class Fibonacci {
      * @throws NullPointerException           if any of the input matrices or their elements are null
      * @throws ArrayIndexOutOfBoundsException if the input matrices are not properly structured as 2×2
      */
-    public static BigInteger[][] matrixMultiple(BigInteger[][] a, BigInteger[][] b) {
+    private static BigInteger[][] matrixMultiple(BigInteger[][] a, BigInteger[][] b) {
+        BigInteger c00 = calculatingElementOfMatrix(a[0][0], b[0][0], a[0][1], b[1][0]);
+        BigInteger c01 = calculatingElementOfMatrix(a[0][0], b[0][1], a[0][1], b[1][1]);
+        BigInteger c10 = calculatingElementOfMatrix(a[1][0], b[0][0], a[1][1], b[1][0]);
+        BigInteger c11 = calculatingElementOfMatrix(a[1][0], b[0][1], a[1][1], b[1][1]);
+
         return new BigInteger[][]{
-                {(a[0][0].multiply(b[0][0])).add(a[0][1].multiply(b[1][0])), (a[0][0].multiply(b[0][1])).add(a[0][1].multiply(b[1][1]))},
-                {(a[1][0].multiply(b[0][0])).add(a[1][1].multiply(b[1][0])), (a[1][0].multiply(b[0][1])).add(a[1][1].multiply(b[1][1]))}
+                {c00, c01},
+                {c10, c11}
         };
     }
 
+    /**
+     * Calculates the element of a 2×2 matrix by multiplying and adding the corresponding elements.
 
+     * This method calculates a single element of the result matrix, which is the sum of the products of the corresponding
+     * elements of the two matrices: {@code a[i][0] * b[0][j]} and {@code a[i][1] * b[1][j]}, where {@code i} number of
+     * row of calculating element and {@code j} are number of and column.</p>
+     *
+     * @param aI0 first element of the first matrix
+     * @param b0J first element of the second matrix
+     * @param aI1 second element of the first matrix
+     * @param b1J second element of the second matrix
+     * @return the result of calculating the matrix element
+     */
+    private static BigInteger calculatingElementOfMatrix(BigInteger aI0, BigInteger b0J, BigInteger aI1, BigInteger b1J){
+        BigInteger mul1 = aI0.multiply(b0J);
+        BigInteger mul2 = aI1.multiply(b1J);
+        return mul1.add(mul2);
+    }
 }

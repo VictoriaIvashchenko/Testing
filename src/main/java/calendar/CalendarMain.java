@@ -21,49 +21,89 @@ import static calendar.Calendar.calendar;
  */
 public class CalendarMain {
 
+    /**
+     * Number days in week
+     */
+    private final static int DAYS_IN_WEEK = 7;
+    /**
+     * Number months in year
+     */
+    private final static int MONTHS_IN_YEAR = 12;
+    /**
+     * Error message for an invalid weekday value input.
+     */
+    private final static String INVALID_NUMBER_WEEKDAY_VALUE_MESSAGE =
+            "Invalid input day of New Year. Number of weekday was expected, but '%d' was received.";
+    /**
+     * Error message for an invalid month value input.
+     */
+    private final static String INVALID_NUMBER_MONTH_VALUE_MESSAGE =
+            "Invalid input number of month. Number of month was expected, but '%d' was received.";
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String message = "Invalid type of %s. Number from 1 to 2147483647 was expected, but '%s' was received.";
 
         System.out.println("Task 5. Enter number day of New Year, day and month of searching day:");
         try {
-            int dayOfStart = readInteger(in, "day of New Year", message);
-            int day = readInteger(in, "day", message);
-            int monthNumber = readInteger(in, "month", message);
+            int dayOfStart = readInteger(in, "day of New Year");
+            int day = readInteger(in, "day");
+            int monthNumber = readInteger(in, "month");
 
             DayOfWeek weekdayOfNewYear = checkWeekday(dayOfStart);
             Month month = checkMonth(monthNumber);
-            
-            String result = calendar(weekdayOfNewYear, day, month);
 
-            printResult(result);
+            String weekday = calendar(weekdayOfNewYear, day, month);
+
+            printResult(weekday);
 
         } catch (InvalidInputException e) {
             System.err.print(e.getMessage());
         }
     }
 
+    /**
+     * Checks the day of the week and returns the corresponding {@link DayOfWeek}.
+     *
+     * <p>The method checks if the input value is in the range from 1 to 7 (inclusive),
+     * and, if so, returns the corresponding value of the {@link DayOfWeek} list. If the value.
+     * is not in the valid range thrown {@link InvalidInputException} with
+     * the corresponding error message.
+     *
+     * @param value the numeric value of the day of the week (1-7)
+     * @return the corresponding value {@link DayOfWeek}
+     * @throws InvalidInputException if the value is not in the valid range
+     */
     private static DayOfWeek checkWeekday(int value) throws InvalidInputException {
-        if (value <= 7 & value >= 1) {
+        if (value <= DAYS_IN_WEEK && value >= 1) {
             return DayOfWeek.of(value);
-        }else {
+        } else {
             throw new InvalidInputException(
-                    String.format("Invalid input day of New Year. Number of weekday was expected, but '%d' was received.", value));
+                    String.format(INVALID_NUMBER_WEEKDAY_VALUE_MESSAGE, value));
         }
     }
 
+    /**
+     * Checks the value of the month number and returns the corresponding {@link Month}.
+     *
+     * <p>The method checks if the input value is in the range from 1 to 12 (inclusive),
+     * and, if so, returns the corresponding value of the {@link Month} list. If the value
+     * is not in the valid range, thrown {@link InvalidInputException} with
+     * the corresponding error message.
+     *
+     * @param value the numeric value of the month (1-12)
+     * @return the corresponding value {@link Month}
+     * @throws InvalidInputException if the value is not in the valid range
+     */
     private static Month checkMonth(int value) throws InvalidInputException {
-        if (value <= 12 & value >= 1) {
+        if (value <= MONTHS_IN_YEAR && value >= 1) {
             return Month.of(value);
-        }else {
+        } else {
             throw new InvalidInputException(
-                    String.format("Invalid input number of month. Number of month was expected, but '%d' was received.", value));
+                    String.format(INVALID_NUMBER_MONTH_VALUE_MESSAGE, value));
         }
     }
 
-    private static void printResult(String result){
+    private static void printResult(String result) {
         System.out.println("It is " + result);
     }
-
-
 }

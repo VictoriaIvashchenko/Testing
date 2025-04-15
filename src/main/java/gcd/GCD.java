@@ -21,18 +21,18 @@ public class GCD {
     /**
      * Calculates the greatest common divisor (GCD) of two integers using the Euclidean algorithm.
      *
-     * <p>The method recursively finds the GCD by replacing (a, b) with (b, a % b)
-     * until b becomes zero. At that point, a is the GCD.</p>
+     * <p>The method recursively finds the GCD by replacing (a, number2) with (number2, a % number2)
+     * until number2 becomes zero. At that point, a is the GCD.</p>
      *
-     * @param a the first integer
-     * @param b the second integer
-     * @return the greatest common divisor of {@code a} and {@code b}
+     * @param number1 the first integer
+     * @param number2 the second integer
+     * @return the greatest common divisor of {@code a} and {@code number2}
      */
-    public static int gcd(int a, int b) {
-        if (b == 0) {
-            return a;
+    public static int gcd(int number1, int number2) {
+        if (number2 == 0) {
+            return number1;
         }
-        return gcd(b, a % b);
+        return gcd(number2, number1 % number2);
     }
 
     /**
@@ -48,18 +48,18 @@ public class GCD {
      * <p>If the computed GCD results in an invalid value (e.g., {@code Integer.MIN_VALUE}),
      * a {@link CalculationException} is thrown.</p>
      *
-     * @param a the first integer
-     * @param b the second integer
-     * @param c the third integer
-     * @param d the fourth integer
+     * @param number1 the first integer
+     * @param number2 the second integer
+     * @param number3 the third integer
+     * @param number4 the fourth integer
      * @return the greatest common divisor of the four integers (always non-negative)
      * @throws CalculationException if the computed GCD is invalid
      */
-    public static int gcdOfFour(int a, int b, int c, int d) throws CalculationException {
-        if (a == 0 & b == 0 & c == 0 & d == 0) {
+    public static int gcdOfFour(int number1, int number2, int number3, int number4) throws CalculationException {
+        if (number1 == 0 && number2 == 0 && number3 == 0 && number4 == 0) {
             return 0;
         }
-        int result = gcd(gcd(gcd(a, b), c), d);
+        int result = gcd(gcd(gcd(number1, number2), number3), number4);
 
         if (result == Integer.MIN_VALUE) {
             throw new CalculationException(INVALID_RESULT_MESSAGE);

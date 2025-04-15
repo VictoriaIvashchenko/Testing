@@ -21,7 +21,7 @@ public class FibonacciMainTest extends FibonacciTest {
      * Error message for an invalid type input in Fibonacci calculations.
      */
     private final static String INVALID_INPUT_TYPE_MESSAGE =
-            "Invalid type of %s. Number from 0 to 2147483647 was expected, but '%s' was received.";
+            "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
 
     /**
      * System-dependent line separator used for formatting expected test output.
@@ -110,8 +110,8 @@ public class FibonacciMainTest extends FibonacciTest {
         String input = valueOf(actualIndex);
 
         String expectedOutput = format(
-                "Task 4. Enter index of number in fibonacci sequence:" + SEPARATOR +
-                        "F(%d) = %s", actualIndex, expected);
+                "Task 4. Enter index of number in fibonacci sequence:%s" +
+                        "F(%d) = %s", SEPARATOR, actualIndex, expected);
 
         assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
     }
