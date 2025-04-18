@@ -24,17 +24,17 @@ public class FibonacciMainTest extends FibonacciTest {
             "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
 
     /**
-     * System-dependent line separator used for formatting expected test output.
-     */
-    private final static String SEPARATOR = System.lineSeparator();
-
-    /**
      * A {@link Runnable} reference to the {@code main} method of {@link FibonacciMain}.
      *
      * <p>This runnable executes {@link FibonacciMain#main(String[])} with an empty argument array,
      * allowing test cases to simulate program execution.</p>
      */
     private final static Runnable MAIN_METHOD = () -> FibonacciMain.main(new String[]{});
+
+    /**
+     * Obligatory starting message with instructions.
+     */
+    private final static String EXPECTED_OUTPUT = String.format("Task 4. Enter index of number in fibonacci sequence:%n");
 
     @Test
     void overRangeInputTest() {
@@ -110,10 +110,10 @@ public class FibonacciMainTest extends FibonacciTest {
         String input = valueOf(actualIndex);
 
         String expectedOutput = format(
-                "Task 4. Enter index of number in fibonacci sequence:%s" +
-                        "F(%d) = %s", SEPARATOR, actualIndex, expected);
+                "%sF(%d) = %s%n", EXPECTED_OUTPUT, actualIndex, expected);
+        String expectedErrorOutput = "";
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
+        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
     /**
@@ -123,9 +123,9 @@ public class FibonacciMainTest extends FibonacciTest {
      */
     @Override
     public void assertThrowsInvalidInputException(int index) {
-        String expectedOutput = format(INVALID_INPUT_VALUE_MESSAGE, index);
+        String expectedErrorOutput = format(INVALID_INPUT_VALUE_MESSAGE, index);
 
-        assertValidConsolePrint(valueOf(index), expectedOutput, MAIN_METHOD, true);
+        assertValidConsolePrint(valueOf(index), EXPECTED_OUTPUT, expectedErrorOutput, MAIN_METHOD);
     }
 
     /**
@@ -134,9 +134,9 @@ public class FibonacciMainTest extends FibonacciTest {
      * @param input the invalid input to test (non-numeric or invalid format for a Fibonacci index)
      */
     public void assertInvalidTypeArguments(String input) {
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "n", input);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "n", input);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertValidConsolePrint(input, EXPECTED_OUTPUT, expectedErrorOutput, MAIN_METHOD);
     }
 
 }

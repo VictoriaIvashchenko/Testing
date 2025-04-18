@@ -34,6 +34,12 @@ public class FlatsMainTest extends FlatsTest {
      */
     private final static Runnable MAIN_METHOD = () -> FlatsMain.main(new String[]{});
 
+    /**
+     * Obligatory starting message with instructions.
+     */
+    private final static String EXPECTED_OUTPUT = String.format(
+            "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:%n");
+
     @Test
     void overRangeTypeTest() {
         //(1, 1, MAX)
@@ -373,12 +379,10 @@ public class FlatsMainTest extends FlatsTest {
      */
     @Override
     public void assertEqualsApart(int floors, int flatsOnFloor, int flatNumber, int expectedFloor, int expectedEntrance) {
-        String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(
-                "Task 2. Enter number of floors in building, number flats on floor and number of searching flat:%s" +
-                        "Floor: %d, entrance: %d", SEPARATOR, expectedFloor, expectedEntrance);
+        String expectedOutput = format("%sFloor: %d, entrance: %d%n", EXPECTED_OUTPUT, expectedFloor, expectedEntrance);
+        String expectedErrorOutput = "";
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
+        assertConsoleOutput(floors, flatsOnFloor, flatNumber, expectedOutput, expectedErrorOutput);
     }
 
     /**
@@ -390,10 +394,9 @@ public class FlatsMainTest extends FlatsTest {
      */
     @Override
     public void assertThrowsIllegalFloorsException(int floor, int flatsOnFloor, int flatNumber) {
-        String input = floor + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(INVALID_FLOORS_INPUT_VALUE_MESSAGE, floor);
+        String expectedErrorOutput = format(INVALID_FLOORS_INPUT_VALUE_MESSAGE, floor);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(floor, flatsOnFloor, flatNumber, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -405,10 +408,9 @@ public class FlatsMainTest extends FlatsTest {
      */
     @Override
     public void assertThrowsIllegalFlatLocationOnFloorException(int floor, int flatsOnFloor, int flatNumber) {
-        String input = floor + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(INVALID_FLATS_ON_FLOOR_INPUT_VALUE_MESSAGE, flatsOnFloor);
+        String expectedErrorOutput = format(INVALID_FLATS_ON_FLOOR_INPUT_VALUE_MESSAGE, flatsOnFloor);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(floor, flatsOnFloor, flatNumber, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -420,10 +422,9 @@ public class FlatsMainTest extends FlatsTest {
      */
     @Override
     public void assertThrowsIllegalFlatNumberException(int floor, int flatsOnFloor, int flatNumber) {
-        String input = floor + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(INVALID_FLAT_NUMBER_INPUT_VALUE_MESSAGE, flatNumber);
+        String expectedErrorOutput = format(INVALID_FLAT_NUMBER_INPUT_VALUE_MESSAGE, flatNumber);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(floor, flatsOnFloor, flatNumber, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -435,10 +436,9 @@ public class FlatsMainTest extends FlatsTest {
      */
     @Override
     public void assertThrowsCalculationException(int floor, int flatsOnFloor, int flatNumber) {
-        String input = floor + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(INVALID_CALCULATIONS_MESSAGE, floor, flatsOnFloor);
+        String expectedErrorOutput = format(INVALID_CALCULATIONS_MESSAGE, floor, flatsOnFloor);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(floor, flatsOnFloor, flatNumber, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -449,10 +449,9 @@ public class FlatsMainTest extends FlatsTest {
      * @param flatNumber   the input value representing the flat number to be searched
      */
     public void assertInvalidFloorsType(String floors, String flatsOnFloor, String flatNumber) {
-        String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "number of floors", floors);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "number of floors", floors);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(floors, flatsOnFloor, flatNumber, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -463,10 +462,9 @@ public class FlatsMainTest extends FlatsTest {
      * @param flatNumber   the input value representing the flat number to be searched
      */
     public void assertInvalidFlatLocationOnFloorType(String floors, String flatsOnFloor, String flatNumber) {
-        String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "number of flats on floors", flatsOnFloor);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "number of flats on floors", flatsOnFloor);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(floors, flatsOnFloor, flatNumber, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -477,10 +475,46 @@ public class FlatsMainTest extends FlatsTest {
      * @param flatNumber   the input value representing the flat number to be searched
      */
     public void assertInvalidFlatNumberType(String floors, String flatsOnFloor, String flatNumber) {
-        String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "number of flat", flatNumber);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "number of flat", flatNumber);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(floors, flatsOnFloor, flatNumber, EXPECTED_OUTPUT, expectedErrorOutput);
+    }
+
+
+    /**
+     * Asserts that console output of the main method by providing input as integers for the number of floors, flats per floor,
+     * and flat number is valid.
+     * <p>The input is formatted as a single string with components separated by a predefined separator,
+     * followed by an additional separator.</p>
+     *
+     * @param floors              the number of floors in the building
+     * @param flatsOnFloor        the number of flats per floor
+     * @param flatNumber          the flat number to query
+     * @param expectedOutput      the expected console output
+     * @param expectedErrorOutput the expected console error output
+     */
+    public void assertConsoleOutput(int floors, int flatsOnFloor, int flatNumber, String expectedOutput, String expectedErrorOutput) {
+        String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber + SEPARATOR;
+
+        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+    }
+
+    /**
+     * The method asserts that the console output matches the expected output and error output.
+     * <p>Method tests the console output of the main method by providing input as strings for the number of floors, flats per floor,
+     * and flat number. The input is formatted as a single string with components separated by a predefined separator,
+     * followed by an additional separator.</p>
+     *
+     * @param floors              the number of floors in the building (as a string)
+     * @param flatsOnFloor        the number of flats per floor (as a string)
+     * @param flatNumber          the flat number to query (as a string)
+     * @param expectedOutput      the expected console output
+     * @param expectedErrorOutput the expected console error output
+     */
+    public void assertConsoleOutput(String floors, String flatsOnFloor, String flatNumber, String expectedOutput, String expectedErrorOutput) {
+        String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber + SEPARATOR;
+
+        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
 }

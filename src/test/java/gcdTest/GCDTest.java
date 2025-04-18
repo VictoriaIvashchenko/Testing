@@ -395,26 +395,6 @@ class GCDTest {
     }
 
     /**
-     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} correctly calculates the GCD of four integers.
-     *
-     * <p>This method checks whether the GCD of the input integers is calculated correctly and compares the result with the
-     * expected value. If an exception occurs during the calculation, it fails the test.</p>
-     *
-     * @param expected the expected GCD result
-     * @param a the first integer input
-     * @param b the second integer input
-     * @param c the third integer input
-     * @param d the fourth integer input
-     */
-    public void assertGCDResult(int expected, int a, int b, int c, int d){
-        try{
-            assertEquals(expected, gcdOfFour(a, b, c, d));
-        }catch (CalculationException e){
-            fail("Expected no CalculationException, but got one.");
-        }
-    }
-
-    /**
      * Asserts that the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method throws a {@link CalculationException}
      * for various permutations of four integer values.
      *
@@ -457,6 +437,30 @@ class GCDTest {
     }
 
     /**
+     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} correctly calculates the GCD of four integers.
+     *
+     * <p>This method checks whether the GCD of the input integers is calculated correctly and compares the result with the
+     * expected value. If an exception occurs during the calculation, it fails the test.</p>
+     *
+     * @param expected the expected GCD result
+     * @param a the first integer input
+     * @param b the second integer input
+     * @param c the third integer input
+     * @param d the fourth integer input
+     */
+    public void assertGCDResult(int expected, int a, int b, int c, int d){
+        try{
+            int actualOutput = gcdOfFour(a, b, c, d);
+
+            assertEquals(expected, actualOutput);
+
+        }catch (CalculationException e){
+            String failMessage = String.format("Expected no CalculationException, but got one.%n%s", e.getMessage());
+
+            fail(failMessage);
+        }
+    }
+    /**
      * Asserts that the {@link gcd.GCD#gcdOfFour(int, int, int, int)} method throws a {@link CalculationException} for the given set of four integer values.
      *
      * @param a the first integer input
@@ -467,7 +471,9 @@ class GCDTest {
     public void assertThrowsCalculationException(int a, int b, int c, int d) {
         try{
             gcdOfFour(a, b, c, d);
+
             fail("Expected CalculationException to be thrown");
+
         }catch (CalculationException e){
             assertEquals(INVALID_RESULT_MESSAGE, e.getMessage());
         }

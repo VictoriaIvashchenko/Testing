@@ -238,9 +238,15 @@ class FibonacciTest {
      */
     public void assertFibonacciEquals(int actualIndex, String expected) {
         try {
-            assertEquals(new BigInteger(expected), fibonacci(actualIndex));
+            BigInteger actualValue = fibonacci(actualIndex);
+            BigInteger expectedValue = new BigInteger(expected);
+
+            assertEquals(expectedValue, actualValue);
+
         } catch (InvalidInputException e) {
-            fail("Expected no InvalidInputException, but got one.");
+            String failMessage = String.format("Expected no InvalidInputException, but got one.%n%s", e.getMessage());
+
+            fail(failMessage);
         }
     }
 
@@ -254,7 +260,9 @@ class FibonacciTest {
 
         try {
             fibonacci(index);
+
             fail("Expected InvalidInputException to be thrown");
+
         } catch (InvalidInputException e) {
             assertEquals(expectedMessage, e.getMessage());
         }

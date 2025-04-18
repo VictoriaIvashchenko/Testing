@@ -36,6 +36,6 @@ public class FlatsMain {
     }
 
     private static void printResult(int[] values) {
-        System.out.printf("Floor: %d, entrance: %d", values[0], values[1]);
+        System.out.printf("Floor: %d, entrance: %d%n", values[0], values[1]);
     }
 }

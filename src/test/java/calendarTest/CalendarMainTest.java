@@ -49,6 +49,12 @@ public class CalendarMainTest extends CalendarTest {
     private final static String INVALID_INPUT_TYPE_MESSAGE =
             "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
 
+    /**
+     * Obligatory starting message with instructions.
+     */
+    private final static String EXPECTED_OUTPUT = String.format(
+            "Task 5. Enter number day of New Year, day and month of searching day:%n");
+
     @Test
     void overRangeInputTest() {
         //(MAX, MIN, MAX)
@@ -346,12 +352,10 @@ public class CalendarMainTest extends CalendarTest {
      */
     @Override
     public void assertCalendar(String expected, DayOfWeek dayOfStart, int day, Month month) {
-        String input = dayOfStart.getValue() + SEPARATOR + day + SEPARATOR + month.getValue();
-        String expectedOutput = format(
-                "Task 5. Enter number day of New Year, day and month of searching day:%s" +
-                        "It is %s%s", SEPARATOR, expected, SEPARATOR);
+        String expectedErrorOutput = "";
+        String expectedOutput = format("%sIt is %s%n", EXPECTED_OUTPUT, expected);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
+        assertConsoleOutput(dayOfStart, day, month, expectedOutput, expectedErrorOutput);
     }
 
     /**
@@ -364,10 +368,9 @@ public class CalendarMainTest extends CalendarTest {
      */
     @Override
     public void assertThrowsIllegalDayValue(DayOfWeek dayOfStart, int day, Month month) {
-        String input = dayOfStart.getValue() + SEPARATOR + day + SEPARATOR + month.getValue();
-        String expectedOutput = format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST, month.length(false), day);
+        String expectedErrorOutput = format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST, month.length(false), day);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(dayOfStart, day, month, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -379,10 +382,9 @@ public class CalendarMainTest extends CalendarTest {
      * @param month      the invalid month input to be tested
      */
     public void assertThrowsIllegalMonth(String dayOfStart, String day, String month) {
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "month", month);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "month", month);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(dayOfStart, day, month, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -394,10 +396,9 @@ public class CalendarMainTest extends CalendarTest {
      * @param month      the month in which the day is located
      */
     public void assertInvalidNewYearInput(String dayOfStart, String day, String month) {
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "day of New Year", dayOfStart);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "day of New Year", dayOfStart);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(dayOfStart, day, month, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -409,10 +410,9 @@ public class CalendarMainTest extends CalendarTest {
      * @param month      the month in which the day is located
      */
     public void assertInvalidDayInput(String dayOfStart, String day, String month) {
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "day", day);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "day", day);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(dayOfStart, day, month, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -424,10 +424,9 @@ public class CalendarMainTest extends CalendarTest {
      * @param month      the month in which the day is located
      */
     public void assertInvalidValueDayOfNewYear(String dayOfStart, String day, String month) {
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-        String expectedOutput = format(INVALID_DAY_OF_NEW_YEAR_INPUT_VALUE_MESSAGE, dayOfStart);
+        String expectedErrorOutput = format(INVALID_DAY_OF_NEW_YEAR_INPUT_VALUE_MESSAGE, dayOfStart);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(dayOfStart, day, month, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -439,10 +438,48 @@ public class CalendarMainTest extends CalendarTest {
      * @param month      the invalid month in which the day is located
      */
     public void assertInvalidValueMonth(String dayOfStart, String day, String month) {
-        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
-        String expectedOutput = format(INVALID_MONTH_INPUT_VALUE_MESSAGE, month);
+        String expectedErrorOutput = format(INVALID_MONTH_INPUT_VALUE_MESSAGE, month);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(dayOfStart, day, month, EXPECTED_OUTPUT, expectedErrorOutput);
+    }
+
+    /**
+     * Asserts that the console output and error output match the expected values
+     * when the main method is executed with the given input values as strings.
+     *
+     * <p>Method tests the console output of the main method by providing input in the format of day of start, day, and month as strings
+     * The input is formatted as a single string with components separated by a predefined separator.</p>
+     *
+     * @param dayOfStart          the day of the week to start (e.g., "Monday")
+     * @param day                 the day of the month (e.g., "15")
+     * @param month               the month (e.g., "January")
+     * @param expectedOutput      the expected console output
+     * @param expectedErrorOutput the expected console error output
+     */
+    public void assertConsoleOutput(String dayOfStart, String day, String month, String expectedOutput, String expectedErrorOutput) {
+        String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
+
+        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+    }
+
+    /**
+     * Asserts that the console output and error output match the expected values
+     * when the main method is executed with the given input values as enums and integers.
+     *
+     * <p>Method tests the console output of the main method by providing input as a DayOfWeek enum, an integer day, and a
+     * Month enum.The input is formatted as a single string with components separated by a predefined separator, using the numeric
+     * values of the DayOfWeek and Month enums.</p>
+     *
+     * @param dayOfStart          the day of the week the year starts on, as a {@link DayOfWeek} enum
+     * @param day                 the day of the month
+     * @param month               the month, as a {@link Month} enum
+     * @param expectedOutput      the expected output to {@code System.out}
+     * @param expectedErrorOutput the expected output to {@code System.err}
+     */
+    public void assertConsoleOutput(DayOfWeek dayOfStart, int day, Month month, String expectedOutput, String expectedErrorOutput) {
+        String input = dayOfStart.getValue() + SEPARATOR + day + SEPARATOR + month.getValue();
+
+        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
 }

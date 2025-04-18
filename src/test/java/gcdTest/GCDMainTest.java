@@ -34,6 +34,11 @@ public class GCDMainTest extends GCDTest {
      */
     private final static Runnable MAIN_METHOD = () -> GCDMain.main(new String[]{});
 
+    /**
+     * Obligatory starting message with instructions.
+     */
+    private final static String EXPECTED_OUTPUT = String.format("Task 3. Enter four numbers for searching gcd:%n");
+
     @Test
     void overRangeInputTest() {
         assertInvalidFirstArgumentType("2147483648", "2147483648", "2147483648", "2147483648");
@@ -230,13 +235,10 @@ public class GCDMainTest extends GCDTest {
      */
     @Override
     public void assertGCDResult(int expected, int a, int b, int c, int d) {
-        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-        String expectedOutput = format(
-                "Task 3. Enter four numbers for searching gcd:%sGCD(%d, %d, %d, %d) = %d",
-                SEPARATOR, a, b, c, d, expected);
+        String expectedOutput = format("%sGCD(%d, %d, %d, %d) = %d%n", EXPECTED_OUTPUT, a, b, c, d, expected);
+        String expectedErrorOutput = "";
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
-
+        assertConsoleOutput(a, b, c, d, expectedOutput, expectedErrorOutput);
     }
 
     /**
@@ -250,12 +252,10 @@ public class GCDMainTest extends GCDTest {
      */
     @Override
     public void assertThrowsCalculationException(int a, int b, int c, int d) {
-        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-        String expectedOutput = format(
-                "Task 3. Enter four numbers for searching gcd:%s" +
-                        "GCD(%d, %d, %d, %d) = 2147483648", SEPARATOR, a, b, c, d);
+        String expectedOutput = format("%sGCD(%d, %d, %d, %d) = 2147483648%n", EXPECTED_OUTPUT, a, b, c, d);
+        String expectedErrorOutput = "";
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, false);
+        assertConsoleOutput(a, b, c, d, expectedOutput, expectedErrorOutput);
     }
 
     /**
@@ -267,10 +267,9 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth argument as a string
      */
     public void assertInvalidFirstArgumentType(String a, String b, String c, String d) {
-        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "a", a);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "a", a);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(a, b, c, d, EXPECTED_OUTPUT, expectedErrorOutput);
 
     }
 
@@ -283,11 +282,9 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth argument as a string
      */
     public void assertInvalidSecondArgumentType(String a, String b, String c, String d) {
-        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "b", b);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "b", b);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
-
+        assertConsoleOutput(a, b, c, d, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -299,10 +296,9 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth argument as a string
      */
     public void assertInvalidThirdArgumentType(String a, String b, String c, String d) {
-        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "c", c);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "c", c);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(a, b, c, d, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -314,10 +310,46 @@ public class GCDMainTest extends GCDTest {
      * @param d the fourth argument as a string (invalid type)
      */
     public void assertInvalidFourthArgumentType(String a, String b, String c, String d) {
-        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-        String expectedOutput = format(INVALID_INPUT_TYPE_MESSAGE, "d", d);
+        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "d", d);
 
-        assertValidConsolePrint(input, expectedOutput, MAIN_METHOD, true);
+        assertConsoleOutput(a, b, c, d, EXPECTED_OUTPUT, expectedErrorOutput);
+    }
+
+    /**
+     * Asserts that the console output matches the
+     * expected output and error output.
+     * <p>Method tests the console output of the main method by providing four string inputs. The input is formatted as a single string
+     * with the four components separated by a predefined separator.</p>
+     *
+     * @param a                   the first input parameter
+     * @param b                   the second input parameter
+     * @param c                   the third input parameter
+     * @param d                   the fourth input parameter
+     * @param expectedOutput      the expected console output
+     * @param expectedErrorOutput the expected console error output
+     */
+    public void assertConsoleOutput(String a, String b, String c, String d, String expectedOutput, String expectedErrorOutput) {
+        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
+
+        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+    }
+
+    /**
+     * Asserts that the console output matches the expected output and error output.
+     * <p>Method tests the console output of the main method by providing four integer inputs. The input is formatted as a single string
+     * with the four components separated by a predefined separator. </p>
+     *
+     * @param a                   the first input parameter
+     * @param b                   the second input parameter
+     * @param c                   the third input parameter
+     * @param d                   the fourth input parameter
+     * @param expectedOutput      the expected console output
+     * @param expectedErrorOutput the expected console error output
+     */
+    public void assertConsoleOutput(int a, int b, int c, int d, String expectedOutput, String expectedErrorOutput) {
+        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
+
+        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
 }

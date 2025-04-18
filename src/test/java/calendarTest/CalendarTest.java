@@ -16,7 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CalendarTest {
 
-    /** Error message for an invalid day input in calendar calculations. */
+    /**
+     * Error message for an invalid day input in calendar calculations.
+     */
     protected final static String INVALID_VALUE_DAY_INPUT_CALENDAR_TEST =
             "Invalid input number of day. Number from 1 to %d was expected, but '%d' was received.";
 
@@ -27,7 +29,7 @@ class CalendarTest {
         assertCalendar("Thursday", THURSDAY, 1, JANUARY);
         assertCalendar("Sunday", SUNDAY, 1, JANUARY);
         //сусідні точки
-        assertCalendar("Tuesday",MONDAY, 2, JANUARY);
+        assertCalendar("Tuesday", MONDAY, 2, JANUARY);
         assertCalendar("Tuesday", TUESDAY, 1, JANUARY);
         assertCalendar("Sunday", SUNDAY, 31, DECEMBER);
 
@@ -92,8 +94,8 @@ class CalendarTest {
         assertCalendar("Sunday", SUNDAY, 31, DECEMBER);
 
         //сусідні точки
-        assertCalendar("Tuesday", TUESDAY, 1,JANUARY);
-        assertCalendar("Saturday",SUNDAY, 30, DECEMBER);
+        assertCalendar("Tuesday", TUESDAY, 1, JANUARY);
+        assertCalendar("Saturday", SUNDAY, 30, DECEMBER);
 
         assertCalendar("Friday", FRIDAY, 1, JANUARY);
         assertCalendar("Wednesday", THURSDAY, 30, DECEMBER);
@@ -122,110 +124,110 @@ class CalendarTest {
 
     @Test
     void tuesdayTest() {
-        assertAllDaysInMonth("Tuesday",  MONDAY, 9, JANUARY);
-        assertAllDaysInMonth("Tuesday",  MONDAY, 6, FEBRUARY);
-        assertAllDaysInMonth("Tuesday",  MONDAY, 6, NOVEMBER);
-        assertAllDaysInMonth("Tuesday",  MONDAY, 4, DECEMBER);
+        assertAllDaysInMonth("Tuesday", MONDAY, 9, JANUARY);
+        assertAllDaysInMonth("Tuesday", MONDAY, 6, FEBRUARY);
+        assertAllDaysInMonth("Tuesday", MONDAY, 6, NOVEMBER);
+        assertAllDaysInMonth("Tuesday", MONDAY, 4, DECEMBER);
 
-        assertAllDaysInMonth("Tuesday",  THURSDAY, 6, JANUARY);
-        assertAllDaysInMonth("Tuesday",  THURSDAY, 3, FEBRUARY);
-        assertAllDaysInMonth("Tuesday",  THURSDAY, 3, NOVEMBER);
-        assertAllDaysInMonth("Tuesday",  THURSDAY, 8, DECEMBER);
+        assertAllDaysInMonth("Tuesday", THURSDAY, 6, JANUARY);
+        assertAllDaysInMonth("Tuesday", THURSDAY, 3, FEBRUARY);
+        assertAllDaysInMonth("Tuesday", THURSDAY, 3, NOVEMBER);
+        assertAllDaysInMonth("Tuesday", THURSDAY, 8, DECEMBER);
 
-        assertAllDaysInMonth("Tuesday",  SUNDAY, 3, JANUARY);
-        assertAllDaysInMonth("Tuesday",  SUNDAY, 7, FEBRUARY);
-        assertAllDaysInMonth("Tuesday",  SUNDAY, 7, NOVEMBER);
-        assertAllDaysInMonth("Tuesday",  SUNDAY, 5, DECEMBER);
+        assertAllDaysInMonth("Tuesday", SUNDAY, 3, JANUARY);
+        assertAllDaysInMonth("Tuesday", SUNDAY, 7, FEBRUARY);
+        assertAllDaysInMonth("Tuesday", SUNDAY, 7, NOVEMBER);
+        assertAllDaysInMonth("Tuesday", SUNDAY, 5, DECEMBER);
     }
 
     @Test
     void wednesdayTest() {
-        assertAllDaysInMonth("Wednesday",  MONDAY, 3, JANUARY);
-        assertAllDaysInMonth("Wednesday",  MONDAY, 7, FEBRUARY);
-        assertAllDaysInMonth("Wednesday",  MONDAY, 7, NOVEMBER);
-        assertAllDaysInMonth("Wednesday",  MONDAY, 5, DECEMBER);
+        assertAllDaysInMonth("Wednesday", MONDAY, 3, JANUARY);
+        assertAllDaysInMonth("Wednesday", MONDAY, 7, FEBRUARY);
+        assertAllDaysInMonth("Wednesday", MONDAY, 7, NOVEMBER);
+        assertAllDaysInMonth("Wednesday", MONDAY, 5, DECEMBER);
 
-        assertAllDaysInMonth("Wednesday",  THURSDAY, 7, JANUARY);
-        assertAllDaysInMonth("Wednesday",  THURSDAY, 4, FEBRUARY);
-        assertAllDaysInMonth("Wednesday",  THURSDAY, 4, NOVEMBER);
-        assertAllDaysInMonth("Wednesday",  THURSDAY, 9, DECEMBER);
+        assertAllDaysInMonth("Wednesday", THURSDAY, 7, JANUARY);
+        assertAllDaysInMonth("Wednesday", THURSDAY, 4, FEBRUARY);
+        assertAllDaysInMonth("Wednesday", THURSDAY, 4, NOVEMBER);
+        assertAllDaysInMonth("Wednesday", THURSDAY, 9, DECEMBER);
 
-        assertAllDaysInMonth("Wednesday",  SUNDAY, 4, JANUARY);
-        assertAllDaysInMonth("Wednesday",  SUNDAY, 1, FEBRUARY);
-        assertAllDaysInMonth("Wednesday",  SUNDAY, 8, NOVEMBER);
-        assertAllDaysInMonth("Wednesday",  SUNDAY, 6, DECEMBER);
+        assertAllDaysInMonth("Wednesday", SUNDAY, 4, JANUARY);
+        assertAllDaysInMonth("Wednesday", SUNDAY, 1, FEBRUARY);
+        assertAllDaysInMonth("Wednesday", SUNDAY, 8, NOVEMBER);
+        assertAllDaysInMonth("Wednesday", SUNDAY, 6, DECEMBER);
     }
 
     @Test
     void thursdayTest() {
-        assertAllDaysInMonth("Thursday",  MONDAY, 4, JANUARY);
-        assertAllDaysInMonth("Thursday",  MONDAY, 1, FEBRUARY);
-        assertAllDaysInMonth("Thursday",  MONDAY, 8, NOVEMBER);
-        assertAllDaysInMonth("Thursday",  MONDAY, 6, DECEMBER);
+        assertAllDaysInMonth("Thursday", MONDAY, 4, JANUARY);
+        assertAllDaysInMonth("Thursday", MONDAY, 1, FEBRUARY);
+        assertAllDaysInMonth("Thursday", MONDAY, 8, NOVEMBER);
+        assertAllDaysInMonth("Thursday", MONDAY, 6, DECEMBER);
 
-        assertAllDaysInMonth("Thursday",  THURSDAY, 8, JANUARY);
-        assertAllDaysInMonth("Thursday",  THURSDAY, 5, FEBRUARY);
-        assertAllDaysInMonth("Thursday",  THURSDAY, 5, NOVEMBER);
-        assertAllDaysInMonth("Thursday",  THURSDAY, 3, DECEMBER);
+        assertAllDaysInMonth("Thursday", THURSDAY, 8, JANUARY);
+        assertAllDaysInMonth("Thursday", THURSDAY, 5, FEBRUARY);
+        assertAllDaysInMonth("Thursday", THURSDAY, 5, NOVEMBER);
+        assertAllDaysInMonth("Thursday", THURSDAY, 3, DECEMBER);
 
-        assertAllDaysInMonth("Thursday",  SUNDAY, 5, JANUARY);
-        assertAllDaysInMonth("Thursday",  SUNDAY, 2, FEBRUARY);
-        assertAllDaysInMonth("Thursday",  SUNDAY, 9, NOVEMBER);
-        assertAllDaysInMonth("Thursday",  SUNDAY, 7, DECEMBER);
+        assertAllDaysInMonth("Thursday", SUNDAY, 5, JANUARY);
+        assertAllDaysInMonth("Thursday", SUNDAY, 2, FEBRUARY);
+        assertAllDaysInMonth("Thursday", SUNDAY, 9, NOVEMBER);
+        assertAllDaysInMonth("Thursday", SUNDAY, 7, DECEMBER);
     }
 
     @Test
     void fridayTest() {
-        assertAllDaysInMonth("Friday",  MONDAY, 5, JANUARY);
-        assertAllDaysInMonth("Friday",  MONDAY, 2, FEBRUARY);
-        assertAllDaysInMonth("Friday",  MONDAY, 9, NOVEMBER);
-        assertAllDaysInMonth("Friday",  MONDAY, 7, DECEMBER);
+        assertAllDaysInMonth("Friday", MONDAY, 5, JANUARY);
+        assertAllDaysInMonth("Friday", MONDAY, 2, FEBRUARY);
+        assertAllDaysInMonth("Friday", MONDAY, 9, NOVEMBER);
+        assertAllDaysInMonth("Friday", MONDAY, 7, DECEMBER);
 
-        assertAllDaysInMonth("Friday",  THURSDAY, 9, JANUARY);
-        assertAllDaysInMonth("Friday",  THURSDAY, 6, FEBRUARY);
-        assertAllDaysInMonth("Friday",  THURSDAY, 6, NOVEMBER);
-        assertAllDaysInMonth("Friday",  THURSDAY, 4, DECEMBER);
+        assertAllDaysInMonth("Friday", THURSDAY, 9, JANUARY);
+        assertAllDaysInMonth("Friday", THURSDAY, 6, FEBRUARY);
+        assertAllDaysInMonth("Friday", THURSDAY, 6, NOVEMBER);
+        assertAllDaysInMonth("Friday", THURSDAY, 4, DECEMBER);
 
-        assertAllDaysInMonth("Friday",  SUNDAY, 6, JANUARY);
-        assertAllDaysInMonth("Friday",  SUNDAY, 3, FEBRUARY);
-        assertAllDaysInMonth("Friday",  SUNDAY, 3, NOVEMBER);
-        assertAllDaysInMonth("Friday",  SUNDAY, 8, DECEMBER);
+        assertAllDaysInMonth("Friday", SUNDAY, 6, JANUARY);
+        assertAllDaysInMonth("Friday", SUNDAY, 3, FEBRUARY);
+        assertAllDaysInMonth("Friday", SUNDAY, 3, NOVEMBER);
+        assertAllDaysInMonth("Friday", SUNDAY, 8, DECEMBER);
     }
 
     @Test
     void saturdayTest() {
-        assertAllDaysInMonth("Saturday",  MONDAY, 6, JANUARY);
-        assertAllDaysInMonth("Saturday",  MONDAY, 3, FEBRUARY);
-        assertAllDaysInMonth("Saturday",  MONDAY, 3, NOVEMBER);
-        assertAllDaysInMonth("Saturday",  MONDAY, 8, DECEMBER);
+        assertAllDaysInMonth("Saturday", MONDAY, 6, JANUARY);
+        assertAllDaysInMonth("Saturday", MONDAY, 3, FEBRUARY);
+        assertAllDaysInMonth("Saturday", MONDAY, 3, NOVEMBER);
+        assertAllDaysInMonth("Saturday", MONDAY, 8, DECEMBER);
 
-        assertAllDaysInMonth("Saturday",  THURSDAY, 3, JANUARY);
-        assertAllDaysInMonth("Saturday",  THURSDAY, 7, FEBRUARY);
-        assertAllDaysInMonth("Saturday",  THURSDAY, 7, NOVEMBER);
-        assertAllDaysInMonth("Saturday",  THURSDAY, 5, DECEMBER);
+        assertAllDaysInMonth("Saturday", THURSDAY, 3, JANUARY);
+        assertAllDaysInMonth("Saturday", THURSDAY, 7, FEBRUARY);
+        assertAllDaysInMonth("Saturday", THURSDAY, 7, NOVEMBER);
+        assertAllDaysInMonth("Saturday", THURSDAY, 5, DECEMBER);
 
-        assertAllDaysInMonth("Saturday",  SUNDAY, 7, JANUARY);
-        assertAllDaysInMonth("Saturday",  SUNDAY, 4, FEBRUARY);
-        assertAllDaysInMonth("Saturday",  SUNDAY, 4, NOVEMBER);
-        assertAllDaysInMonth("Saturday",  SUNDAY, 9, DECEMBER);
+        assertAllDaysInMonth("Saturday", SUNDAY, 7, JANUARY);
+        assertAllDaysInMonth("Saturday", SUNDAY, 4, FEBRUARY);
+        assertAllDaysInMonth("Saturday", SUNDAY, 4, NOVEMBER);
+        assertAllDaysInMonth("Saturday", SUNDAY, 9, DECEMBER);
     }
 
     @Test
     void sundayTest() {
-        assertAllDaysInMonth("Sunday",  MONDAY, 7, JANUARY);
-        assertAllDaysInMonth("Sunday",  MONDAY, 4, FEBRUARY);
-        assertAllDaysInMonth("Sunday",  MONDAY, 4, NOVEMBER);
-        assertAllDaysInMonth("Sunday",  MONDAY, 9, DECEMBER);
+        assertAllDaysInMonth("Sunday", MONDAY, 7, JANUARY);
+        assertAllDaysInMonth("Sunday", MONDAY, 4, FEBRUARY);
+        assertAllDaysInMonth("Sunday", MONDAY, 4, NOVEMBER);
+        assertAllDaysInMonth("Sunday", MONDAY, 9, DECEMBER);
 
-        assertAllDaysInMonth("Sunday",  THURSDAY, 4, JANUARY);
-        assertAllDaysInMonth("Sunday",  THURSDAY, 1, FEBRUARY);
-        assertAllDaysInMonth("Sunday",  THURSDAY, 8, NOVEMBER);
-        assertAllDaysInMonth("Sunday",  THURSDAY, 6, DECEMBER);
+        assertAllDaysInMonth("Sunday", THURSDAY, 4, JANUARY);
+        assertAllDaysInMonth("Sunday", THURSDAY, 1, FEBRUARY);
+        assertAllDaysInMonth("Sunday", THURSDAY, 8, NOVEMBER);
+        assertAllDaysInMonth("Sunday", THURSDAY, 6, DECEMBER);
 
-        assertAllDaysInMonth("Sunday",  SUNDAY, 8, JANUARY);
-        assertAllDaysInMonth("Sunday",  SUNDAY, 5, FEBRUARY);
-        assertAllDaysInMonth("Sunday",  SUNDAY, 5, NOVEMBER);
-        assertAllDaysInMonth("Sunday",  SUNDAY, 3, DECEMBER);
+        assertAllDaysInMonth("Sunday", SUNDAY, 8, JANUARY);
+        assertAllDaysInMonth("Sunday", SUNDAY, 5, FEBRUARY);
+        assertAllDaysInMonth("Sunday", SUNDAY, 5, NOVEMBER);
+        assertAllDaysInMonth("Sunday", SUNDAY, 3, DECEMBER);
     }
 
     @Test
@@ -243,7 +245,7 @@ class CalendarTest {
     }
 
     @Test
-    void invalidInputDayTest(){
+    void invalidInputDayTest() {
         assertInvalidDayInMonth(MONDAY, 32, JANUARY);
         assertInvalidDayInMonth(MONDAY, 29, FEBRUARY);
         assertInvalidDayInMonth(MONDAY, 32, MARCH);
@@ -287,6 +289,7 @@ class CalendarTest {
         assertCalendar("Wednesday", WEDNESDAY, 16, APRIL);
         assertCalendar("Monday", TUESDAY, 18, FEBRUARY);
     }
+
     /**
      * Asserts that the method {@code calendar} correctly calculates the day of the week for all occurrences of a particular day
      * in a month, starting from a given day.
@@ -294,36 +297,16 @@ class CalendarTest {
      * <p>This method tests the behavior of the {@code calendar} method for multiple days within the same month. It checks
      * if the method returns the correct weekday for the given day and subsequent days in the same month (e.g., 7 days apart).</p>
      *
-     * @param expected the expected weekday name (e.g., "Monday", "Tuesday", etc.)
+     * @param expected   the expected weekday name (e.g., "Monday", "Tuesday", etc.)
      * @param dayOfStart the starting day of the week for the given date
-     * @param day the starting day of the month
-     * @param month the month in which the days are being checked
+     * @param day        the starting day of the month
+     * @param month      the month in which the days are being checked
      */
-    public void assertAllDaysInMonth(String expected, DayOfWeek dayOfStart, int day, Month month){
+    public void assertAllDaysInMonth(String expected, DayOfWeek dayOfStart, int day, Month month) {
         assertCalendar(expected, dayOfStart, day, month);
         assertCalendar(expected, dayOfStart, day + 7, month);
         assertCalendar(expected, dayOfStart, day + 14, month);
         assertCalendar(expected, dayOfStart, day + 21, month);
-    }
-
-    /**
-     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly calculates the day of the week for a given day in a specific month.
-     *
-     * <p>This method tests the behavior of method by comparing its output to the expected weekday for a
-     * specific day in a month. It ensures that method returns the correct weekday name based on the
-     * provided start day and date.</p>
-     *
-     * @param expected the expected weekday name (e.g., "Monday", "Tuesday", etc.)
-     * @param dayOfStart the starting day of the week for the given date
-     * @param day the specific day of the month to check
-     * @param month the month in which the day is located
-     */
-    public void assertCalendar(String expected, DayOfWeek dayOfStart, int day, Month month) {
-        try{
-            assertEquals(expected, calendar(dayOfStart, day, month));
-        }catch (InvalidInputException e){
-            fail("Expected no InvalidInputException, but got one.");
-        }
     }
 
     /**
@@ -334,10 +317,10 @@ class CalendarTest {
      * handles cases where the day value is out of range (either too large or too small) for the given month.</p>
      *
      * @param dayOfStart the starting day of the week for the given date
-     * @param day the specific day of the month to check
-     * @param month the month in which the day is located
+     * @param day        the specific day of the month to check
+     * @param month      the month in which the day is located
      */
-    public void assertInvalidDayInMonth(DayOfWeek dayOfStart, int day, Month month){
+    public void assertInvalidDayInMonth(DayOfWeek dayOfStart, int day, Month month) {
         assertThrowsIllegalDayValue(dayOfStart, day, month);
         assertThrowsIllegalDayValue(dayOfStart, day + 1, month);
         assertThrowsIllegalDayValue(dayOfStart, MAX_VALUE - 1, month);
@@ -348,6 +331,7 @@ class CalendarTest {
         assertThrowsIllegalDayValue(dayOfStart, MIN_VALUE + 1, month);
         assertThrowsIllegalDayValue(dayOfStart, MIN_VALUE, month);
     }
+
     /**
      * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} throws an {@link InvalidInputException} with the correct message for
      * a given invalid day value in a specific month.
@@ -357,13 +341,38 @@ class CalendarTest {
      * day value for the month.</p>
      *
      * @param dayOfStart the starting day of the week for the given date
-     * @param day the specific day of the month to check
-     * @param month the month in which the day is located
+     * @param day        the specific day of the month to check
+     * @param month      the month in which the day is located
      */
-    public void assertThrowsIllegalDayValue(DayOfWeek dayOfStart, int day, Month month){
-        String expectedMessage = String.format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST, month.length(false), day);
+    public void assertThrowsIllegalDayValue(DayOfWeek dayOfStart, int day, Month month) {
+        int daysInParticularMonth = month.length(false);
+        String expectedMessage = String.format(INVALID_VALUE_DAY_INPUT_CALENDAR_TEST, daysInParticularMonth, day);
 
         assertThrowsInvalidArgument(dayOfStart, day, month, expectedMessage);
+    }
+
+    /**
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly calculates the day of the week for a given day in a specific month.
+     *
+     * <p>This method tests the behavior of method by comparing its output to the expected weekday for a
+     * specific day in a month. It ensures that method returns the correct weekday name based on the
+     * provided start day and date.</p>
+     *
+     * @param expected   the expected weekday name (e.g., "Monday", "Tuesday", etc.)
+     * @param dayOfStart the starting day of the week for the given date
+     * @param day        the specific day of the month to check
+     * @param month      the month in which the day is located
+     */
+    public void assertCalendar(String expected, DayOfWeek dayOfStart, int day, Month month) {
+        try {
+            String actualOutput = calendar(dayOfStart, day, month);
+
+            assertEquals(expected, actualOutput);
+        } catch (InvalidInputException e) {
+            String failMessage = String.format("Expected no InvalidInputException, but got one.%n%s", e.getMessage());
+
+            fail(failMessage);
+        }
     }
 
     /**
@@ -373,16 +382,18 @@ class CalendarTest {
      * <p>This method checks that when the program encounters an invalid day of the month, it throws an exception with
      * the correct message. The message is verified to ensure that it accurately reflects the invalid day input.</p>
      *
-     * @param dayOfStart the starting day of the week for the given date
-     * @param day the specific day of the month to check
-     * @param month the month in which the day is located
+     * @param dayOfStart      the starting day of the week for the given date
+     * @param day             the specific day of the month to check
+     * @param month           the month in which the day is located
      * @param expectedMessage the expected exception message
      */
-    public void assertThrowsInvalidArgument(DayOfWeek dayOfStart, int day, Month month, String expectedMessage){
-        try{
+    public void assertThrowsInvalidArgument(DayOfWeek dayOfStart, int day, Month month, String expectedMessage) {
+        try {
             calendar(dayOfStart, day, month);
+
             fail("Expected InvalidInputException to be thrown.");
-        }catch (InvalidInputException e){
+
+        } catch (InvalidInputException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
     }

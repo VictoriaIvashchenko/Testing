@@ -35,13 +35,13 @@ public class GCDMain {
             printGCDMessage(a, b, c, d);
 
             int gcd = gcdOfFour(a, b, c, d);
-            System.out.print(gcd);
+            System.out.println(gcd);
 
         } catch (InvalidInputException e) {
             System.err.print(e.getMessage());
 
         } catch (CalculationException e) {
-            System.out.print(EXCEPTIONAL_CASE);
+            System.out.println(EXCEPTIONAL_CASE);
         }
     }
 

@@ -501,24 +501,6 @@ class FlatsTest {
     }
 
     /**
-     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} correctly calculates the floor and entrance for the given apartment number.
-     * It compares the actual result with the expected floor and entrance values, and fails the test if an exception is thrown.
-     *
-     * @param floors           the total number of floors in the apartment building
-     * @param flatsOnFloor     the number of flats on each floor
-     * @param flatNumber       the specific flat number for which the floor and entrance are being calculated
-     * @param expectedFloor    the expected floor number for the given flat number
-     * @param expectedEntrance the expected entrance number for the given flat number
-     */
-    public void assertEqualsApart(int floors, int flatsOnFloor, int flatNumber, int expectedFloor, int expectedEntrance) {
-        try {
-            assertArrayEquals(new int[]{expectedFloor, expectedEntrance}, flatLocation(floors, flatsOnFloor, flatNumber));
-        } catch (InvalidInputException | CalculationException e) {
-            fail("Expected no InvalidInputException or CalculationException, but got one.");
-        }
-    }
-
-    /**
      * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link InvalidInputException}
      * with the correct error message when an invalid floor number is provided.
      *
@@ -559,6 +541,31 @@ class FlatsTest {
     }
 
     /**
+     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} correctly calculates the floor and entrance for the given apartment number.
+     * It compares the actual result with the expected floor and entrance values, and fails the test if an exception is thrown.
+     *
+     * @param floors           the total number of floors in the apartment building
+     * @param flatsOnFloor     the number of flats on each floor
+     * @param flatNumber       the specific flat number for which the floor and entrance are being calculated
+     * @param expectedFloor    the expected floor number for the given flat number
+     * @param expectedEntrance the expected entrance number for the given flat number
+     */
+    public void assertEqualsApart(int floors, int flatsOnFloor, int flatNumber, int expectedFloor, int expectedEntrance) {
+        try {
+            int[] actualOutput = flatLocation(floors, flatsOnFloor, flatNumber);
+            int[] expectedOutput = new int[]{expectedFloor, expectedEntrance};
+
+            assertArrayEquals(expectedOutput, actualOutput);
+
+        } catch (InvalidInputException | CalculationException e) {
+            String failMessage = String.format("Expected no InvalidInputException or CalculationException, but got one.%n%s",
+                    e.getMessage());
+
+            fail(failMessage);
+        }
+    }
+
+    /**
      * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link InvalidInputException} is thrown when invalid input is provided (e.g., invalid floor, flats on floor, or flat number).
      *
      * @param floor           the total number of floors in the building
@@ -576,7 +583,10 @@ class FlatsTest {
             assertEquals(expectedMessage, e.getMessage());
 
         } catch (CalculationException e) {
-            fail("Expected InvalidInputException to be thrown, but got CalculationException.");
+            String failMessage = "Expected InvalidInputException to be thrown, but got CalculationException." +
+                    e.getMessage();
+
+            fail(failMessage);
         }
     }
 
@@ -600,7 +610,10 @@ class FlatsTest {
             assertEquals(expectedMessage, e.getMessage());
 
         } catch (InvalidInputException e) {
-            fail("Expected CalculationException to be thrown, but got InvalidInputException.");
+            String failMessage = "Expected CalculationException to be thrown, but got InvalidInputException." +
+                    e.getMessage();
+
+            fail(failMessage);
         }
     }
 

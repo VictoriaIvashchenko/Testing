@@ -2,8 +2,7 @@ package swapTest;
 
 import org.junit.jupiter.api.Test;
 
-import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Integer.MIN_VALUE;
+import static java.lang.Integer.*;
 import static swap.Swap.swap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -340,7 +339,10 @@ class SwapTest {
      * @param num2 the second number to be swapped
      */
     public void assertSwapTwoNumbers(int num1, int num2) {
-        assertArrayEquals(new int[]{num2, num1}, swap(num1, num2));
+        int [] actualOutput = swap(num1, num2);
+        int [] expectedOutput = new int[]{num2, num1};
+
+        assertArrayEquals(expectedOutput, actualOutput);
     }
 
 }

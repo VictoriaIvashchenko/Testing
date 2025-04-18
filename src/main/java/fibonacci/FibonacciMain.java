@@ -34,7 +34,7 @@ public class FibonacciMain {
     }
 
     private static void printResult(int index, BigInteger number) {
-        System.out.printf("F(%d) = %s", index, number.toString());
+        System.out.printf("F(%d) = %s%n", index, number.toString());
 
     }
 }

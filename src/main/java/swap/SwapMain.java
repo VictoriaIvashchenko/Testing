@@ -15,8 +15,6 @@ import static swap.Swap.swap;
  */
 public class SwapMain {
 
-    private static final String SEPARATOR = System.lineSeparator();
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
@@ -37,6 +35,6 @@ public class SwapMain {
     }
 
     private static void printValues(String label, int x, int y) {
-        System.out.printf("%s: x = %d y = %d%s", label, x, y, SEPARATOR);
+        System.out.printf("%s: x = %d y = %d%n", label, x, y);
     }
 }
