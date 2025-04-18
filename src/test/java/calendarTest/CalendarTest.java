@@ -368,6 +368,7 @@ class CalendarTest {
             String actualOutput = calendar(dayOfStart, day, month);
 
             assertEquals(expected, actualOutput);
+
         } catch (InvalidInputException e) {
             String failMessage = String.format("Expected no InvalidInputException, but got one.%n%s", e.getMessage());
 

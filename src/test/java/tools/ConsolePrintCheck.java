@@ -53,7 +53,9 @@ public class ConsolePrintCheck {
         PrintStream originalErr = System.err;
 
         try {
-            System.setIn(new ByteArrayInputStream(input.getBytes()));
+            ByteArrayInputStream testIn = new ByteArrayInputStream(input.getBytes());
+            System.setIn(testIn);
+
             ByteArrayOutputStream outStream = new ByteArrayOutputStream();
             ByteArrayOutputStream errStream;
 
@@ -63,8 +65,11 @@ public class ConsolePrintCheck {
                 errStream = new ByteArrayOutputStream();
             }
 
-            System.setOut(new PrintStream(outStream));
-            System.setErr(new PrintStream(errStream));
+            PrintStream newOutStream = new PrintStream(outStream);
+            PrintStream newErrStream = new PrintStream(errStream);
+
+            System.setOut(newOutStream);
+            System.setErr(newErrStream);
 
             task.run();
 
