@@ -7,7 +7,7 @@ import java.time.DayOfWeek;
 import java.time.Month;
 
 import static java.lang.String.format;
-import static tools.ConsolePrintCheck.assertValidConsolePrint;
+import static tools.ConsolePrintCheck.assertConsolePrint;
 
 /**
  * Unit test class for {@link CalendarMain}.
@@ -459,7 +459,7 @@ public class CalendarMainTest extends CalendarTest {
     public void assertConsoleOutput(String dayOfStart, String day, String month, String expectedOutput, String expectedErrorOutput) {
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
 
-        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
     /**
@@ -479,7 +479,7 @@ public class CalendarMainTest extends CalendarTest {
     public void assertConsoleOutput(DayOfWeek dayOfStart, int day, Month month, String expectedOutput, String expectedErrorOutput) {
         String input = dayOfStart.getValue() + SEPARATOR + day + SEPARATOR + month.getValue();
 
-        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
 }

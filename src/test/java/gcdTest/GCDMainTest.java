@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import gcd.GCDMain;
 
 import static java.lang.String.format;
-import static tools.ConsolePrintCheck.assertValidConsolePrint;
+import static tools.ConsolePrintCheck.assertConsolePrint;
 
 /**
  * Unit test class for {@link GCDMain}.
@@ -331,7 +331,7 @@ public class GCDMainTest extends GCDTest {
     public void assertConsoleOutput(String a, String b, String c, String d, String expectedOutput, String expectedErrorOutput) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
 
-        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
     /**
@@ -349,7 +349,7 @@ public class GCDMainTest extends GCDTest {
     public void assertConsoleOutput(int a, int b, int c, int d, String expectedOutput, String expectedErrorOutput) {
         String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
 
-        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
 }

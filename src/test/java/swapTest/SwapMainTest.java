@@ -5,7 +5,7 @@ import swap.SwapMain;
 
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
-import static tools.ConsolePrintCheck.assertValidConsolePrint;
+import static tools.ConsolePrintCheck.assertConsolePrint;
 
 /**
  * Unit test class for {@link SwapMain}.
@@ -224,7 +224,7 @@ public class SwapMainTest extends SwapTest {
     public void assertInvalidTypeSecondArgument(String x, String y) {
         String expectedErrorOutput = format(INVALID_TYPE_INPUT_SWAP_TEST, "y", y);
 
-        assertConsoleOutput(x, y, EXPECTED_OUTPUT,expectedErrorOutput);
+        assertConsoleOutput(x, y, EXPECTED_OUTPUT, expectedErrorOutput);
     }
 
     /**
@@ -240,6 +240,6 @@ public class SwapMainTest extends SwapTest {
     public void assertConsoleOutput(String x, String y, String expectedOutput, String expectedErrorOutput){
         String input = x + SEPARATOR + y;
 
-        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 }

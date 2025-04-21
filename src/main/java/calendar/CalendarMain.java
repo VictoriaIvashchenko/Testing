@@ -57,7 +57,7 @@ public class CalendarMain {
             printResult(weekday);
 
         } catch (InvalidInputException e) {
-            System.err.print(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 

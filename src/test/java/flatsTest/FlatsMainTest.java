@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import flats.FlatsMain;
 
 import static java.lang.String.format;
-import static tools.ConsolePrintCheck.assertValidConsolePrint;
+import static tools.ConsolePrintCheck.assertConsolePrint;
 
 /**
  * Unit test class for {@link FlatsMain}.
@@ -496,7 +496,7 @@ public class FlatsMainTest extends FlatsTest {
     public void assertConsoleOutput(int floors, int flatsOnFloor, int flatNumber, String expectedOutput, String expectedErrorOutput) {
         String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber + SEPARATOR;
 
-        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
     /**
@@ -514,7 +514,7 @@ public class FlatsMainTest extends FlatsTest {
     public void assertConsoleOutput(String floors, String flatsOnFloor, String flatNumber, String expectedOutput, String expectedErrorOutput) {
         String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber + SEPARATOR;
 
-        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
 }

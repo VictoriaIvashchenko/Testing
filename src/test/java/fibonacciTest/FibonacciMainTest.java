@@ -6,7 +6,7 @@ import fibonacci.FibonacciMain;
 
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
-import static tools.ConsolePrintCheck.assertValidConsolePrint;
+import static tools.ConsolePrintCheck.assertConsolePrint;
 
 /**
  * Unit test class for {@link FibonacciMain}.
@@ -113,7 +113,7 @@ public class FibonacciMainTest extends FibonacciTest {
                 "%sF(%d) = %s%n", EXPECTED_OUTPUT, actualIndex, expected);
         String expectedErrorOutput = "";
 
-        assertValidConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
     }
 
     /**
@@ -125,7 +125,7 @@ public class FibonacciMainTest extends FibonacciTest {
     public void assertThrowsInvalidInputException(int index) {
         String expectedErrorOutput = format(INVALID_INPUT_VALUE_MESSAGE, index);
 
-        assertValidConsolePrint(valueOf(index), EXPECTED_OUTPUT, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(valueOf(index), EXPECTED_OUTPUT, expectedErrorOutput, MAIN_METHOD);
     }
 
     /**
@@ -136,7 +136,7 @@ public class FibonacciMainTest extends FibonacciTest {
     public void assertInvalidTypeArguments(String input) {
         String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "n", input);
 
-        assertValidConsolePrint(input, EXPECTED_OUTPUT, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, EXPECTED_OUTPUT, expectedErrorOutput, MAIN_METHOD);
     }
 
 }
