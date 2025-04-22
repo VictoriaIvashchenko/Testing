@@ -495,8 +495,9 @@ public class FlatsMainTest extends FlatsTest {
      */
     public void assertConsoleOutput(int floors, int flatsOnFloor, int flatNumber, String expectedOutput, String expectedErrorOutput) {
         String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber + SEPARATOR;
+        String expectedFullOutput = expectedOutput + expectedErrorOutput;
 
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
     /**
@@ -513,8 +514,9 @@ public class FlatsMainTest extends FlatsTest {
      */
     public void assertConsoleOutput(String floors, String flatsOnFloor, String flatNumber, String expectedOutput, String expectedErrorOutput) {
         String input = floors + SEPARATOR + flatsOnFloor + SEPARATOR + flatNumber + SEPARATOR;
+        String expectedFullOutput = expectedOutput + expectedErrorOutput;
 
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
 }

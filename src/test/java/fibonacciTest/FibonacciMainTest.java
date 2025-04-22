@@ -112,8 +112,10 @@ public class FibonacciMainTest extends FibonacciTest {
         String expectedOutput = format(
                 "%sF(%d) = %s%n", EXPECTED_OUTPUT, actualIndex, expected);
         String expectedErrorOutput = "";
+        String expectedFullOutput = expectedOutput + expectedErrorOutput;
 
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
     /**
@@ -124,8 +126,9 @@ public class FibonacciMainTest extends FibonacciTest {
     @Override
     public void assertThrowsInvalidInputException(int index) {
         String expectedErrorOutput = format(INVALID_INPUT_VALUE_MESSAGE, index);
+        String expectedFullOutput = EXPECTED_OUTPUT + expectedErrorOutput;
 
-        assertConsolePrint(valueOf(index), EXPECTED_OUTPUT, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(valueOf(index), EXPECTED_OUTPUT, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
     /**
@@ -135,8 +138,9 @@ public class FibonacciMainTest extends FibonacciTest {
      */
     public void assertInvalidTypeArguments(String input) {
         String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "n", input);
+        String expectedFullOutput = EXPECTED_OUTPUT + expectedErrorOutput;
 
-        assertConsolePrint(input, EXPECTED_OUTPUT, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, EXPECTED_OUTPUT, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
 }

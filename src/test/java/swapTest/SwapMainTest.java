@@ -239,7 +239,8 @@ public class SwapMainTest extends SwapTest {
      */
     public void assertConsoleOutput(String x, String y, String expectedOutput, String expectedErrorOutput){
         String input = x + SEPARATOR + y;
+        String expectedFullOutput = expectedOutput + expectedErrorOutput;
 
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 }

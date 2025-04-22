@@ -458,8 +458,9 @@ public class CalendarMainTest extends CalendarTest {
      */
     public void assertConsoleOutput(String dayOfStart, String day, String month, String expectedOutput, String expectedErrorOutput) {
         String input = dayOfStart + SEPARATOR + day + SEPARATOR + month;
+        String expectedFullOutput = expectedOutput + expectedErrorOutput;
 
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
     /**
@@ -478,8 +479,9 @@ public class CalendarMainTest extends CalendarTest {
      */
     public void assertConsoleOutput(DayOfWeek dayOfStart, int day, Month month, String expectedOutput, String expectedErrorOutput) {
         String input = dayOfStart.getValue() + SEPARATOR + day + SEPARATOR + month.getValue();
+        String expectedFullOutput = expectedOutput + expectedErrorOutput;
 
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, MAIN_METHOD);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
 }

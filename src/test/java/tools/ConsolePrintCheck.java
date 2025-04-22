@@ -23,14 +23,15 @@ public class ConsolePrintCheck {
      * @param expectedError  the expected error output from the task
      * @param task           the Runnable task to be executed
      */
-    public static void assertConsolePrint(String input, String expectedOutput, String expectedError, Runnable task) {
+    public static void assertConsolePrint(String input, String expectedOutput, String expectedError,
+                                          String expectedFullOutput, Runnable task) {
         InputStream originalIn = System.in;
         PrintStream originalOut = System.out;
         PrintStream originalErr = System.err;
 
         try {
             setInput(input);
-            assertMergedOutput(expectedOutput, expectedError, task, originalOut, originalErr);
+            assertMergedOutput(expectedFullOutput, task, originalOut, originalErr);
 
             setInput(input);
             assertSeparatedOutput(expectedOutput, expectedError, task, originalOut, originalErr);
@@ -53,15 +54,13 @@ public class ConsolePrintCheck {
     /**
      * Asserts that the merged standard output and error output of a task matches the concatenated expected output and error strings.
      *
-     * @param expectedOutput the expected standard output
-     * @param expectedError  the expected error output
+     * @param expectedFullOutput the expected full output
      * @param task           the Runnable task to be executed
      * @param originalOut    the original System.out PrintStream
      * @param originalErr    the original System.err PrintStream
      */
-    private static void assertMergedOutput(String expectedOutput, String expectedError,
-                                           Runnable task, PrintStream originalOut, PrintStream originalErr) {
-        String expectedFullOutput = expectedOutput + expectedError;
+    private static void assertMergedOutput(String expectedFullOutput, Runnable task, PrintStream originalOut,
+                                           PrintStream originalErr) {
         ByteArrayOutputStream combinedStream = new ByteArrayOutputStream();
 
         runWithRedirectedStreams(task, combinedStream, combinedStream, originalOut, originalErr);
