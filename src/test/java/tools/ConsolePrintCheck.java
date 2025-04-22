@@ -67,7 +67,7 @@ public class ConsolePrintCheck {
 
         String actualOutput = combinedStream.toString();
 
-        assertEquals(expectedFullOutput, actualOutput, "Unexpected merged output.");
+        assertEquals(expectedFullOutput, actualOutput, "Unexpected full output.");
     }
 
     /**
@@ -79,8 +79,8 @@ public class ConsolePrintCheck {
      * @param originalOut    the original System.out PrintStream
      * @param originalErr    the original System.err PrintStream
      */
-    private static void assertSeparatedOutput(String expectedOutput, String expectedError,
-                                              Runnable task, PrintStream originalOut, PrintStream originalErr) {
+    private static void assertSeparatedOutput(String expectedOutput, String expectedError, Runnable task,
+                                              PrintStream originalOut, PrintStream originalErr) {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         ByteArrayOutputStream errStream = new ByteArrayOutputStream();
 
@@ -102,8 +102,7 @@ public class ConsolePrintCheck {
      * @param originalOut the original System.out PrintStream
      * @param originalErr the original System.err PrintStream
      */
-    private static void runWithRedirectedStreams(Runnable task,
-                                                 OutputStream outStream, OutputStream errStream,
+    private static void runWithRedirectedStreams(Runnable task, OutputStream outStream, OutputStream errStream,
                                                  PrintStream originalOut, PrintStream originalErr) {
         try {
             System.setOut(new PrintStream(outStream));
