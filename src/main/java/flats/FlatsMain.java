@@ -31,7 +31,7 @@ public class FlatsMain {
             printResult(flatLocation);
 
         } catch (InvalidInputException | CalculationException e) {
-            System.err.println(e.getMessage());
+            System.err.print(e.getMessage());
         }
     }
 

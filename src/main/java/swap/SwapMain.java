@@ -30,7 +30,7 @@ public class SwapMain {
             printValues("After", swapped[0], swapped[1]);
 
         } catch (InvalidInputException e) {
-            System.err.println(e.getMessage());
+            System.err.print(e.getMessage());
         }
     }
 

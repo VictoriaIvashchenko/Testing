@@ -38,7 +38,7 @@ public class GCDMain {
             System.out.println(gcd);
 
         } catch (InvalidInputException e) {
-            System.err.println(e.getMessage());
+            System.err.print(e.getMessage());
 
         } catch (CalculationException e) {
             System.out.println(EXCEPTIONAL_CASE);

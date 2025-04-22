@@ -29,7 +29,7 @@ public class FibonacciMain {
             printResult(n, numberInFibonacciSequence);
 
         } catch (InvalidInputException e) {
-            System.err.println(e.getMessage());
+            System.err.print(e.getMessage());
         }
     }
 
