@@ -14,9 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class ConsolePrintCheck {
     /**
-     * Tests the console output of a given task by providing an input string and comparing the standard output and error output
-     * against the expected values. The method captures both merged and separated outputs to ensure they match the expected results.
-     * The original system input, output, and error streams are restored after execution.
+     * Tests the console output of a given task by providing an input string and comparing the standard output, error output,
+     * and combined output against the expected values. The method captures both standard and error outputs separately while
+     * also maintaining a combined output stream to verify the concatenated result. The original system input, output, and error
+     * streams are restored after execution.
      *
      * @param input           the input string to be provided to the task via System.in
      * @param expectedOutput  the expected standard output from the task
@@ -24,87 +25,50 @@ public class ConsolePrintCheck {
      * @param task            the Runnable task to be executed
      */
     public static void assertConsolePrint(String input, String expectedOutput, String expectedError, Runnable task) {
+        String expectedFullOutput = expectedOutput + expectedError;
+
         InputStream originalIn = System.in;
         PrintStream originalOut = System.out;
         PrintStream originalErr = System.err;
 
         try {
-            setInput(input);
-            assertMergedOutput(expectedOutput, expectedError, task, originalOut, originalErr);
+            ByteArrayInputStream testIn = new ByteArrayInputStream(input.getBytes());
+            System.setIn(testIn);
 
-            setInput(input);
-            assertSeparatedOutput(expectedOutput, expectedError, task, originalOut, originalErr);
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            ByteArrayOutputStream errStream = new ByteArrayOutputStream();
+            ByteArrayOutputStream combinedStream = new ByteArrayOutputStream();
+
+            PrintStream outPrintStream = new PrintStream(outStream) {
+                @Override
+                public void write(byte[] buf, int off, int len) {
+                    super.write(buf, off, len);
+                    combinedStream.write(buf, off, len);
+                }
+            };
+            PrintStream errPrintStream = new PrintStream(errStream) {
+                @Override
+                public void write(byte[] buf, int off, int len) {
+                    super.write(buf, off, len);
+                    combinedStream.write(buf, off, len);
+                }
+            };
+
+            System.setOut(outPrintStream);
+            System.setErr(errPrintStream);
+
+            task.run();
+
+            String actualOut = outStream.toString();
+            String actualErr = errStream.toString();
+            String actualCombined = combinedStream.toString();
+
+            assertEquals(expectedOutput, actualOut, "Unexpected stdout output.");
+            assertEquals(expectedError, actualErr, "Unexpected stderr output.");
+            assertEquals(expectedFullOutput, actualCombined, "Unexpected combined output.");
+
         } finally {
             System.setIn(originalIn);
-        }
-    }
-
-    /**
-     * Sets the system input stream to a ByteArrayInputStream containing the provided input string.
-     *
-     * @param input the input string to set as the system input
-     */
-    private static void setInput(String input) {
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-    }
-
-    /**
-     * Asserts that the merged standard output and error output of a task matches the concatenated expected output and error strings.
-     *
-     * @param expectedOutput  the expected standard output
-     * @param expectedError   the expected error output
-     * @param task            the Runnable task to be executed
-     * @param originalOut     the original System.out PrintStream
-     * @param originalErr     the original System.err PrintStream
-     */
-    private static void assertMergedOutput(String expectedOutput, String expectedError,
-                                           Runnable task, PrintStream originalOut, PrintStream originalErr) {
-        String expectedFullOutput = expectedOutput + expectedError;
-        ByteArrayOutputStream combinedStream = new ByteArrayOutputStream();
-
-        runWithRedirectedStreams(task, combinedStream, combinedStream, originalOut, originalErr);
-
-        String actualOutput = combinedStream.toString();
-        assertEquals(expectedFullOutput, actualOutput, "Unexpected merged output.");
-    }
-
-    /**
-     * Asserts that the standard output and error output of a task match the expected output and error strings separately.
-     *
-     * @param expectedOutput  the expected standard output
-     * @param expectedError   the expected error output
-     * @param task            the Runnable task to be executed
-     * @param originalOut     the original System.out PrintStream
-     * @param originalErr     the original System.err PrintStream
-     */
-    private static void assertSeparatedOutput(String expectedOutput, String expectedError,
-                                              Runnable task, PrintStream originalOut, PrintStream originalErr) {
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        ByteArrayOutputStream errStream = new ByteArrayOutputStream();
-
-        runWithRedirectedStreams(task, outStream, errStream, originalOut, originalErr);
-
-        assertEquals(expectedOutput, outStream.toString(), "Unexpected standard output.");
-        assertEquals(expectedError, errStream.toString(), "Unexpected error output.");
-    }
-
-    /**
-     * Executes a task with redirected output and error streams, restoring the original streams after execution.
-     *
-     * @param task            the Runnable task to be executed
-     * @param outStream       the OutputStream to redirect System.out to
-     * @param errStream       the OutputStream to redirect System.err to
-     * @param originalOut     the original System.out PrintStream
-     * @param originalErr     the original System.err PrintStream
-     */
-    private static void runWithRedirectedStreams(Runnable task,
-                                                 OutputStream outStream, OutputStream errStream,
-                                                 PrintStream originalOut, PrintStream originalErr) {
-        try {
-            System.setOut(new PrintStream(outStream));
-            System.setErr(new PrintStream(errStream));
-            task.run();
-        } finally {
             System.setOut(originalOut);
             System.setErr(originalErr);
         }
