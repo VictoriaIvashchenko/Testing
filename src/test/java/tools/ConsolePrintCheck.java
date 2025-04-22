@@ -31,10 +31,10 @@ public class ConsolePrintCheck {
 
         try {
             setInput(input);
-            assertMergedOutput(expectedFullOutput, task, originalOut, originalErr);
+            assertFullOutput(expectedFullOutput, task, originalOut, originalErr);
 
             setInput(input);
-            assertSeparatedOutput(expectedOutput, expectedError, task, originalOut, originalErr);
+            assertOutputInStreams(expectedOutput, expectedError, task, originalOut, originalErr);
 
         } finally {
             System.setIn(originalIn);
@@ -42,7 +42,7 @@ public class ConsolePrintCheck {
     }
 
     /**
-     * Sets the system input stream to a ByteArrayInputStream containing the provided input string.
+     * Sets the system input stream to a {@link ByteArrayInputStream} containing the provided input string.
      *
      * @param input the input string to set as the system input
      */
@@ -55,12 +55,12 @@ public class ConsolePrintCheck {
      * Asserts that the merged standard output and error output of a task matches the concatenated expected output and error strings.
      *
      * @param expectedFullOutput the expected full output
-     * @param task           the Runnable task to be executed
-     * @param originalOut    the original System.out PrintStream
-     * @param originalErr    the original System.err PrintStream
+     * @param task               the Runnable task to be executed
+     * @param originalOut        the original System.out PrintStream
+     * @param originalErr        the original System.err PrintStream
      */
-    private static void assertMergedOutput(String expectedFullOutput, Runnable task, PrintStream originalOut,
-                                           PrintStream originalErr) {
+    private static void assertFullOutput(String expectedFullOutput, Runnable task, PrintStream originalOut,
+                                         PrintStream originalErr) {
         ByteArrayOutputStream combinedStream = new ByteArrayOutputStream();
 
         runWithRedirectedStreams(task, combinedStream, combinedStream, originalOut, originalErr);
@@ -79,7 +79,7 @@ public class ConsolePrintCheck {
      * @param originalOut    the original System.out PrintStream
      * @param originalErr    the original System.err PrintStream
      */
-    private static void assertSeparatedOutput(String expectedOutput, String expectedError, Runnable task,
+    private static void assertOutputInStreams(String expectedOutput, String expectedError, Runnable task,
                                               PrintStream originalOut, PrintStream originalErr) {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         ByteArrayOutputStream errStream = new ByteArrayOutputStream();
