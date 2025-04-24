@@ -16,17 +16,6 @@ import static tools.ConsolePrintCheck.assertConsolePrint;
 public class GCDMainTest extends GCDTest {
 
     /**
-     * Error message for an invalid type input in GCD calculations.
-     */
-    private final static String INVALID_INPUT_TYPE_MESSAGE =
-            "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
-
-    /**
-     * System-dependent line separator used for formatting expected test output.
-     */
-    private final static String SEPARATOR = System.lineSeparator();
-
-    /**
      * A {@link Runnable} reference to the {@code main} method of {@link GCDMain}.
      *
      * <p>This runnable executes {@link GCDMain#main(String[])} with an empty argument array,
@@ -35,192 +24,197 @@ public class GCDMainTest extends GCDTest {
     private final static Runnable MAIN_METHOD = () -> GCDMain.main(new String[]{});
 
     /**
+     * System-dependent line separator used for formatting expected test output.
+     */
+    private final static String LINE_BREAK = System.lineSeparator();
+
+    /**
      * Obligatory starting message with instructions.
      */
-    private final static String EXPECTED_OUTPUT = String.format("Task 3. Enter four numbers for searching gcd:%n");
+    private final static String PROMPT = "Task 3. Enter four numbers for searching gcd:" + LINE_BREAK;
 
     @Test
     void overRangeInputTest() {
-        assertInvalidFirstArgumentType("2147483648", "2147483648", "2147483648", "2147483648");
-        assertInvalidSecondArgumentType("1", "2147483648", "2147483648", "2147483648");
-        assertInvalidThirdArgumentType("1", "1", "2147483648", "2147483648");
-        assertInvalidFourthArgumentType("1", "1", "1", "2147483648");
+        assertInvalidInputArgumentType("2147483648", "2147483648", "2147483648", "2147483648");
+        assertInvalidInputArgumentType("1", "2147483648", "2147483648", "2147483648");
+        assertInvalidInputArgumentType("1", "1", "2147483648", "2147483648");
+        assertInvalidInputArgumentType("1", "1", "1", "2147483648");
 
-        assertInvalidFirstArgumentType("-2147483649", "-2147483649", "-2147483649", "-2147483649");
-        assertInvalidSecondArgumentType("1", "-2147483649", "-2147483649", "-2147483649");
-        assertInvalidThirdArgumentType("1", "1", "-2147483649", "-2147483649");
-        assertInvalidFourthArgumentType("1", "1", "1", "-2147483649");
+        assertInvalidInputArgumentType("-2147483649", "-2147483649", "-2147483649", "-2147483649");
+        assertInvalidInputArgumentType("1", "-2147483649", "-2147483649", "-2147483649");
+        assertInvalidInputArgumentType("1", "1", "-2147483649", "-2147483649");
+        assertInvalidInputArgumentType("1", "1", "1", "-2147483649");
     }
 
     @Test
     void invalidFirstArgumentTypeTest() {
-        assertInvalidFirstArgumentType("a", "a", "a", "a");
-        assertInvalidFirstArgumentType("b", "c", "d", "e");
-        assertInvalidFirstArgumentType("y", "r", "x", "q");
-        assertInvalidFirstArgumentType("z", "z", "z", "z");
+        assertInvalidInputArgumentType("a", "a", "a", "a");
+        assertInvalidInputArgumentType("b", "c", "d", "e");
+        assertInvalidInputArgumentType("y", "r", "x", "q");
+        assertInvalidInputArgumentType("z", "z", "z", "z");
 
-        assertInvalidFirstArgumentType("A", "A", "A", "A");
-        assertInvalidFirstArgumentType("B", "C", "D", "E");
-        assertInvalidFirstArgumentType("Y", "R", "X", "Q");
-        assertInvalidFirstArgumentType("Z", "Z", "Z", "Z");
+        assertInvalidInputArgumentType("A", "A", "A", "A");
+        assertInvalidInputArgumentType("B", "C", "D", "E");
+        assertInvalidInputArgumentType("Y", "R", "X", "Q");
+        assertInvalidInputArgumentType("Z", "Z", "Z", "Z");
 
-        assertInvalidFirstArgumentType("a", "1", "1", "2");
-        assertInvalidFirstArgumentType("b", "1", "1", "2");
-        assertInvalidFirstArgumentType("y", "1", "1", "2");
-        assertInvalidFirstArgumentType("z", "1", "1", "2");
+        assertInvalidInputArgumentType("a", "1", "1", "2");
+        assertInvalidInputArgumentType("b", "1", "1", "2");
+        assertInvalidInputArgumentType("y", "1", "1", "2");
+        assertInvalidInputArgumentType("z", "1", "1", "2");
 
-        assertInvalidFirstArgumentType("A", "A", "A", "A");
-        assertInvalidFirstArgumentType("B", "C", "D", "E");
-        assertInvalidFirstArgumentType("Y", "R", "X", "Q");
-        assertInvalidFirstArgumentType("Z", "Z", "Z", "Z");
+        assertInvalidInputArgumentType("A", "A", "A", "A");
+        assertInvalidInputArgumentType("B", "C", "D", "E");
+        assertInvalidInputArgumentType("Y", "R", "X", "Q");
+        assertInvalidInputArgumentType("Z", "Z", "Z", "Z");
 
-        assertInvalidFirstArgumentType("A", "1", "1", "2");
-        assertInvalidFirstArgumentType("B", "1", "1", "2");
-        assertInvalidFirstArgumentType("Y", "1", "1", "2");
-        assertInvalidFirstArgumentType("Z", "1", "1", "2");
+        assertInvalidInputArgumentType("A", "1", "1", "2");
+        assertInvalidInputArgumentType("B", "1", "1", "2");
+        assertInvalidInputArgumentType("Y", "1", "1", "2");
+        assertInvalidInputArgumentType("Z", "1", "1", "2");
 
-        assertInvalidFirstArgumentType("a", "a", "1", "1");
-        assertInvalidFirstArgumentType("a", "1", "a", "1");
-        assertInvalidFirstArgumentType("a", "1", "1", "a");
-        assertInvalidFirstArgumentType("a", "a", "a", "1");
-        assertInvalidFirstArgumentType("a", "a", "1", "a");
-        assertInvalidFirstArgumentType("a", "1", "a", "a");
+        assertInvalidInputArgumentType("a", "a", "1", "1");
+        assertInvalidInputArgumentType("a", "1", "a", "1");
+        assertInvalidInputArgumentType("a", "1", "1", "a");
+        assertInvalidInputArgumentType("a", "a", "a", "1");
+        assertInvalidInputArgumentType("a", "a", "1", "a");
+        assertInvalidInputArgumentType("a", "1", "a", "a");
 
-        assertInvalidFirstArgumentType("!", "!", "!", "!");
-        assertInvalidFirstArgumentType("@", "@", "@", "@");
+        assertInvalidInputArgumentType("!", "!", "!", "!");
+        assertInvalidInputArgumentType("@", "@", "@", "@");
 
-        assertInvalidFirstArgumentType("!", "1", "1", "1");
-        assertInvalidFirstArgumentType("@", "1", "1", "1");
+        assertInvalidInputArgumentType("!", "1", "1", "1");
+        assertInvalidInputArgumentType("@", "1", "1", "1");
 
-        assertInvalidFirstArgumentType("!", "!", "1", "1");
-        assertInvalidFirstArgumentType("!", "!", "!", "1");
-        assertInvalidFirstArgumentType("!", "1", "1", "!");
-        assertInvalidFirstArgumentType("!", "!", "!", "1");
-        assertInvalidFirstArgumentType("!", "!", "1", "!");
-        assertInvalidFirstArgumentType("!", "1", "!", "!");
+        assertInvalidInputArgumentType("!", "!", "1", "1");
+        assertInvalidInputArgumentType("!", "!", "!", "1");
+        assertInvalidInputArgumentType("!", "1", "1", "!");
+        assertInvalidInputArgumentType("!", "!", "!", "1");
+        assertInvalidInputArgumentType("!", "!", "1", "!");
+        assertInvalidInputArgumentType("!", "1", "!", "!");
 
-        assertInvalidFirstArgumentType("#564595", "#569864", "#785123", "#459712");
-        assertInvalidFirstArgumentType("#115865", "#146658", "#565893", "#142365");
+        assertInvalidInputArgumentType("#564595", "#569864", "#785123", "#459712");
+        assertInvalidInputArgumentType("#115865", "#146658", "#565893", "#142365");
 
-        assertInvalidFirstArgumentType(".564", ".78", ".12", ".463");
-        assertInvalidFirstArgumentType("45.4", "14.14", "78.94", "45.310");
+        assertInvalidInputArgumentType(".564", ".78", ".12", ".463");
+        assertInvalidInputArgumentType("45.4", "14.14", "78.94", "45.310");
 
     }
 
     @Test
     void invalidSecondArgumentTypeTest() {
-        assertInvalidSecondArgumentType("1", "a", "a", "a");
-        assertInvalidSecondArgumentType("1", "c", "d", "e");
-        assertInvalidSecondArgumentType("1", "r", "x", "q");
-        assertInvalidSecondArgumentType("1", "z", "z", "z");
+        assertInvalidInputArgumentType("1", "a", "a", "a");
+        assertInvalidInputArgumentType("1", "c", "d", "e");
+        assertInvalidInputArgumentType("1", "r", "x", "q");
+        assertInvalidInputArgumentType("1", "z", "z", "z");
 
-        assertInvalidSecondArgumentType("1", "A", "A", "A");
-        assertInvalidSecondArgumentType("1", "C", "D", "E");
-        assertInvalidSecondArgumentType("1", "R", "X", "Q");
-        assertInvalidSecondArgumentType("1", "Z", "Z", "Z");
+        assertInvalidInputArgumentType("1", "A", "A", "A");
+        assertInvalidInputArgumentType("1", "C", "D", "E");
+        assertInvalidInputArgumentType("1", "R", "X", "Q");
+        assertInvalidInputArgumentType("1", "Z", "Z", "Z");
 
-        assertInvalidSecondArgumentType("1", "a", "1", "2");
-        assertInvalidSecondArgumentType("1", "b", "1", "2");
-        assertInvalidSecondArgumentType("1", "y", "1", "2");
-        assertInvalidSecondArgumentType("1", "z", "1", "2");
+        assertInvalidInputArgumentType("1", "a", "1", "2");
+        assertInvalidInputArgumentType("1", "b", "1", "2");
+        assertInvalidInputArgumentType("1", "y", "1", "2");
+        assertInvalidInputArgumentType("1", "z", "1", "2");
 
-        assertInvalidSecondArgumentType("1", "a", "a", "2");
-        assertInvalidSecondArgumentType("1", "b", "b", "2");
-        assertInvalidSecondArgumentType("1", "y", "y", "2");
-        assertInvalidSecondArgumentType("1", "z", "z", "2");
+        assertInvalidInputArgumentType("1", "a", "a", "2");
+        assertInvalidInputArgumentType("1", "b", "b", "2");
+        assertInvalidInputArgumentType("1", "y", "y", "2");
+        assertInvalidInputArgumentType("1", "z", "z", "2");
 
-        assertInvalidSecondArgumentType("1", "a", "1", "a");
-        assertInvalidSecondArgumentType("1", "b", "1", "b");
-        assertInvalidSecondArgumentType("1", "y", "1", "y");
-        assertInvalidSecondArgumentType("1", "z", "1", "z");
+        assertInvalidInputArgumentType("1", "a", "1", "a");
+        assertInvalidInputArgumentType("1", "b", "1", "b");
+        assertInvalidInputArgumentType("1", "y", "1", "y");
+        assertInvalidInputArgumentType("1", "z", "1", "z");
 
-        assertInvalidSecondArgumentType("1", "!", "!", "!");
-        assertInvalidSecondArgumentType("1", "@", "@", "@");
-        assertInvalidSecondArgumentType("1", "!", "34", "12");
-        assertInvalidSecondArgumentType("1", "@", "76", "26");
-        assertInvalidSecondArgumentType("1", "!", "#", "12");
-        assertInvalidSecondArgumentType("1", "@", "$36", "26");
-        assertInvalidSecondArgumentType("1", "!", "34", "3%");
-        assertInvalidSecondArgumentType("1", "@", "76", "@4");
+        assertInvalidInputArgumentType("1", "!", "!", "!");
+        assertInvalidInputArgumentType("1", "@", "@", "@");
+        assertInvalidInputArgumentType("1", "!", "34", "12");
+        assertInvalidInputArgumentType("1", "@", "76", "26");
+        assertInvalidInputArgumentType("1", "!", "#", "12");
+        assertInvalidInputArgumentType("1", "@", "$36", "26");
+        assertInvalidInputArgumentType("1", "!", "34", "3%");
+        assertInvalidInputArgumentType("1", "@", "76", "@4");
 
-        assertInvalidSecondArgumentType("1", "#856956", "#546646", "#223455");
-        assertInvalidSecondArgumentType("1", "#124631", "#233466", "@");
-        assertInvalidSecondArgumentType("1", "#245763", "34", "#235469");
+        assertInvalidInputArgumentType("1", "#856956", "#546646", "#223455");
+        assertInvalidInputArgumentType("1", "#124631", "#233466", "@");
+        assertInvalidInputArgumentType("1", "#245763", "34", "#235469");
 
-        assertInvalidSecondArgumentType("1", "12.56", "236.2", "563.12");
-        assertInvalidSecondArgumentType("1", ".156", "236", "56.36");
-        assertInvalidSecondArgumentType("56", "-56.56", "563.23", "237");
+        assertInvalidInputArgumentType("1", "12.56", "236.2", "563.12");
+        assertInvalidInputArgumentType("1", ".156", "236", "56.36");
+        assertInvalidInputArgumentType("56", "-56.56", "563.23", "237");
 
-        assertInvalidSecondArgumentType("45", "5 5", "45 55", "15 63");
-        assertInvalidSecondArgumentType("45", "78 63", "1575", "145 4.5");
-        assertInvalidSecondArgumentType("45", "55 0.26", "26 302", "1453");
+        assertInvalidInputArgumentType("45", "5 5", "45 55", "15 63");
+        assertInvalidInputArgumentType("45", "78 63", "1575", "145 4.5");
+        assertInvalidInputArgumentType("45", "55 0.26", "26 302", "1453");
     }
 
     @Test
     void invalidThirdArgumentTypeTest() {
-        assertInvalidThirdArgumentType("367", "56", "a", "a");
-        assertInvalidThirdArgumentType("463", "123", "d", "e");
-        assertInvalidThirdArgumentType("45", "563", "x", "q");
-        assertInvalidThirdArgumentType("98", "866", "z", "z");
+        assertInvalidInputArgumentType("367", "56", "a", "a");
+        assertInvalidInputArgumentType("463", "123", "d", "e");
+        assertInvalidInputArgumentType("45", "563", "x", "q");
+        assertInvalidInputArgumentType("98", "866", "z", "z");
 
-        assertInvalidThirdArgumentType("367", "56", "A", "A");
-        assertInvalidThirdArgumentType("463", "123", "D", "E");
-        assertInvalidThirdArgumentType("45", "563", "X", "Q");
-        assertInvalidThirdArgumentType("98", "866", "Z", "Z");
+        assertInvalidInputArgumentType("367", "56", "A", "A");
+        assertInvalidInputArgumentType("463", "123", "D", "E");
+        assertInvalidInputArgumentType("45", "563", "X", "Q");
+        assertInvalidInputArgumentType("98", "866", "Z", "Z");
 
-        assertInvalidThirdArgumentType("1", "1", "a", "462");
-        assertInvalidThirdArgumentType("1", "1", "b", "256");
-        assertInvalidThirdArgumentType("1", "1", "y", "5300");
-        assertInvalidThirdArgumentType("1", "44", "z", "144");
+        assertInvalidInputArgumentType("1", "1", "a", "462");
+        assertInvalidInputArgumentType("1", "1", "b", "256");
+        assertInvalidInputArgumentType("1", "1", "y", "5300");
+        assertInvalidInputArgumentType("1", "44", "z", "144");
 
-        assertInvalidThirdArgumentType("1", "55", "!", "!");
-        assertInvalidThirdArgumentType("1", "463", "@", "@");
-        assertInvalidThirdArgumentType("1", "665", "!", "12");
-        assertInvalidThirdArgumentType("1", "236", "@", "26");
+        assertInvalidInputArgumentType("1", "55", "!", "!");
+        assertInvalidInputArgumentType("1", "463", "@", "@");
+        assertInvalidInputArgumentType("1", "665", "!", "12");
+        assertInvalidInputArgumentType("1", "236", "@", "26");
 
-        assertInvalidThirdArgumentType("1", "6956", "#546646", "#223455");
-        assertInvalidThirdArgumentType("1", "4631", "#233466", "@");
-        assertInvalidThirdArgumentType("1", "763", "#586989", "469");
+        assertInvalidInputArgumentType("1", "6956", "#546646", "#223455");
+        assertInvalidInputArgumentType("1", "4631", "#233466", "@");
+        assertInvalidInputArgumentType("1", "763", "#586989", "469");
 
-        assertInvalidThirdArgumentType("1", "1256", "236.2", "563.12");
-        assertInvalidThirdArgumentType("1", "86", "236.", "56.36");
-        assertInvalidThirdArgumentType("56", "-556", "563.23", "237");
+        assertInvalidInputArgumentType("1", "1256", "236.2", "563.12");
+        assertInvalidInputArgumentType("1", "86", "236.", "56.36");
+        assertInvalidInputArgumentType("56", "-556", "563.23", "237");
 
-        assertInvalidThirdArgumentType("45", "663", "45 55", "15 63");
-        assertInvalidThirdArgumentType("45", "7863", "15 75", "145 4.5");
-        assertInvalidThirdArgumentType("45", "5526", "26 302", "1453");
-        assertInvalidThirdArgumentType("45", "7863", "15 75", "145 4%");
+        assertInvalidInputArgumentType("45", "663", "45 55", "15 63");
+        assertInvalidInputArgumentType("45", "7863", "15 75", "145 4.5");
+        assertInvalidInputArgumentType("45", "5526", "26 302", "1453");
+        assertInvalidInputArgumentType("45", "7863", "15 75", "145 4%");
     }
 
     @Test
     void invalidFourthArgumentTypeTest() {
-        assertInvalidFourthArgumentType("1", "1", "1", "a");
-        assertInvalidFourthArgumentType("1", "1", "1", "b");
-        assertInvalidFourthArgumentType("1", "1", "1", "y");
-        assertInvalidFourthArgumentType("1", "1", "1", "z");
+        assertInvalidInputArgumentType("1", "1", "1", "a");
+        assertInvalidInputArgumentType("1", "1", "1", "b");
+        assertInvalidInputArgumentType("1", "1", "1", "y");
+        assertInvalidInputArgumentType("1", "1", "1", "z");
 
-        assertInvalidFourthArgumentType("1", "1", "1", "A");
-        assertInvalidFourthArgumentType("1", "1", "1", "B");
-        assertInvalidFourthArgumentType("1", "1", "1", "Y");
-        assertInvalidFourthArgumentType("1", "1", "1", "Z");
+        assertInvalidInputArgumentType("1", "1", "1", "A");
+        assertInvalidInputArgumentType("1", "1", "1", "B");
+        assertInvalidInputArgumentType("1", "1", "1", "Y");
+        assertInvalidInputArgumentType("1", "1", "1", "Z");
 
-        assertInvalidFourthArgumentType("1", "55", "86", "!");
-        assertInvalidFourthArgumentType("1", "463", "146", "@");
-        assertInvalidFourthArgumentType("1", "665", "856", "#$");
-        assertInvalidFourthArgumentType("1", "236", "662", "346%");
+        assertInvalidInputArgumentType("1", "55", "86", "!");
+        assertInvalidInputArgumentType("1", "463", "146", "@");
+        assertInvalidInputArgumentType("1", "665", "856", "#$");
+        assertInvalidInputArgumentType("1", "236", "662", "346%");
 
-        assertInvalidFourthArgumentType("1", "6956", "646", "#223455");
-        assertInvalidFourthArgumentType("1", "4631", "236", "#46455");
-        assertInvalidFourthArgumentType("1", "763", "989", "#456469");
+        assertInvalidInputArgumentType("1", "6956", "646", "#223455");
+        assertInvalidInputArgumentType("1", "4631", "236", "#46455");
+        assertInvalidInputArgumentType("1", "763", "989", "#456469");
 
-        assertInvalidFourthArgumentType("1", "1256", "2362", "563.12");
-        assertInvalidFourthArgumentType("1", "86", "236", ".36");
-        assertInvalidFourthArgumentType("56", "-556", "56323", "-11.237");
+        assertInvalidInputArgumentType("1", "1256", "2362", "563.12");
+        assertInvalidInputArgumentType("1", "86", "236", ".36");
+        assertInvalidInputArgumentType("56", "-556", "56323", "-11.237");
 
-        assertInvalidFourthArgumentType("45", "663", "4575", "15 63");
-        assertInvalidFourthArgumentType("45", "7863", "1575", "145 4.5");
-        assertInvalidFourthArgumentType("45", "5526", "2602", "14 -53");
-        assertInvalidFourthArgumentType("45", "7863", "1575", "145 4%");
+        assertInvalidInputArgumentType("45", "663", "4575", "15 63");
+        assertInvalidInputArgumentType("45", "7863", "1575", "145 4.5");
+        assertInvalidInputArgumentType("45", "5526", "2602", "14 -53");
+        assertInvalidInputArgumentType("45", "7863", "1575", "145 4%");
     }
 
     /**
@@ -235,10 +229,12 @@ public class GCDMainTest extends GCDTest {
      */
     @Override
     public void assertGCDResult(int expected, int a, int b, int c, int d) {
-        String expectedOutput = format("%sGCD(%d, %d, %d, %d) = %d%n", EXPECTED_OUTPUT, a, b, c, d, expected);
+        String input = getInput(a, b, c, d);
+
+        String expectedOutput = format("%sGCD(%d, %d, %d, %d) = %d%n", PROMPT, a, b, c, d, expected);
         String expectedErrorOutput = "";
 
-        assertConsoleOutput(a, b, c, d, expectedOutput, expectedErrorOutput);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedOutput, MAIN_METHOD);
     }
 
     /**
@@ -252,106 +248,32 @@ public class GCDMainTest extends GCDTest {
      */
     @Override
     public void assertThrowsCalculationException(int a, int b, int c, int d) {
-        String expectedOutput = format("%sGCD(%d, %d, %d, %d) = 2147483648%n", EXPECTED_OUTPUT, a, b, c, d);
+        String input = getInput(a, b, c, d);
+
+        String expectedOutput = format("%sGCD(%d, %d, %d, %d) = 2147483648%n", PROMPT, a, b, c, d);
         String expectedErrorOutput = "";
 
-        assertConsoleOutput(a, b, c, d, expectedOutput, expectedErrorOutput);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedOutput, MAIN_METHOD);
     }
 
     /**
-     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the first argument.
-     *
-     * @param a the first argument as a string (invalid type)
-     * @param b the second argument as a string
-     * @param c the third argument as a string
-     * @param d the fourth argument as a string
-     */
-    public void assertInvalidFirstArgumentType(String a, String b, String c, String d) {
-        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "a", a);
-
-        assertConsoleOutput(a, b, c, d, EXPECTED_OUTPUT, expectedErrorOutput);
-
-    }
-
-    /**
-     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the second argument.
-     *
-     * @param a the first argument as a string
-     * @param b the second argument as a string (invalid type)
-     * @param c the third argument as a string
-     * @param d the fourth argument as a string
-     */
-    public void assertInvalidSecondArgumentType(String a, String b, String c, String d) {
-        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "b", b);
-
-        assertConsoleOutput(a, b, c, d, EXPECTED_OUTPUT, expectedErrorOutput);
-    }
-
-    /**
-     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the third argument.
-     *
-     * @param a the first argument as a string
-     * @param b the second argument as a string
-     * @param c the third argument as a string (invalid type)
-     * @param d the fourth argument as a string
-     */
-    public void assertInvalidThirdArgumentType(String a, String b, String c, String d) {
-        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "c", c);
-
-        assertConsoleOutput(a, b, c, d, EXPECTED_OUTPUT, expectedErrorOutput);
-    }
-
-    /**
-     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the fourth argument.
+     * Asserts that the method {@link gcd.GCD#gcdOfFour(int, int, int, int)} throws an error for an invalid type in the argument.
      *
      * @param a the first argument as a string
      * @param b the second argument as a string
      * @param c the third argument as a string
-     * @param d the fourth argument as a string (invalid type)
+     * @param d the fourth argument as a string
      */
-    public void assertInvalidFourthArgumentType(String a, String b, String c, String d) {
-        String expectedErrorOutput = format(INVALID_INPUT_TYPE_MESSAGE, "d", d);
+    public void assertInvalidInputArgumentType(String a, String b, String c, String d) {
+        String input = a + LINE_BREAK + b + LINE_BREAK + c + LINE_BREAK + d;
 
-        assertConsoleOutput(a, b, c, d, EXPECTED_OUTPUT, expectedErrorOutput);
+        String expectedErrorOutput = "Invalid type of input value. Number from -2147483648 to 2147483647 was expected.";
+        String expectedFullOutput = PROMPT + expectedErrorOutput;
+
+        assertConsolePrint(input, PROMPT, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
-    /**
-     * Asserts that the console output matches the
-     * expected output and error output.
-     * <p>Method tests the console output of the main method by providing four string inputs. The input is formatted as a single string
-     * with the four components separated by a predefined separator.</p>
-     *
-     * @param a                   the first input parameter
-     * @param b                   the second input parameter
-     * @param c                   the third input parameter
-     * @param d                   the fourth input parameter
-     * @param expectedOutput      the expected console output
-     * @param expectedErrorOutput the expected console error output
-     */
-    public void assertConsoleOutput(String a, String b, String c, String d, String expectedOutput, String expectedErrorOutput) {
-        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-        String expectedFullOutput = expectedOutput + expectedErrorOutput;
-
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
+    private static String getInput(int a, int b, int c, int d) {
+        return a + LINE_BREAK + b + LINE_BREAK + c + LINE_BREAK + d;
     }
-
-    /**
-     * Asserts that the console output matches the expected output and error output.
-     * <p>Method tests the console output of the main method by providing four integer inputs. The input is formatted as a single string
-     * with the four components separated by a predefined separator. </p>
-     *
-     * @param a                   the first input parameter
-     * @param b                   the second input parameter
-     * @param c                   the third input parameter
-     * @param d                   the fourth input parameter
-     * @param expectedOutput      the expected console output
-     * @param expectedErrorOutput the expected console error output
-     */
-    public void assertConsoleOutput(int a, int b, int c, int d, String expectedOutput, String expectedErrorOutput) {
-        String input = a + SEPARATOR + b + SEPARATOR + c + SEPARATOR + d;
-        String expectedFullOutput = expectedOutput + expectedErrorOutput;
-
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
-    }
-
 }

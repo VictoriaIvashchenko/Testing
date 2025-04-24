@@ -22,9 +22,9 @@ public class FlatsMain {
 
         System.out.println("Task 2. Enter number of floors in building, number flats on floor and number of searching flat:");
         try {
-            int floors = readInteger(in, "number of floors");
-            int flatsOnFloor = readInteger(in, "number of flats on floors");
-            int flatNumber = readInteger(in, "number of flat");
+            int floors = readInteger(in);
+            int flatsOnFloor = readInteger(in);
+            int flatNumber = readInteger(in);
 
             int[] flatLocation = flatLocation(floors, flatsOnFloor, flatNumber);
 

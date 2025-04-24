@@ -17,7 +17,7 @@ public class CheckConsoleInput {
      * The error message format string with two string arguments: name of variable and input, in case of invalid input
      */
     private final static String INVALID_TYPE_MESSAGE =
-            "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
+            "Invalid type of input value. Number from -2147483648 to 2147483647 was expected.";
 
     /**
      * Reads an integer value from the input scanner and validates it.
@@ -27,17 +27,16 @@ public class CheckConsoleInput {
      * with a formatted error message.</p>
      *
      * @param in the {@link Scanner} object used for reading user input
-     * @param varName the name of the variable being read (used for error messages)
      * @return the parsed integer value
      * @throws InvalidInputException if the input cannot be parsed as an integer
      */
-    public static Integer readInteger(Scanner in, String varName) throws InvalidInputException {
+    public static Integer readInteger(Scanner in) throws InvalidInputException {
         String input = in.nextLine().trim();
         try {
             return Integer.parseInt(input);
 
         } catch (NumberFormatException e) {
-            throw new InvalidInputException(String.format(INVALID_TYPE_MESSAGE, varName, input));
+            throw new InvalidInputException(INVALID_TYPE_MESSAGE);
         }
     }
 

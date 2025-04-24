@@ -27,10 +27,10 @@ public class GCDMain {
 
         System.out.println("Task 3. Enter four numbers for searching gcd:");
         try {
-            int a = readInteger(in, "a");
-            int b = readInteger(in, "b");
-            int c = readInteger(in, "c");
-            int d = readInteger(in, "d");
+            int a = readInteger(in);
+            int b = readInteger(in);
+            int c = readInteger(in);
+            int d = readInteger(in);
 
             printGCDMessage(a, b, c, d);
 

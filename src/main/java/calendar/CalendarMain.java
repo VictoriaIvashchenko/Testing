@@ -45,9 +45,9 @@ public class CalendarMain {
 
         System.out.println("Task 5. Enter number day of New Year, day and month of searching day:");
         try {
-            int dayOfStart = readInteger(in, "day of New Year");
-            int day = readInteger(in, "day");
-            int monthNumber = readInteger(in, "month");
+            int dayOfStart = readInteger(in);
+            int day = readInteger(in);
+            int monthNumber = readInteger(in);
 
             DayOfWeek weekdayOfNewYear = checkWeekday(dayOfStart);
             Month month = checkMonth(monthNumber);

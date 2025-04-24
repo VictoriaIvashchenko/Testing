@@ -3,8 +3,6 @@ package swapTest;
 import org.junit.jupiter.api.Test;
 import swap.SwapMain;
 
-import static java.lang.String.format;
-import static java.lang.String.valueOf;
 import static tools.ConsolePrintCheck.assertConsolePrint;
 
 /**
@@ -17,17 +15,6 @@ import static tools.ConsolePrintCheck.assertConsolePrint;
 public class SwapMainTest extends SwapTest {
 
     /**
-     * Error message for an invalid type input in swap operations.
-     */
-    private final static String INVALID_TYPE_INPUT_SWAP_TEST =
-            "Invalid type of %s. Number from -2147483648 to 2147483647 was expected, but '%s' was received.";
-
-    /**
-     * System-dependent line separator used for formatting expected test output.
-     */
-    private final static String SEPARATOR = System.lineSeparator();
-
-    /**
      * A {@link Runnable} reference to the {@code main} method of {@link SwapMain}.
      *
      * <p>This runnable executes {@link SwapMain#main(String[])} with an empty argument array,
@@ -36,150 +23,155 @@ public class SwapMainTest extends SwapTest {
     private final static Runnable MAIN_METHOD = () -> SwapMain.main(new String[]{});
 
     /**
+     * System-dependent line separator used for formatting expected test output.
+     */
+    private final static String LINE_BREAK = System.lineSeparator();
+
+    /**
      * Obligatory starting message with instructions.
      */
-    private final static String EXPECTED_OUTPUT = String.format("Task 1. Enter two numbers x and y:%n");
+    private final static String PROMPT = "Task 1. Enter two numbers x and y:" + LINE_BREAK;
 
     @Test
     void overRangeInputTest() {
         //(MAX, MAX)
-        assertInvalidTypeSecondArgument("2147483646", "2147483648");//(MAX - 1, MAX + 1)
-        assertInvalidTypeSecondArgument("2147483647", "2147483648");//(MAX, MAX + 1)
-        assertInvalidTypeFirstArgument("2147483648", "2147483648");//(MAX + 1, MAX + 1)
-        assertInvalidTypeFirstArgument("2147483648", "2147483647");//(MAX + 1, MAX)
-        assertInvalidTypeFirstArgument("2147483648", "2147483646");//(MAX + 1, MAX - 1)
+        assertInvalidTypeInputArgument("2147483646", "2147483648");//(MAX - 1, MAX + 1)
+        assertInvalidTypeInputArgument("2147483647", "2147483648");//(MAX, MAX + 1)
+        assertInvalidTypeInputArgument("2147483648", "2147483648");//(MAX + 1, MAX + 1)
+        assertInvalidTypeInputArgument("2147483648", "2147483647");//(MAX + 1, MAX)
+        assertInvalidTypeInputArgument("2147483648", "2147483646");//(MAX + 1, MAX - 1)
         //(MAX, MIN)
-        assertInvalidTypeSecondArgument("2147483646", "-2147483649");//(MAX - 1, MIN - 1)
-        assertInvalidTypeSecondArgument("2147483647", "-2147483649");//(MAX, MIN - 1)
-        assertInvalidTypeFirstArgument("2147483648", "-2147483649");//(MAX + 1, MIN - 1)
-        assertInvalidTypeFirstArgument("2147483648", "-2147483648");//(MAX + 1, MIN)
-        assertInvalidTypeFirstArgument("2147483648", "-2147483647");//(MAX + 1, MIN + 1)
+        assertInvalidTypeInputArgument("2147483646", "-2147483649");//(MAX - 1, MIN - 1)
+        assertInvalidTypeInputArgument("2147483647", "-2147483649");//(MAX, MIN - 1)
+        assertInvalidTypeInputArgument("2147483648", "-2147483649");//(MAX + 1, MIN - 1)
+        assertInvalidTypeInputArgument("2147483648", "-2147483648");//(MAX + 1, MIN)
+        assertInvalidTypeInputArgument("2147483648", "-2147483647");//(MAX + 1, MIN + 1)
         //(MIN, MIN)
-        assertInvalidTypeSecondArgument("-2147483647", "-2147483649");//(MIN + 1, MIN - 1)
-        assertInvalidTypeSecondArgument("-2147483648", "-2147483649");//(MIN, MIN - 1)
-        assertInvalidTypeFirstArgument("-2147483649", "-2147483649");//(MIN - 1, MIN - 1)
-        assertInvalidTypeFirstArgument("-2147483649", "-2147483648");//(MIN - 1, MIN)
-        assertInvalidTypeFirstArgument("-2147483649", "-2147483647");//(MIN - 1, MIN + 1)
+        assertInvalidTypeInputArgument("-2147483647", "-2147483649");//(MIN + 1, MIN - 1)
+        assertInvalidTypeInputArgument("-2147483648", "-2147483649");//(MIN, MIN - 1)
+        assertInvalidTypeInputArgument("-2147483649", "-2147483649");//(MIN - 1, MIN - 1)
+        assertInvalidTypeInputArgument("-2147483649", "-2147483648");//(MIN - 1, MIN)
+        assertInvalidTypeInputArgument("-2147483649", "-2147483647");//(MIN - 1, MIN + 1)
         //(MIN, MAX)
-        assertInvalidTypeSecondArgument("-2147483647", "2147483648");//(MIN + 1, MAX + 1)
-        assertInvalidTypeSecondArgument("-2147483648", "2147483648");//(MIN, MAX + 1)
-        assertInvalidTypeFirstArgument("-2147483649", "2147483648");//(MIN - 1, MAX + 1)
-        assertInvalidTypeFirstArgument("-2147483649", "2147483647");//(MIN - 1, MAX)
-        assertInvalidTypeFirstArgument("-2147483649", "2147483646");//(MIN - 1, MAX - 1)
+        assertInvalidTypeInputArgument("-2147483647", "2147483648");//(MIN + 1, MAX + 1)
+        assertInvalidTypeInputArgument("-2147483648", "2147483648");//(MIN, MAX + 1)
+        assertInvalidTypeInputArgument("-2147483649", "2147483648");//(MIN - 1, MAX + 1)
+        assertInvalidTypeInputArgument("-2147483649", "2147483647");//(MIN - 1, MAX)
+        assertInvalidTypeInputArgument("-2147483649", "2147483646");//(MIN - 1, MAX - 1)
         //ребра
-        assertInvalidTypeSecondArgument("1073741826", "2147483648");//(х, MAX + 1)
-        assertInvalidTypeFirstArgument("2147483648", "1073741826");//(MAX + 1, y)
-        assertInvalidTypeFirstArgument("2147483648", "-1073741826");//(MAX + 1, y)
-        assertInvalidTypeSecondArgument("1073741826", "-2147483649");//(x, MIN - 1)
-        assertInvalidTypeSecondArgument("-1073741826", "-2147483649");//(x, MIN - 1)
-        assertInvalidTypeFirstArgument("-2147483649", "-1073741826");//(MIN - 1, y)
-        assertInvalidTypeSecondArgument("-1073741826", "2147483648");//(x, MAX + 1)
-        assertInvalidTypeFirstArgument("-2147483649", "1073741826");//(MIN - 1, y)
+        assertInvalidTypeInputArgument("1073741826", "2147483648");//(х, MAX + 1)
+        assertInvalidTypeInputArgument("2147483648", "1073741826");//(MAX + 1, y)
+        assertInvalidTypeInputArgument("2147483648", "-1073741826");//(MAX + 1, y)
+        assertInvalidTypeInputArgument("1073741826", "-2147483649");//(x, MIN - 1)
+        assertInvalidTypeInputArgument("-1073741826", "-2147483649");//(x, MIN - 1)
+        assertInvalidTypeInputArgument("-2147483649", "-1073741826");//(MIN - 1, y)
+        assertInvalidTypeInputArgument("-1073741826", "2147483648");//(x, MAX + 1)
+        assertInvalidTypeInputArgument("-2147483649", "1073741826");//(MIN - 1, y)
     }
 
     @Test
     void invalidTypeFirstArgumentInputTest() {
-        assertInvalidTypeFirstArgument("a", "a");
-        assertInvalidTypeFirstArgument("z", "z");
-        assertInvalidTypeFirstArgument("a", "z");
-        assertInvalidTypeFirstArgument("b", "y");
+        assertInvalidTypeInputArgument("a", "a");
+        assertInvalidTypeInputArgument("z", "z");
+        assertInvalidTypeInputArgument("a", "z");
+        assertInvalidTypeInputArgument("b", "y");
 
-        assertInvalidTypeFirstArgument("A", "A");
-        assertInvalidTypeFirstArgument("Z", "Z");
-        assertInvalidTypeFirstArgument("A", "Z");
-        assertInvalidTypeFirstArgument("B", "Y");
+        assertInvalidTypeInputArgument("A", "A");
+        assertInvalidTypeInputArgument("Z", "Z");
+        assertInvalidTypeInputArgument("A", "Z");
+        assertInvalidTypeInputArgument("B", "Y");
 
-        assertInvalidTypeFirstArgument("a", "1");
-        assertInvalidTypeFirstArgument("a", "2");
-        assertInvalidTypeFirstArgument("b", "1");
+        assertInvalidTypeInputArgument("a", "1");
+        assertInvalidTypeInputArgument("a", "2");
+        assertInvalidTypeInputArgument("b", "1");
 
-        assertInvalidTypeFirstArgument("f", "1");
-        assertInvalidTypeFirstArgument("f", "2");
-        assertInvalidTypeFirstArgument("e", "1");
+        assertInvalidTypeInputArgument("f", "1");
+        assertInvalidTypeInputArgument("f", "2");
+        assertInvalidTypeInputArgument("e", "1");
 
-        assertInvalidTypeFirstArgument("A", "1");
-        assertInvalidTypeFirstArgument("A", "2");
-        assertInvalidTypeFirstArgument("B", "1");
+        assertInvalidTypeInputArgument("A", "1");
+        assertInvalidTypeInputArgument("A", "2");
+        assertInvalidTypeInputArgument("B", "1");
 
-        assertInvalidTypeFirstArgument("F", "1");
-        assertInvalidTypeFirstArgument("F", "2");
-        assertInvalidTypeFirstArgument("E", "1");
+        assertInvalidTypeInputArgument("F", "1");
+        assertInvalidTypeInputArgument("F", "2");
+        assertInvalidTypeInputArgument("E", "1");
 
-        assertInvalidTypeFirstArgument("!", "@");
-        assertInvalidTypeFirstArgument("@", "!");
-        assertInvalidTypeFirstArgument("#$", "%^&");
+        assertInvalidTypeInputArgument("!", "@");
+        assertInvalidTypeInputArgument("@", "!");
+        assertInvalidTypeInputArgument("#$", "%^&");
 
-        assertInvalidTypeFirstArgument("!", "1");
-        assertInvalidTypeFirstArgument("@", "2");
-        assertInvalidTypeFirstArgument("#$", "3");
+        assertInvalidTypeInputArgument("!", "1");
+        assertInvalidTypeInputArgument("@", "2");
+        assertInvalidTypeInputArgument("#$", "3");
 
-        assertInvalidTypeFirstArgument("#424543", "#404929");
-        assertInvalidTypeFirstArgument("#111111", "#554166");
-        assertInvalidTypeFirstArgument("#446564", "#655236");
+        assertInvalidTypeInputArgument("#424543", "#404929");
+        assertInvalidTypeInputArgument("#111111", "#554166");
+        assertInvalidTypeInputArgument("#446564", "#655236");
 
-        assertInvalidTypeFirstArgument("#245658", "2");
-        assertInvalidTypeFirstArgument("#896456", "1");
-        assertInvalidTypeFirstArgument("#865456", "1");
+        assertInvalidTypeInputArgument("#245658", "2");
+        assertInvalidTypeInputArgument("#896456", "1");
+        assertInvalidTypeInputArgument("#865456", "1");
 
-        assertInvalidTypeFirstArgument("12.8", "3");
-        assertInvalidTypeFirstArgument("14.5", "564.");
-        assertInvalidTypeFirstArgument("93.8", "356.");
-        assertInvalidTypeFirstArgument("9856.23", "316");
-        assertInvalidTypeFirstArgument("124.78", "656.45");
-        assertInvalidTypeFirstArgument("6647.23", "574.254");
+        assertInvalidTypeInputArgument("12.8", "3");
+        assertInvalidTypeInputArgument("14.5", "564.");
+        assertInvalidTypeInputArgument("93.8", "356.");
+        assertInvalidTypeInputArgument("9856.23", "316");
+        assertInvalidTypeInputArgument("124.78", "656.45");
+        assertInvalidTypeInputArgument("6647.23", "574.254");
 
-        assertInvalidTypeFirstArgument("12.3", "1");
-        assertInvalidTypeFirstArgument("-1114.1", "2");
-        assertInvalidTypeFirstArgument("95.1", "15468745");
-        assertInvalidTypeFirstArgument("-156.3", "2147483647");
-        assertInvalidTypeFirstArgument("88.1", "1073741820");
-        assertInvalidTypeFirstArgument("6647.23", "88545");
+        assertInvalidTypeInputArgument("12.3", "1");
+        assertInvalidTypeInputArgument("-1114.1", "2");
+        assertInvalidTypeInputArgument("95.1", "15468745");
+        assertInvalidTypeInputArgument("-156.3", "2147483647");
+        assertInvalidTypeInputArgument("88.1", "1073741820");
+        assertInvalidTypeInputArgument("6647.23", "88545");
 
-        assertInvalidTypeFirstArgument("1 1", "1");
-        assertInvalidTypeFirstArgument("32 56", "1");
-        assertInvalidTypeFirstArgument("a a", "1");
-        assertInvalidTypeFirstArgument("a 1", "1");
-        assertInvalidTypeFirstArgument("1 a", "1");
-        assertInvalidTypeFirstArgument("! 1", "1");
-        assertInvalidTypeFirstArgument("1 !", "2");
-        assertInvalidTypeFirstArgument("! !", "2");
-        assertInvalidTypeFirstArgument("12.3 1", "1");
-        assertInvalidTypeFirstArgument("1 23.56", "1");
-        assertInvalidTypeFirstArgument("12.3 123.85", "1");
+        assertInvalidTypeInputArgument("1 1", "1");
+        assertInvalidTypeInputArgument("32 56", "1");
+        assertInvalidTypeInputArgument("a a", "1");
+        assertInvalidTypeInputArgument("a 1", "1");
+        assertInvalidTypeInputArgument("1 a", "1");
+        assertInvalidTypeInputArgument("! 1", "1");
+        assertInvalidTypeInputArgument("1 !", "2");
+        assertInvalidTypeInputArgument("! !", "2");
+        assertInvalidTypeInputArgument("12.3 1", "1");
+        assertInvalidTypeInputArgument("1 23.56", "1");
+        assertInvalidTypeInputArgument("12.3 123.85", "1");
     }
 
     @Test
     void invalidTypeSecondArgumentInputTest() {
-        assertInvalidTypeSecondArgument("1", "a");
-        assertInvalidTypeSecondArgument("2", "a");
-        assertInvalidTypeSecondArgument("1", "b");
+        assertInvalidTypeInputArgument("1", "a");
+        assertInvalidTypeInputArgument("2", "a");
+        assertInvalidTypeInputArgument("1", "b");
 
-        assertInvalidTypeSecondArgument("1", "f");
-        assertInvalidTypeSecondArgument("2", "f");
-        assertInvalidTypeSecondArgument("1", "e");
+        assertInvalidTypeInputArgument("1", "f");
+        assertInvalidTypeInputArgument("2", "f");
+        assertInvalidTypeInputArgument("1", "e");
 
-        assertInvalidTypeSecondArgument("1", "A");
-        assertInvalidTypeSecondArgument("2", "A");
-        assertInvalidTypeSecondArgument("1", "B");
+        assertInvalidTypeInputArgument("1", "A");
+        assertInvalidTypeInputArgument("2", "A");
+        assertInvalidTypeInputArgument("1", "B");
 
-        assertInvalidTypeSecondArgument("1", "F");
-        assertInvalidTypeSecondArgument("2", "F");
-        assertInvalidTypeSecondArgument("1", "E");
+        assertInvalidTypeInputArgument("1", "F");
+        assertInvalidTypeInputArgument("2", "F");
+        assertInvalidTypeInputArgument("1", "E");
 
-        assertInvalidTypeSecondArgument("1", "@");
-        assertInvalidTypeSecondArgument("1", "!");
-        assertInvalidTypeSecondArgument("1", "%^&");
+        assertInvalidTypeInputArgument("1", "@");
+        assertInvalidTypeInputArgument("1", "!");
+        assertInvalidTypeInputArgument("1", "%^&");
 
-        assertInvalidTypeSecondArgument("44573", "#404929");
-        assertInvalidTypeSecondArgument("-5628564", "#554166");
-        assertInvalidTypeSecondArgument("24565", "#655236");
+        assertInvalidTypeInputArgument("44573", "#404929");
+        assertInvalidTypeInputArgument("-5628564", "#554166");
+        assertInvalidTypeInputArgument("24565", "#655236");
 
-        assertInvalidTypeSecondArgument("12", "3.1");
-        assertInvalidTypeSecondArgument("14", "564.01");
-        assertInvalidTypeSecondArgument("93", "356.");
-        assertInvalidTypeSecondArgument("9823", "316.5");
-        assertInvalidTypeSecondArgument("124", "656.45");
-        assertInvalidTypeSecondArgument("6647", "574.254");
+        assertInvalidTypeInputArgument("12", "3.1");
+        assertInvalidTypeInputArgument("14", "564.01");
+        assertInvalidTypeInputArgument("93", "356.");
+        assertInvalidTypeInputArgument("9823", "316.5");
+        assertInvalidTypeInputArgument("124", "656.45");
+        assertInvalidTypeInputArgument("6647", "574.254");
     }
 
     /**
@@ -191,56 +183,30 @@ public class SwapMainTest extends SwapTest {
      */
     @Override
     public void assertSwapTwoNumbers(int num1, int num2) {
-        String x = valueOf(num1);
-        String y = valueOf(num2);
+        String input = num1 + LINE_BREAK + num2;
 
         String expectedOutput = String.format(
                         "%sBefore: x = %d y = %d%n" +
-                        "After: x = %d y = %d%n", EXPECTED_OUTPUT, num1, num2, num2, num1);
+                        "After: x = %d y = %d%n", PROMPT, num1, num2, num2, num1);
         String expectedErrorOutput = "";
 
-        assertConsoleOutput(x, y, expectedOutput, expectedErrorOutput);
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedOutput, MAIN_METHOD);
 
     }
 
     /**
-     * Asserts that an invalid type input for the first argument is handled correctly by the {@link  SwapMain#main(String[])} method.
-     *
-     * @param x the first input value (which will be tested for invalid type)
-     * @param y the second input value
-     */
-    public void assertInvalidTypeFirstArgument(String x, String y) {
-        String expectedErrorOutput = format(INVALID_TYPE_INPUT_SWAP_TEST, "x", x);
-
-        assertConsoleOutput(x, y, EXPECTED_OUTPUT, expectedErrorOutput);
-    }
-
-    /**
-     * Asserts that an invalid type input for the second argument is handled correctly by the {@link SwapMain#main(String[])} method.
+     * Asserts that an invalid type input for the argument is handled correctly by the {@link  SwapMain#main(String[])} method.
      *
      * @param x the first input value
-     * @param y the second input value (which will be tested for invalid type)
+     * @param y the second input value
      */
-    public void assertInvalidTypeSecondArgument(String x, String y) {
-        String expectedErrorOutput = format(INVALID_TYPE_INPUT_SWAP_TEST, "y", y);
+    public void assertInvalidTypeInputArgument(String x, String y) {
+        String input = x + LINE_BREAK + y;
 
-        assertConsoleOutput(x, y, EXPECTED_OUTPUT, expectedErrorOutput);
+        String expectedErrorOutput = "Invalid type of input value. Number from -2147483648 to 2147483647 was expected.";
+        String expectedFullOutput = PROMPT + expectedErrorOutput;
+
+        assertConsolePrint(input, PROMPT, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
-    /**
-     * Asserts that the console output matches the expected output and error output.
-     * <p>Method tests the console output of the main method by providing two string inputs. The input is formatted as a single string
-     * with the two components separated by a predefined separator.</p>
-     *
-     * @param x               the first input parameter
-     * @param y               the second input parameter
-     * @param expectedOutput  the expected console output
-     * @param expectedErrorOutput the expected console error output
-     */
-    public void assertConsoleOutput(String x, String y, String expectedOutput, String expectedErrorOutput){
-        String input = x + SEPARATOR + y;
-        String expectedFullOutput = expectedOutput + expectedErrorOutput;
-
-        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
-    }
 }

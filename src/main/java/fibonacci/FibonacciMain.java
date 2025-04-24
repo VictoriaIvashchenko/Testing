@@ -22,7 +22,7 @@ public class FibonacciMain {
 
         System.out.println("Task 4. Enter index of number in fibonacci sequence:");
         try {
-            int n = readInteger(in, "n");
+            int n = readInteger(in);
 
             BigInteger numberInFibonacciSequence = fibonacci(n);
 

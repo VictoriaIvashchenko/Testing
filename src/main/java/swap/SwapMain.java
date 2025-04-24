@@ -20,8 +20,8 @@ public class SwapMain {
 
         System.out.println("Task 1. Enter two numbers x and y:");
         try {
-            int x = readInteger(in, "x");
-            int y = readInteger(in, "y");
+            int x = readInteger(in);
+            int y = readInteger(in);
 
             printValues("Before", x, y);
 
