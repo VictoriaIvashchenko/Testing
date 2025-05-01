@@ -1,7 +1,6 @@
 package flatsTest;
 
 import exceptions.CalculationException;
-import exceptions.InvalidInputException;
 import org.junit.jupiter.api.Test;
 
 import static java.lang.Integer.MAX_VALUE;
@@ -501,7 +500,7 @@ class FlatsTest {
     }
 
     /**
-     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link InvalidInputException}
+     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link IllegalArgumentException}
      * with the correct error message when an invalid floor number is provided.
      *
      * @param floor        the floor number that is being validated
@@ -515,7 +514,7 @@ class FlatsTest {
     }
 
     /**
-     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link InvalidInputException} is thrown when an invalid number of flats on a floor is provided.
+     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link IllegalArgumentException} is thrown when an invalid number of flats on a floor is provided.
      *
      * @param floor        the total number of floors in the building
      * @param flatsOnFloor the number of flats on each floor
@@ -528,7 +527,7 @@ class FlatsTest {
     }
 
     /**
-     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link InvalidInputException} is thrown when an invalid flat number is provided.
+     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link IllegalArgumentException} is thrown when an invalid flat number is provided.
      *
      * @param floor        the total number of floors in the building
      * @param flatsOnFloor the number of flats on each floor
@@ -557,8 +556,8 @@ class FlatsTest {
 
             assertArrayEquals(expectedOutput, actualOutput);
 
-        } catch (InvalidInputException | CalculationException e) {
-            String failMessage = String.format("Expected no InvalidInputException or CalculationException, but got one.%n%s",
+        } catch (IllegalArgumentException | ArithmeticException e) {
+            String failMessage = String.format("Expected no IllegalArgumentException or ArithmeticException, but got one.%n%s",
                     e.getMessage());
 
             fail(failMessage);
@@ -566,7 +565,7 @@ class FlatsTest {
     }
 
     /**
-     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link InvalidInputException} is thrown when invalid input is provided (e.g., invalid floor, flats on floor, or flat number).
+     * Asserts that the method {@link flats.Flats#flatLocation(int, int, int)} throws {@link IllegalArgumentException} is thrown when invalid input is provided (e.g., invalid floor, flats on floor, or flat number).
      *
      * @param floor           the total number of floors in the building
      * @param flatsOnFloor    the number of flats on each floor
@@ -579,11 +578,11 @@ class FlatsTest {
 
             fail("Expected InvalidInputException to be thrown.");
 
-        } catch (InvalidInputException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals(expectedMessage, e.getMessage());
 
-        } catch (CalculationException e) {
-            String failMessage = "Expected InvalidInputException to be thrown, but got CalculationException." +
+        } catch (ArithmeticException e) {
+            String failMessage = "Expected IllegalArgumentException to be thrown, but got ArithmeticException." +
                     e.getMessage();
 
             fail(failMessage);
@@ -602,15 +601,15 @@ class FlatsTest {
         try {
             flatLocation(floor, flatsOnFloor, flatNumber);
 
-            fail("Expected InvalidInputException to be thrown.");
+            fail("Expected IllegalArgumentException to be thrown.");
 
-        } catch (CalculationException e) {
+        } catch (ArithmeticException e) {
             String expectedMessage = String.format(INVALID_CALCULATIONS_MESSAGE, floor, flatsOnFloor);
 
             assertEquals(expectedMessage, e.getMessage());
 
-        } catch (InvalidInputException e) {
-            String failMessage = "Expected CalculationException to be thrown, but got InvalidInputException." +
+        } catch (IllegalArgumentException e) {
+            String failMessage = "Expected ArithmeticException to be thrown, but got IllegalArgumentException." +
                     e.getMessage();
 
             fail(failMessage);

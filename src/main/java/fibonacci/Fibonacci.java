@@ -1,7 +1,5 @@
 package fibonacci;
 
-import exceptions.InvalidInputException;
-
 import java.math.BigInteger;
 
 import static java.math.BigInteger.ONE;
@@ -37,12 +35,12 @@ public class Fibonacci {
      *
      * @param n the position of the Fibonacci sequence to compute (must be non-negative)
      * @return the n-th Fibonacci number as a {@link BigInteger}
-     * @throws InvalidInputException if {@code n} is negative
+     * @throws IllegalArgumentException if {@code n} is negative
      */
-    public static BigInteger fibonacci(int n) throws InvalidInputException {
+    public static BigInteger fibonacci(int n) {
         // Check for an invalid value
         if (n < 0) {
-            throw new InvalidInputException(
+            throw new IllegalArgumentException(
                     String.format(INVALID_VALUE_INPUT_MESSAGE, n));
         }
 
@@ -105,8 +103,6 @@ public class Fibonacci {
      * @param a the first 2×2 matrix
      * @param b the second 2×2 matrix
      * @return the resulting 2×2 matrix after multiplication
-     * @throws NullPointerException           if any of the input matrices or their elements are null
-     * @throws ArrayIndexOutOfBoundsException if the input matrices are not properly structured as 2×2
      */
     private static BigInteger[][] matrixMultiple(BigInteger[][] a, BigInteger[][] b) {
         BigInteger c00 = calculatingElementOfMatrix(a[0][0], b[0][0], a[0][1], b[1][0]);
@@ -122,7 +118,7 @@ public class Fibonacci {
 
     /**
      * Calculates the element of a 2×2 matrix by multiplying and adding the corresponding elements.
-
+     * <p>
      * This method calculates a single element of the result matrix, which is the sum of the products of the corresponding
      * elements of the two matrices: {@code a[i][0] * b[0][j]} and {@code a[i][1] * b[1][j]}, where {@code i} number of
      * row of calculating element and {@code j} are number of and column.</p>
@@ -133,7 +129,7 @@ public class Fibonacci {
      * @param b1J second element of the second matrix
      * @return the result of calculating the matrix element
      */
-    private static BigInteger calculatingElementOfMatrix(BigInteger aI0, BigInteger b0J, BigInteger aI1, BigInteger b1J){
+    private static BigInteger calculatingElementOfMatrix(BigInteger aI0, BigInteger b0J, BigInteger aI1, BigInteger b1J) {
         BigInteger mul1 = aI0.multiply(b0J);
         BigInteger mul2 = aI1.multiply(b1J);
         return mul1.add(mul2);

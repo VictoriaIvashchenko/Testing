@@ -1,11 +1,9 @@
 package fibonacci;
 
-import exceptions.InvalidInputException;
-
 import java.math.BigInteger;
 import java.util.Scanner;
 
-import static tools.CheckConsoleInput.readInteger;
+import static tools.GetConsoleInput.readInteger;
 import static fibonacci.Fibonacci.fibonacci;
 
 /**
@@ -17,24 +15,32 @@ import static fibonacci.Fibonacci.fibonacci;
  */
 public class FibonacciMain {
 
+    /**
+     * Value that represents max index number in Fibonacci sequence.
+     */
+    private final static int MAX_INDEX = Integer.MAX_VALUE;
+
+    /**
+     * Value that represents min index number in Fibonacci sequence.
+     */
+    private final static int MIN_INDEX = 0;
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Task 4. Enter index of number in fibonacci sequence:");
-        try {
-            int n = readInteger(in);
+        int n = readInteger(in, MIN_INDEX, MAX_INDEX, "index");
 
-            BigInteger numberInFibonacciSequence = fibonacci(n);
+        BigInteger numberInFibonacciSequence = fibonacci(n);
 
-            printResult(n, numberInFibonacciSequence);
-
-        } catch (InvalidInputException e) {
-            System.err.print(e.getMessage());
-        }
+        printResult(n, numberInFibonacciSequence);
     }
 
+    /**
+     * Method that prints result of calculations method {@link Fibonacci#fibonacci(int)}
+     * @param index index of number in Fibonacci sequence
+     * @param number value of number in Fibonacci sequence
+     */
     private static void printResult(int index, BigInteger number) {
         System.out.printf("F(%d) = %s%n", index, number.toString());
-
     }
 }

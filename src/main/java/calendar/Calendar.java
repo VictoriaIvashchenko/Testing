@@ -1,7 +1,5 @@
 package calendar;
 
-import exceptions.InvalidInputException;
-
 import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.Arrays;
@@ -15,7 +13,7 @@ import static java.lang.Character.toUpperCase;
  * based on the starting day of the year, the specific day, and the month number.</p>
  *
  * <p>It validates the inputs, ensuring that the day, month, and start day of the year are within
- * acceptable ranges. If any input is invalid, an {@link InvalidInputException} is thrown.</p>
+ * acceptable ranges. If any input is invalid, an {@link IllegalArgumentException} is thrown.</p>
  */
 public class Calendar {
 
@@ -37,22 +35,21 @@ public class Calendar {
      * month number to calculate which day of the week the given date falls on. The method uses
      * the number of days that have passed in the year and calculates the corresponding day of the week.</p>
      *
-     * <p>If any input is invalid (e.g., an out-of-range day or month), an {@link InvalidInputException}
+     * <p>If any input is invalid (e.g., an out-of-range day of month), an {@link IllegalArgumentException}
      * is thrown with a corresponding error message.</p>
      *
      * @param weekdayOfNewYear the day of the week on which the year starts
      * @param day              the specific day of the month
      * @param month            the specific month
      * @return the name of the day of the week (e.g., "Monday", "Tuesday", etc.)
-     * @throws InvalidInputException if any of the input values are invalid (e.g., day out of range)
      */
-    public static String calendar(DayOfWeek weekdayOfNewYear, int day, Month month) throws InvalidInputException {
+    public static String calendar(DayOfWeek weekdayOfNewYear, int day, Month month) {
         int monthNumber = month.getValue();
         int dayOfStart = weekdayOfNewYear.getValue();
         int daysInMonth = month.length(false);
 
         if (day > daysInMonth || day < 1) {
-            throw new InvalidInputException(
+            throw new IllegalArgumentException(
                     String.format(INVALID_VALUE_DAY_IN_MONTH_MESSAGE, daysInMonth, day));
         }
 

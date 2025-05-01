@@ -1,11 +1,8 @@
 package flats;
 
-import exceptions.CalculationException;
-import exceptions.InvalidInputException;
-
 import java.util.Scanner;
 
-import static tools.CheckConsoleInput.readInteger;
+import static tools.GetConsoleInput.readInteger;
 import static flats.Flats.flatLocation;
 
 /**
@@ -17,24 +14,29 @@ import static flats.Flats.flatLocation;
  */
 public class FlatsMain {
 
+    /**
+     * Value that represents max numeric value for input arguments(floors and number of flat).
+     */
+    private final static int MAX_VALUE = Integer.MAX_VALUE;
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Task 2. Enter number of floors in building, number flats on floor and number of searching flat:");
-        try {
-            int floors = readInteger(in);
-            int flatsOnFloor = readInteger(in);
-            int flatNumber = readInteger(in);
+        int floors = readInteger(in, 1, MAX_VALUE, "number of floors");
+        int maxFlatsOnFloor = Integer.MAX_VALUE / floors;
 
-            int[] flatLocation = flatLocation(floors, flatsOnFloor, flatNumber);
+        int flatsOnFloor = readInteger(in, 1, maxFlatsOnFloor, "number of flats on floor");
+        int flatNumber = readInteger(in, 1, MAX_VALUE, "flat number");
 
-            printResult(flatLocation);
+        int[] flatLocation = flatLocation(floors, flatsOnFloor, flatNumber);
 
-        } catch (InvalidInputException | CalculationException e) {
-            System.err.print(e.getMessage());
-        }
+        printResult(flatLocation);
     }
 
+    /**
+     * Method that prints results of calculations from method {@link Flats#flatLocation(int, int, int)}
+     * @param values array that contains number of floor and entrance where the flat is situated
+     */
     private static void printResult(int[] values) {
         System.out.printf("Floor: %d, entrance: %d%n", values[0], values[1]);
     }

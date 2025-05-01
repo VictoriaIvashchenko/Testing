@@ -1,6 +1,5 @@
 package fibonacciTest;
 
-import exceptions.InvalidInputException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -243,17 +242,17 @@ class FibonacciTest {
 
             assertEquals(expectedValue, actualValue);
 
-        } catch (InvalidInputException e) {
-            String failMessage = String.format("Expected no InvalidInputException, but got one.%n%s", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            String failMessage = String.format("Expected no IllegalArgumentException, but got one.%n%s", e.getMessage());
 
             fail(failMessage);
         }
     }
 
     /**
-     * Asserts that the {@link fibonacci} method throws an {@link InvalidInputException} for a given invalid index.
+     * Asserts that the {@link fibonacci} method throws an {@link IllegalArgumentException} for a given invalid index.
      *
-     * @param index the index to test, which should cause an {@link InvalidInputException} when passed to the {@link fibonacci} method
+     * @param index the index to test, which should cause an {@link IllegalArgumentException} when passed to the {@link fibonacci} method
      */
     public void assertThrowsInvalidInputException(int index) {
         String expectedMessage = String.format(INVALID_INPUT_VALUE_MESSAGE, index);
@@ -261,9 +260,9 @@ class FibonacciTest {
         try {
             fibonacci(index);
 
-            fail("Expected InvalidInputException to be thrown");
+            fail("Expected IllegalArgumentException to be thrown");
 
-        } catch (InvalidInputException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
     }

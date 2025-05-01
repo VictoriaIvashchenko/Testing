@@ -1,11 +1,10 @@
 package gcd;
 
 import exceptions.CalculationException;
-import exceptions.InvalidInputException;
 
 import java.util.Scanner;
 
-import static tools.CheckConsoleInput.readInteger;
+import static tools.GetConsoleInput.readInteger;
 import static gcd.GCD.gcdOfFour;
 
 /**
@@ -22,29 +21,41 @@ public class GCDMain {
      */
     private static final String EXCEPTIONAL_CASE = "2147483648";
 
+    /**
+     * Value that represents max numeric value for input arguments.
+     */
+    private static final int MAX_VALUE = Integer.MAX_VALUE;
+
+    /**
+     * Value that represents min numeric value for input arguments.
+     */
+    private static final int MIN_VALUE =  Integer.MIN_VALUE;
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Task 3. Enter four numbers for searching gcd:");
+        int a = readInteger(in, MIN_VALUE, MAX_VALUE, "first number");
+        int b = readInteger(in, MIN_VALUE, MAX_VALUE, "second number");
+        int c = readInteger(in, MIN_VALUE, MAX_VALUE, "third number");
+        int d = readInteger(in, MIN_VALUE, MAX_VALUE, "fourth number");
+
+        printGCDMessage(a, b, c, d);
         try {
-            int a = readInteger(in);
-            int b = readInteger(in);
-            int c = readInteger(in);
-            int d = readInteger(in);
-
-            printGCDMessage(a, b, c, d);
-
             int gcd = gcdOfFour(a, b, c, d);
+
             System.out.println(gcd);
-
-        } catch (InvalidInputException e) {
-            System.err.print(e.getMessage());
-
         } catch (CalculationException e) {
             System.out.println(EXCEPTIONAL_CASE);
         }
     }
 
+    /**
+     * Method prints method that helps to represent calculation gcd of four numbers
+     * @param a first number
+     * @param b second number
+     * @param c third number
+     * @param d four number
+     */
     private static void printGCDMessage(int a, int b, int c, int d) {
         System.out.printf("GCD(%d, %d, %d, %d) = ", a, b, c, d);
     }

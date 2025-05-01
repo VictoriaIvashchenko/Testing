@@ -1,6 +1,5 @@
 package fibonacciTest;
 
-import exceptions.InvalidInputException;
 import org.junit.jupiter.api.Test;
 import fibonacci.FibonacciMain;
 
@@ -31,57 +30,116 @@ public class FibonacciMainTest extends FibonacciTest {
     private final static Runnable MAIN_METHOD = () -> FibonacciMain.main(new String[]{});
 
     /**
-     * Obligatory starting message with instructions.
+     * Prompt message for entering the index.
      */
-    private final static String PROMPT = "Task 4. Enter index of number in fibonacci sequence:" + LINE_BREAK;
+    private static final String PROMPT = String.format("Enter index:%n");
+
+    /**
+     * Warning message for invalid index input, expecting a number from 0 to 2,147,483,647.
+     */
+    private static final String WARNING =
+            String.format("[Warning] Invalid input value. Number from 0 to 2147483647 was expected.%n");
+
+    /**
+     * Message for invalid index input followed by the index prompt, using for giving new attempt to enter value.
+     */
+    public static final String ATTEMPT_MESSAGE = String.format(
+            "[Warning] Invalid input value. Number from 0 to 2147483647 was expected.%n" +
+                    "Enter index:%n");
 
     @Test
     void overRangeInputTest() {
         assertInvalidTypeArguments("21475483648");
-        assertInvalidTypeArguments("21475483649");
-        assertInvalidTypeArguments("21475483650");
-        assertInvalidTypeArguments("21475483651");
-        assertInvalidTypeArguments("21475483652");
+        assertInvalidTypeArguments("21475483648|21475483649");
+        assertInvalidTypeArguments("21475483648|21475483649|21475483650");
+        assertInvalidTypeArguments("21475483648|21475483649|21475483650|21475483651");
+        assertInvalidTypeArguments("21475483648|21475483649|21475483650|21475483651|21475483652");
 
         assertInvalidTypeArguments("-21475483649");
-        assertInvalidTypeArguments("-21475483650");
-        assertInvalidTypeArguments("-21475483651");
-        assertInvalidTypeArguments("-21475483652");
-        assertInvalidTypeArguments("-21475483653");
+        assertInvalidTypeArguments("-21475483650|-21475483649");
+        assertInvalidTypeArguments("-21475483651|-21475483650|-21475483649");
+        assertInvalidTypeArguments("-21475483652|-21475483651|-21475483650|-21475483649");
+        assertInvalidTypeArguments("-21475483653|-21475483652|-21475483651|-21475483650|-21475483649");
+
+        assertInvalidTypeArguments("21475483648 1");
+        assertInvalidTypeArguments("-21475483649 1");
+        assertInvalidTypeArguments("21475483648 1 |1 2");
+        assertInvalidTypeArguments("-2147483649 1|7 2");
     }
 
     @Test
-    void invalidArgumentsType() {
+    void charactersInputTest() {
         assertInvalidTypeArguments("a");
         assertInvalidTypeArguments("z");
-        assertInvalidTypeArguments("y");
-        assertInvalidTypeArguments("b");
+
+        assertInvalidTypeArguments("a|b");
+        assertInvalidTypeArguments("a|b|c");
+        assertInvalidTypeArguments("a|b|c|d");
+
+        assertInvalidTypeArguments("y|z");
+        assertInvalidTypeArguments("x|y|z");
+        assertInvalidTypeArguments("w|x|y|z");
 
         assertInvalidTypeArguments("A");
         assertInvalidTypeArguments("Z");
+
         assertInvalidTypeArguments("B");
-        assertInvalidTypeArguments("Y");
+        assertInvalidTypeArguments("A|B");
+        assertInvalidTypeArguments("A|B|C");
+        assertInvalidTypeArguments("A|B|C|D");
+
+        assertInvalidTypeArguments("Y|Z");
+        assertInvalidTypeArguments("X|Y|Z");
+        assertInvalidTypeArguments("W|X|Y|Z");
+
+        assertInvalidTypeArguments("a 1");
+        assertInvalidTypeArguments("1 a");
+        assertInvalidTypeArguments("pi 45|a 3|r");
+        assertInvalidTypeArguments("584 zero|one 34|two");
 
         assertInvalidTypeArguments("!");
         assertInvalidTypeArguments("@");
-        assertInvalidTypeArguments("#$");
+        assertInvalidTypeArguments("#|$");
+        assertInvalidTypeArguments("#|$|%");
+        assertInvalidTypeArguments("^| |&|*");
 
-        assertInvalidTypeArguments("#424543");
-        assertInvalidTypeArguments("#111111");
-        assertInvalidTypeArguments("#446564");
+        assertInvalidTypeArguments("4 .");
+        assertInvalidTypeArguments("2^10");
+        assertInvalidTypeArguments("1 @|3 &");
+        assertInvalidTypeArguments("23% 3|45*8");
+    }
 
+    @Test
+    void invalidNumericTypeTest() {
         assertInvalidTypeArguments("12.");
         assertInvalidTypeArguments("9856.23");
         assertInvalidTypeArguments("0.45");
         assertInvalidTypeArguments(".0546");
         assertInvalidTypeArguments("0.0");
 
-        assertInvalidTypeArguments("1 2");
-        assertInvalidTypeArguments("0 2");
+        assertInvalidTypeArguments("1.2|1.5");
+        assertInvalidTypeArguments("178.29|541.5|0.25");
+        assertInvalidTypeArguments("2.14|17.85|0.256|78.53");
+        assertInvalidTypeArguments("42.57|189.7|59.57|56.58|558.5");
+
+        assertInvalidTypeArguments("-1.5");
+        assertInvalidTypeArguments("-8.4|.24");
+        assertInvalidTypeArguments("-78.6|-0.25|-659.65");
+        assertInvalidTypeArguments("-1.5|-656.56|-46.562|-87.56");
+
+        assertInvalidTypeArguments("#111111|#424543");
+        assertInvalidTypeArguments("#446564|#783223|#424543");
+        assertInvalidTypeArguments("#764613|#464689|#476643|#566396");
+
+        assertInvalidTypeArguments("#424543");
+        assertInvalidTypeArguments("#111111|#424543");
+        assertInvalidTypeArguments("#446564|#783223|#424543");
+        assertInvalidTypeArguments("#764613|#464689|#476643|#566396");
+
         assertInvalidTypeArguments("1.5 2");
-        assertInvalidTypeArguments("a 2");
-        assertInvalidTypeArguments("D 2");
-        assertInvalidTypeArguments("! 2");
+        assertInvalidTypeArguments("a 2|3% 4");
+        assertInvalidTypeArguments("D 2|zero 7|3$");
+        assertInvalidTypeArguments("! 2|3.14 2|pi 1 8|5L");
         assertInvalidTypeArguments("% 2");
         assertInvalidTypeArguments("-56 2");
 
@@ -108,36 +166,37 @@ public class FibonacciMainTest extends FibonacciTest {
     public void assertFibonacciEquals(int actualIndex, String expected) {
         String input = valueOf(actualIndex);
 
-        String expectedOutput = format(
-                "%sF(%d) = %s%n", PROMPT, actualIndex, expected);
+        String expectedOutput = format("Enter index:%n" +
+                "F(%d) = %s%n", actualIndex, expected);
         String expectedErrorOutput = "";
 
         assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedOutput, MAIN_METHOD);
     }
 
     /**
-     * Asserts that the {@link fibonacci} method throws an {@link InvalidInputException} for an invalid value of index.
+     * Asserts that the console output and error messages match the expected results for a sequence of invalid index
+     * inputs followed by a valid mock index, simulating user interaction and validating the final result.
      *
-     * @param index the index to test, which should cause an exception to be thrown in the Fibonacci calculation
+     * @param rawInput a string of pipe-separated index inputs (e.g., "a|-1|invalid"), where the last input is ignored
+     *                 and replaced by a mock valid index (0)
      */
-    @Override
-    public void assertThrowsInvalidInputException(int index) {
-        String expectedErrorOutput = format(INVALID_INPUT_VALUE_MESSAGE, index);
-        String expectedFullOutput = PROMPT + expectedErrorOutput;
+    public void assertInvalidTypeArguments(String rawInput) {
+        int mockIndex = 0;
+        String mockOutput = String.format(
+                "F(%d) = %d%n", mockIndex, 0
+        );
 
-        assertConsolePrint(valueOf(index), PROMPT, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
-    }
+        String[] inputValue = rawInput.split("\\|");
+        String invalidValues = String.join(LINE_BREAK, inputValue);
+        int count = inputValue.length;
 
-    /**
-     * Asserts that an invalid type argument for the Fibonacci index is handled correctly by the {@link FibonacciMain#main(String[])} method.
-     *
-     * @param input the invalid input to test (non-numeric or invalid format for a Fibonacci index)
-     */
-    public void assertInvalidTypeArguments(String input) {
-        String expectedErrorOutput = "Invalid type of input value. Number from -2147483648 to 2147483647 was expected.";
-        String expectedFullOutput = PROMPT + expectedErrorOutput;
+        String input = invalidValues + LINE_BREAK + mockIndex;
 
-        assertConsolePrint(input, PROMPT, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
+        String expectedOutput = PROMPT.repeat(count + 1) + mockOutput;
+        String expectedErrorOutput = WARNING.repeat(count);
+        String expectedFullOutput = PROMPT + ATTEMPT_MESSAGE.repeat(count) + mockOutput;
+
+        assertConsolePrint(input, expectedOutput, expectedErrorOutput, expectedFullOutput, MAIN_METHOD);
     }
 
 }

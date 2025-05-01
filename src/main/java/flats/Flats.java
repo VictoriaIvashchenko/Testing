@@ -1,7 +1,6 @@
 package flats;
 
 import exceptions.CalculationException;
-import exceptions.InvalidInputException;
 
 public class Flats {
 
@@ -37,7 +36,7 @@ public class Flats {
      * apartment number.</p>
      *
      * <p>It first validates the input values to ensure they are positive and
-     * within a reasonable range. If any value is invalid, an {@link InvalidInputException}
+     * within a reasonable range. If any value is invalid, an {@link IllegalArgumentException}
      * is thrown. Additionally, if the calculation results in an overflow,
      * a {@link CalculationException} is thrown.</p>
      *
@@ -45,17 +44,15 @@ public class Flats {
      * @param flatsOnFloor the number of apartments on each floor
      * @param flatNumber   the apartment number to locate
      * @return an array where the first element is the floor number and the second element is the entrance number
-     * @throws InvalidInputException if any input parameter is non-positive
-     * @throws CalculationException  if an overflow occurs during calculations
+     * @throws ArithmeticException  if an overflow occurs during calculations
      */
-    public static int[] flatLocation(int floors, int flatsOnFloor, int flatNumber) throws InvalidInputException, CalculationException {
+    public static int[] flatLocation(int floors, int flatsOnFloor, int flatNumber) {
         checkValues(floors, INVALID_VALUE_FLOORS_INPUT_MESSAGE);
         checkValues(flatsOnFloor, INVALID_VALUE_FLATS_ON_FLOOR_INPUT_MESSAGE);
         checkValues(flatNumber, INVALID_VALUE_FLAT_NUMBER_INPUT_MESSAGE);
 
         if (floors > Integer.MAX_VALUE / flatsOnFloor)
-            throw new CalculationException(
-                    String.format(INVALID_CALCULATIONS_MESSAGE, floors, flatsOnFloor));
+            throw new ArithmeticException(String.format(INVALID_CALCULATIONS_MESSAGE, floors, flatsOnFloor));
 
         int apartmentsPerEntrance = floors * flatsOnFloor;
         int numOfEntrance = ((flatNumber - 1) / apartmentsPerEntrance + 1);
@@ -64,9 +61,9 @@ public class Flats {
         return new int[]{floorNumber, numOfEntrance};
     }
 
-    private static void checkValues(int value, String message) throws InvalidInputException {
+    private static void checkValues(int value, String message) {
         if (value <= 0) {
-            throw new InvalidInputException(
+            throw new IllegalArgumentException(
                     String.format(message, value));
         }
     }

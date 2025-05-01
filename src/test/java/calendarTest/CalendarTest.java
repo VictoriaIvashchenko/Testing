@@ -1,6 +1,5 @@
 package calendarTest;
 
-import exceptions.InvalidInputException;
 import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
@@ -310,7 +309,7 @@ class CalendarTest {
     }
 
     /**
-     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly throws an {@link InvalidInputException} for illegal day values
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} correctly throws an {@link IllegalArgumentException} for illegal day values
      * in a given month.
      *
      * <p>This method tests various boundary cases and invalid day values to ensure that the {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} method correctly
@@ -333,7 +332,7 @@ class CalendarTest {
     }
 
     /**
-     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} throws an {@link InvalidInputException} with the correct message for
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} throws an {@link IllegalArgumentException} with the correct message for
      * a given invalid day value in a specific month.
      *
      * <p>This method tests that the program throws an exception when provided with an out-of-range day value for the
@@ -369,15 +368,15 @@ class CalendarTest {
 
             assertEquals(expected, actualOutput);
 
-        } catch (InvalidInputException e) {
-            String failMessage = String.format("Expected no InvalidInputException, but got one.%n%s", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            String failMessage = String.format("Expected no IllegalArgumentException, but got one.%n%s", e.getMessage());
 
             fail(failMessage);
         }
     }
 
     /**
-     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} throws an {@link InvalidInputException} with the expected message for
+     * Asserts that the method {@link calendar.Calendar#calendar(DayOfWeek, int, Month)} throws an {@link IllegalArgumentException} with the expected message for
      * an invalid day value in the given month.
      *
      * <p>This method checks that when the program encounters an invalid day of the month, it throws an exception with
@@ -392,9 +391,9 @@ class CalendarTest {
         try {
             calendar(dayOfStart, day, month);
 
-            fail("Expected InvalidInputException to be thrown.");
+            fail("Expected IllegalArgumentException to be thrown.");
 
-        } catch (InvalidInputException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
     }
