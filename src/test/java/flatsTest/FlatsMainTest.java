@@ -24,11 +24,6 @@ public class FlatsMainTest extends FlatsTest {
     private final static Runnable MAIN_METHOD = () -> FlatsMain.main(new String[]{});
 
     /**
-     * System-dependent line separator used for formatting expected test output.
-     */
-    private final static String LINE_BREAK = System.lineSeparator();
-
-    /**
      * Prompt message for entering the number of floors.
      */
     private static final String PROMPT_FLOORS = String.format("Enter number of floors:%n");
@@ -70,72 +65,84 @@ public class FlatsMainTest extends FlatsTest {
 
     @Test
     public void floorsInputOverRangeTest() {
-        assertInvalidArguments("2147483648|2", "2147483648|1", "2147483648|1", "1", "1");
-        assertInvalidArguments("2147483648|2", "1", "1", "1", "1");
-        assertInvalidArguments("2", "2147483648|1", "1", "1", "1");
-        assertInvalidArguments("2", "1", "2147483648|1", "1", "1");
+        assertInvalidArguments("2147483648\n2", "2147483648\n1", "2147483648\n1", "1", "1");
+        assertInvalidArguments("2147483648\n2", "1", "1", "1", "1");
+        assertInvalidArguments("2", "2147483648\n1", "1", "1", "1");
+        assertInvalidArguments("2", "1", "2147483648\n1", "1", "1");
 
-        assertInvalidArguments("0|2", "0|1", "0|1", "1", "1");
-        assertInvalidArguments("0|2", "1", "1", "1", "1");
-        assertInvalidArguments("2", "0|1", "1", "1", "1");
-        assertInvalidArguments("2", "1", "0|1", "1", "1");
+        assertInvalidArguments("0\n2", "0\n1", "0\n1", "1", "1");
+        assertInvalidArguments("0\n2", "1", "1", "1", "1");
+        assertInvalidArguments("2", "0\n1", "1", "1", "1");
+        assertInvalidArguments("2", "1", "0\n1", "1", "1");
 
-        assertInvalidArguments("-2147483649|2", "-2147483649|1", "-2147483649|1", "1", "1");
-        assertInvalidArguments("-2147483649|2", "1", "1", "1", "1");
-        assertInvalidArguments("2", "-2147483649|1", "1", "1", "1");
-        assertInvalidArguments("2", "1", "-2147483649|1", "1", "1");
+        assertInvalidArguments("-2147483649\n2", "-2147483649\n1", "-2147483649\n1", "1", "1");
+        assertInvalidArguments("-2147483649\n2", "1", "1", "1", "1");
+        assertInvalidArguments("2", "-2147483649\n1", "1", "1", "1");
+        assertInvalidArguments("2", "1", "-2147483649\n1", "1", "1");
+
+        assertInvalidArguments("2", "1073741824\n1073741823", "1", "1", "1");
+        assertInvalidArguments("10", "214748365\n214748364", "2", "1", "1");
+
+        assertInvalidArguments("2147483648\n2147483649\n1", "2147483648\n2147483649\n1", "2147483648\n2147483649\n1", "1", "1");
+        assertInvalidArguments("0\n-1\n9", "0\n-1\n4", "0\n-1\n51", "4", "2");
+        assertInvalidArguments("-2\n-3\n-3\n9", "-2\n-3\n-3\n4", "-2\n-3\n-3\n51", "4", "2");
+        assertInvalidArguments("-4\n-5\n-6\n-7\n9", "-4\n-5\n-6\n-7\n4", "-4\n-5\n-6\n-7\n51", "4", "2");
+        assertInvalidArguments("-4\n-5\n-6\n-7\n-10\n9", "-4\n-5\n-6\n-7\n-9\n4", "-4\n-5\n-6\n-7\n-122\n51", "4", "2");
+
     }
 
     @Test
     public void charactersInputTest() {
-        assertInvalidArguments("a|2", "a|1", "a|1", "1", "1");
-        assertInvalidArguments("z|2", "z|1", "z|1", "1", "1");
+        assertInvalidArguments("a\n2", "a\n1", "a\n1", "1", "1");
+        assertInvalidArguments("z\n2", "z\n1", "z\n1", "1", "1");
 
-        assertInvalidArguments("a|b|2", "a|b|1", "a|b|1", "1", "1");
-        assertInvalidArguments("a|b|c|2", "a|b|c|1", "a|b|c|1", "1", "1");
-        assertInvalidArguments("a|b|c|d|2", "a|b|c|d|1", "a|b|c|d|1", "1", "1");
+        assertInvalidArguments("a\nb\n2", "a\nb\n1", "a\nb\n1", "1", "1");
+        assertInvalidArguments("a\nb\nc\n2", "a\nb\nc\n1", "a\nb\nc\n1", "1", "1");
+        assertInvalidArguments("a\nb\nc\nd\n2", "a\nb\nc\nd\n1", "a\nb\nc\nd\n1", "1", "1");
 
-        assertInvalidArguments("y|z|2", "y|z|1", "y|z|1", "1", "1");
-        assertInvalidArguments("x|y|z|2", "x|y|z|1", "x|y|z|1", "1", "1");
-        assertInvalidArguments("w|x|y|z|2", "w|x|y|z|1", "w|x|y|z|1", "1", "1");
+        assertInvalidArguments("y\nz\n2", "y\nz\n1", "y\nz\n1", "1", "1");
+        assertInvalidArguments("x\ny\nz\n2", "x\ny\nz\n1", "x\ny\nz\n1", "1", "1");
+        assertInvalidArguments("w\nx\ny\nz\n2", "w\nx\ny\nz\n1", "w\nx\ny\nz\n1", "1", "1");
 
-        assertInvalidArguments("A|2", "A|1", "a|1", "1", "1");
-        assertInvalidArguments("Z|2", "Z|1", "z|1", "1", "1");
+        assertInvalidArguments("A\n2", "A\n1", "a\n1", "1", "1");
+        assertInvalidArguments("Z\n2", "Z\n1", "z\n1", "1", "1");
 
-        assertInvalidArguments("A|B|2", "A|B|1", "A|B|1", "1", "1");
-        assertInvalidArguments("A|B|C|2", "A|B|C|1", "A|B|C|1", "1", "1");
-        assertInvalidArguments("A|B|C|D|2", "A|B|C|D|1", "A|B|C|D|1", "1", "1");
+        assertInvalidArguments("A\nB\n2", "A\nB\n1", "A\nB\n1", "1", "1");
+        assertInvalidArguments("A\nB\nC\n2", "A\nB\nC\n1", "A\nB\nC\n1", "1", "1");
+        assertInvalidArguments("A\nB\nC\nD\n2", "A\nB\nC\nD\n1", "A\nB\nC\nD\n1", "1", "1");
 
-        assertInvalidArguments("Y|Z|2", "Y|Z|1", "Y|Z|1", "1", "1");
-        assertInvalidArguments("X|Y|Z|2", "X|Y|Z|1", "X|Y|Z|1", "1", "1");
-        assertInvalidArguments("W|X|Y|Z|2", "W|X|Y|Z|1", "W|X|Y|Z|1", "1", "1");
+        assertInvalidArguments("Y\nZ\n2", "Y\nZ\n1", "Y\nZ\n1", "1", "1");
+        assertInvalidArguments("X\nY\nZ\n2", "X\nY\nZ\n1", "X\nY\nZ\n1", "1", "1");
+        assertInvalidArguments("W\nX\nY\nZ\n2", "W\nX\nY\nZ\n1", "W\nX\nY\nZ\n1", "1", "1");
 
-        assertInvalidArguments("!|2", "!|2", "!|1", "1", "1");
-        assertInvalidArguments("!|@|2", "!|@|2", "!|@|1", "1", "1");
-        assertInvalidArguments("!|@|#|2", "!|@|#|1", "!|@|#|1", "1", "1");
+        assertInvalidArguments("!\n2", "!\n2", "!\n1", "1", "1");
+        assertInvalidArguments("!\n@\n2", "!\n@\n2", "!\n@\n1", "1", "1");
+        assertInvalidArguments("!\n@\n#\n2", "!\n@\n#\n1", "!\n@\n#\n1", "1", "1");
 
-        assertInvalidArguments("a 1|2", "pi|1", "zero 2|1", "1", "1");
-        assertInvalidArguments("5 7|2", "8 9|1", "2 4|1", "1", "1");
-        assertInvalidArguments("2%|2", "5^4|1", "4 %|1", "1", "1");
+        assertInvalidArguments("a 1\n2", "pi\n1", "zero 2\n1", "1", "1");
+        assertInvalidArguments("5 7\n2", "8 9\n1", "2 4\n1", "1", "1");
+        assertInvalidArguments("2%\n2", "5^4\n1", "4 %\n1", "1", "1");
+
+        assertInvalidArguments("(o･｀Д´･o)!!\n9", "U^ェ^U\n4", "(*・ｘ・)ノ~~~♪\n74", "1", "3");
     }
 
     @Test
     public void invalidNumericTypeTest() {
-        assertInvalidArguments("1.3|2", "34.5|1", "21.4|1", "1", "1");
-        assertInvalidArguments("587.57|0.56|2", "34.5|0.46|1", "21.4|0.48|1", "1", "1");
-        assertInvalidArguments("57.39|0.4|-15.22|2", "34.5|0.465|-464.2|1", "21.4|0.26|-12.5|1", "1", "1");
-        assertInvalidArguments("1.3|0.45|-5.23|.45|2", "34.5|0.45|-5.23|.45|1", "21.4|0.45|-5.23|.45|1", "1", "1");
+        assertInvalidArguments("1.3\n2", "34.5\n1", "21.4\n1", "1", "1");
+        assertInvalidArguments("587.57\n0.56\n2", "34.5\n0.46\n1", "21.4\n0.48\n1", "1", "1");
+        assertInvalidArguments("57.39\n0.4\n-15.22\n2", "34.5\n0.465\n-464.2\n1", "21.4\n0.26\n-12.5\n1", "1", "1");
+        assertInvalidArguments("1.3\n0.45\n-5.23\n.45\n2", "34.5\n0.45\n-5.23\n.45\n1", "21.4\n0.45\n-5.23\n.45\n1", "1", "1");
 
-        assertInvalidArguments("1.3 1|2", "45.56 2|1", "5.5 5|1", "1", "1");
-        assertInvalidArguments("1L 1|45.5|2", "-411.4 2|1", "-0.12 5|455.1|1", "1", "1");
-        assertInvalidArguments("1.3 1|584.45 5|2", "45.56 2|430.1 12|1", "5.5 5|54.5|1", "1", "1");
+        assertInvalidArguments("1.3 1\n2", "45.56 2\n1", "5.5 5\n1", "1", "1");
+        assertInvalidArguments("1L 1\n45.5\n2", "-411.4 2\n1", "-0.12 5\n455.1\n1", "1", "1");
+        assertInvalidArguments("1.3 1\n584.45 5\n2", "45.56 2\n430.1 12\n1", "5.5 5\n54.5\n1", "1", "1");
 
-        assertInvalidArguments("#456236|2", "#596345|1", "#569812|1", "1", "1");
-        assertInvalidArguments("#786215|#125621|2", "#786215|#125621|1", "#786215|#125621|1", "1", "1");
-        assertInvalidArguments("#786215|#125621|#896546|2", "#786215|#125621|#786512|1", "#783236|#786215|#125621|1", "1", "1");
+        assertInvalidArguments("#456236\n2", "#596345\n1", "#569812\n1", "1", "1");
+        assertInvalidArguments("#786215\n#125621\n2", "#786215\n#125621\n1", "#786215\n#125621\n1", "1", "1");
+        assertInvalidArguments("#786215\n#125621\n#896546\n2", "#786215\n#125621\n#786512\n1", "#783236\n#786215\n#125621\n1", "1", "1");
 
-        assertInvalidArguments("#456236 5|2", "#596345 1|1", "#569812 5|1", "1", "1");
-        assertInvalidArguments("#456236 7|2", "#596345 9|1", "#569812 7|1", "1", "1");
+        assertInvalidArguments("#456236 5\n2", "#596345 1\n1", "#569812 5\n1", "1", "1");
+        assertInvalidArguments("#456236 7\n2", "#596345 9\n1", "#569812 7\n1", "1", "1");
     }
 
     /**
@@ -161,41 +168,37 @@ public class FlatsMainTest extends FlatsTest {
     /**
      * Constructs an input string from floors, flats per floor, and flat number, formatted with line breaks.
      *
-     * @param floor the number of floors
+     * @param floor        the number of floors
      * @param flatsOnFloor the number of flats per floor
-     * @param flatNumber the flat number
-     * @return a string containing the floors, flats per floor, and flat number, separated by line breaks
+     * @param flatNumber   the flat number
+     * @return a string containing the floors, flats per floor, and flat number, separated by "\n"
      */
     private static String getInput(int floor, int flatsOnFloor, int flatNumber) {
-        return floor + LINE_BREAK + flatsOnFloor + LINE_BREAK + flatNumber + LINE_BREAK;
+        return floor + "\n" + flatsOnFloor + "\n" + flatNumber + "\n";
     }
 
     /**
      * Asserts that the console output and error messages match the expected results for a sequence of invalid and valid
      * inputs for floors, flats per floor, and flat number, simulating user interaction and validating the final result.
      *
-     * @param floors a string of pipe-separated floors inputs (e.g., "0|-1|5"), where the last value is valid
-     * @param flatsOnFloor a string of pipe-separated flats per floor inputs (e.g., "0|1000000000|4"), where the last value is valid
-     * @param flatNumber a string of pipe-separated flat number inputs (e.g., "0|-1|12"), where the last value is valid
-     * @param expectedFloor the expected floor number as a string
+     * @param floors           a string of pipe-separated floors inputs (e.g., "0\n-1\n5"), where the last value is valid
+     * @param flatsOnFloor     a string of pipe-separated flats per floor inputs (e.g., "0\n1000000000\n4"), where the last value is valid
+     * @param flatNumber       a string of pipe-separated flat number inputs (e.g., "0\n-1\n12"), where the last value is valid
+     * @param expectedFloor    the expected floor number as a string
      * @param expectedEntrance the expected entrance number as a string
      */
     public void assertInvalidArguments(String floors, String flatsOnFloor, String flatNumber, String expectedFloor,
                                        String expectedEntrance) {
-        String[] floorsValues = floors.split("\\|");
-        String[] flatsOnFloorValues = flatsOnFloor.split("\\|");
-        String[] flatNumberInvalidValues = flatNumber.split("\\|");
+        int countFloorsValues = getCount(floors);
+        int countFlatsOnFloorValues = getCount(flatsOnFloor);
+        int countFlatNumbersValues = getCount(flatNumber);
 
-        int countFloorsValues = floorsValues.length;
-        int countFlatsOnFloorValues = flatsOnFloorValues.length;
-        int countFlatNumbersValues = flatNumberInvalidValues.length;
+        String flatsOnFloorWarning = getFlatsOnFloorMessage(floors);
+        String attemptFlatsOnFloor = flatsOnFloorWarning + PROMPT_FLATS_ON_FLOOR;
 
         String expectedResult = format("Floor: %s, entrance: %s%n", expectedFloor, expectedEntrance);
 
-        String flatsOnFloorWarning = getFlatsOnFloorMessage(floorsValues);
-        String attemptFlatsOnFloor = flatsOnFloorWarning + PROMPT_FLATS_ON_FLOOR;
-
-        String input = getInput(floorsValues, flatsOnFloorValues, flatNumberInvalidValues);
+        String input = String.join("\n", floors, flatsOnFloor, flatNumber);
 
         String expectedOutput = PROMPT_FLOORS.repeat(countFloorsValues) +
                 PROMPT_FLATS_ON_FLOOR.repeat(countFlatsOnFloorValues) +
@@ -211,30 +214,25 @@ public class FlatsMainTest extends FlatsTest {
     }
 
     /**
-     * Constructs a single input string by combining arrays of floors, flats per floor, and flat number inputs,
-     * separated by line breaks.
+     * Method counts values in input string in which "\n" uses as separator
      *
-     * @param floorsInput array of floors input values
-     * @param flatsOnFloorInput array of flats per floor input values
-     * @param flatNumberInput array of flat number input values
-     * @return a string containing all input values concatenated with line breaks
+     * @param stringInput string contains input values
+     * @return count of values in input string
      */
-    private static String getInput(String[] floorsInput, String[] flatsOnFloorInput, String[] flatNumberInput) {
-        String floorsValues = String.join(LINE_BREAK, floorsInput);
-        String flatsOnFloorValues = String.join(LINE_BREAK, flatsOnFloorInput);
-        String flatNumberValues = String.join(LINE_BREAK, flatNumberInput);
-
-        return floorsValues + LINE_BREAK + flatsOnFloorValues + LINE_BREAK + flatNumberValues;
+    private static int getCount(String stringInput) {
+        String[] values = stringInput.split("\n");
+        return values.length;
     }
 
     /**
      * Generates a warning message for invalid flats per floor input based on the maximum allowed flats
      * given the number of floors.
      *
-     * @param floorsValues array of floors input values, where the last value is assumed to be valid
+     * @param floorsInput string of floors input values, where the last value is assumed to be valid
      * @return a formatted warning message indicating the valid range for flats per floor
      */
-    private static String getFlatsOnFloorMessage(String[] floorsValues) {
+    private static String getFlatsOnFloorMessage(String floorsInput) {
+        String[] floorsValues = floorsInput.split("\n");
         String validFloors = floorsValues[floorsValues.length - 1];
         int floors = Integer.parseInt(validFloors);
 

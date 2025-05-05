@@ -19,11 +19,6 @@ import static tools.ConsolePrintCheck.assertConsolePrint;
 public class CalendarMainTest extends CalendarTest {
 
     /**
-     * System-dependent line separator used for formatting expected test output.
-     */
-    private final static String LINE_BREAK = System.lineSeparator();
-
-    /**
      * A {@link Runnable} reference to the {@code main} method of {@link CalendarMain}.
      *
      * <p>This runnable executes {@link CalendarMain#main(String[])} with an empty argument array,
@@ -68,80 +63,82 @@ public class CalendarMainTest extends CalendarTest {
 
     @Test
     void overRangeArgumentsTest() {
-        assertInvalidArguments("8|1", "32|1", "13|1", "Monday");
-        assertInvalidArguments("8|9|1", "29|30|1", "13|14|2", "Thursday");
-        assertInvalidArguments("8|9|10|1", "31|32|33|1", "13|14|15|4", "Sunday");
-        assertInvalidArguments("8|9|10|11|1", "32|33|34|35|1", "13|14|15|16|1", "Monday");
+        assertInvalidArguments("8\n1", "32\n1", "13\n1", "Monday");
+        assertInvalidArguments("8\n9\n1", "29\n30\n1", "13\n14\n2", "Thursday");
+        assertInvalidArguments("8\n9\n10\n1", "31\n32\n33\n1", "13\n14\n15\n4", "Sunday");
+        assertInvalidArguments("8\n9\n10\n11\n1", "32\n33\n34\n35\n1", "13\n14\n15\n16\n1", "Monday");
 
-        assertInvalidArguments("2147483648|1", "2147483648|1", "2147483648|1", "Monday");
-        assertInvalidArguments("2147483648|2147483649|1", "2147483648|2147483649|1", "2147483648|2147483649|1", "Monday");
-        assertInvalidArguments("2147483648|2147483649|2147483650|1", "2147483648|2147483649|2147483650|1", "2147483648|2147483649|2147483650|1", "Monday");
-        assertInvalidArguments("2147483648|2147483649|2147483650|2147483651|1", "2147483648|2147483649|2147483650|2147483651|1", "2147483648|2147483649|2147483650|2147483651|1", "Monday");
+        assertInvalidArguments("0\n1", "0\n1", "0\n1", "Monday");
+        assertInvalidArguments("0\n-1\n2", "0\n-1\n4", "0\n-1\n1", "Friday");
+        assertInvalidArguments("0\n-1\n-2\n1", "0\n-1\n-2\n1", "0\n-1\n-2\n1", "Monday");
+        assertInvalidArguments("0\n-1\n-2\n-3\n1", "0\n-1\n-2\n-3\n1", "0\n-1\n-2\n-3\n1", "Monday");
 
-        assertInvalidArguments("0|1", "0|1", "0|1", "Monday");
-        assertInvalidArguments("0|-1|1", "0|-1|1", "0|-1|1", "Monday");
-        assertInvalidArguments("0|-1|-2|1", "0|-1|-2|1", "0|-1|-2|1", "Monday");
-        assertInvalidArguments("0|-1|-2|-3|1", "0|-1|-2|-3|1", "0|-1|-2|-3|1", "Monday");
+        assertInvalidArguments("2147483648\n1", "2147483648\n1", "2147483648\n1", "Monday");
+        assertInvalidArguments("2147483648\n2147483649\n1", "2147483648\n2147483649\n2", "2147483648\n2147483649\n1", "Tuesday");
+        assertInvalidArguments("2147483648\n2147483649\n2147483650\n3", "2147483648\n2147483649\n2147483650\n1", "2147483648\n2147483649\n2147483650\n1", "Wednesday");
+        assertInvalidArguments("2147483648\n2147483649\n2147483650\n2147483651\n1", "2147483648\n2147483649\n2147483650\n2147483651\n1", "2147483648\n2147483649\n2147483650\n2147483651\n1", "Monday");
 
-        assertInvalidArguments("-2147483649|1", "-2147483649|1", "-2147483649|1", "Monday");
-        assertInvalidArguments("-2147483649|-2147483650|1", "-2147483649|-2147483650|1", "-2147483649|-2147483650|1", "Monday");
-        assertInvalidArguments("-2147483649|-2147483650|-2147483651|1", "-2147483649|-2147483650|-2147483651|1", "-2147483649|-2147483650|-2147483651|1", "Monday");
-        assertInvalidArguments("-2147483649|-2147483650|-2147483651|-2147483652|1", "-2147483649|-2147483650|-2147483651|-2147483652|1", "-2147483649|-2147483650|-2147483651|-2147483652|1", "Monday");
+        assertInvalidArguments("-2147483649\n1", "-2147483649\n1", "-2147483649\n1", "Monday");
+        assertInvalidArguments("-2147483649\n-2147483650\n5", "-2147483649\n-2147483650\n2", "-2147483649\n-2147483650\n1", "Saturday");
+        assertInvalidArguments("-2147483649\n-2147483650\n-2147483651\n1", "-2147483649\n-2147483650\n-2147483651\n1", "-2147483649\n-2147483650\n-2147483651\n1", "Monday");
+        assertInvalidArguments("-2147483649\n-2147483650\n-2147483651\n-2147483652\n1", "-2147483649\n-2147483650\n-2147483651\n-2147483652\n1", "-2147483649\n-2147483650\n-2147483651\n-2147483652\n1", "Monday");
     }
 
     @Test
     void characterInputTest() {
-        assertInvalidArguments("a|1", "a|1", "a|1", "Monday");
-        assertInvalidArguments("z|1", "z|1", "z|1", "Monday");
+        assertInvalidArguments("a\n1", "a\n1", "a\n1", "Monday");
+        assertInvalidArguments("z\n1", "z\n1", "z\n1", "Monday");
 
-        assertInvalidArguments("a|b|1", "a|b|1", "a|b|1", "Monday");
-        assertInvalidArguments("a|b|c|1", "a|b|c|1", "a|b|c|1", "Monday");
-        assertInvalidArguments("a|b|c|d|1", "a|b|c|d|1", "a|b|c|d|1", "Monday");
+        assertInvalidArguments("a\nb\n1", "a\nb\n2", "a\nb\n1", "Tuesday");
+        assertInvalidArguments("a\nb\nc\n1", "a\nb\nc\n1", "a\nb\nc\n1", "Monday");
+        assertInvalidArguments("a\nb\nc\nd\n1", "a\nb\nc\nd\n1", "a\nb\nc\nd\n1", "Monday");
 
-        assertInvalidArguments("z|y|1", "z|y|1", "z|y|1", "Monday");
-        assertInvalidArguments("z|y|x|1", "z|y|x|1", "z|y|x|1", "Monday");
-        assertInvalidArguments("z|y|x|w|1", "z|y|x|w|1", "z|y|x|w|1", "Monday");
+        assertInvalidArguments("z\ny\n1", "z\ny\n1", "z\ny\n1", "Monday");
+        assertInvalidArguments("z\ny\nx\n1", "z\ny\nx\n3", "z\ny\nx\n1", "Wednesday");
+        assertInvalidArguments("z\ny\nx\nw\n1", "z\ny\nx\nw\n1", "z\ny\nx\nw\n1", "Monday");
 
-        assertInvalidArguments("A|1", "A|1", "A|1", "Monday");
-        assertInvalidArguments("Z|1", "Z|1", "Z|1", "Monday");
+        assertInvalidArguments("A\n1", "A\n1", "A\n1", "Monday");
+        assertInvalidArguments("Z\n7", "Z\n1", "Z\n1", "Sunday");
 
-        assertInvalidArguments("A|B|1", "A|B|1", "A|B|1", "Monday");
-        assertInvalidArguments("A|B|C|1", "A|B|C|1", "A|B|C|1", "Monday");
-        assertInvalidArguments("A|B|C|D|1", "A|B|C|D|1", "A|B|C|D|1", "Monday");
+        assertInvalidArguments("A\nB\n1", "A\nB\n1", "A\nB\n1", "Monday");
+        assertInvalidArguments("A\nB\nC\n1", "A\nB\nC\n1", "A\nB\nC\n1", "Monday");
+        assertInvalidArguments("A\nB\nC\nD\n1", "A\nB\nC\nD\n1", "A\nB\nC\nD\n1", "Monday");
 
-        assertInvalidArguments("Z|Y|1", "Z|Y|1", "Z|Y|1", "Monday");
-        assertInvalidArguments("Z|Y|X|1", "Z|Y|X|1", "Z|Y|X|1", "Monday");
-        assertInvalidArguments("Z|Y|X|W|1", "Z|Y|X|W|1", "Z|Y|X|W|1", "Monday");
+        assertInvalidArguments("Z\nY\n1", "Z\nY\n1", "Z\nY\n1", "Monday");
+        assertInvalidArguments("Z\nY\nX\n5", "Z\nY\nX\n1", "Z\nY\nX\n1", "Friday");
+        assertInvalidArguments("Z\nY\nX\nW\n1", "Z\nY\nX\nW\n1", "Z\nY\nX\nW\n1", "Monday");
 
-        assertInvalidArguments("a 1|1", "3 f|1", "4 f|1", "Monday");
-        assertInvalidArguments("b 1|2 f|1", "3 f|zero 2|1", "4 f|one 1|1", "Monday");
+        assertInvalidArguments("a 1\n1", "3 f\n1", "4 f\n1", "Monday");
+        assertInvalidArguments("b 1\n2 f\n1", "3 f\nzero 2\n1", "4 f\none 1\n1", "Monday");
 
-        assertInvalidArguments("!|1", "!|1", "!|1", "Monday");
-        assertInvalidArguments("@|!|1", "@|!|1", "@|!|1", "Monday");
-        assertInvalidArguments("!|@|#|1", "!|@|#|1", "!|@|#|1", "Monday");
+        assertInvalidArguments("!\n1", "!\n1", "!\n1", "Monday");
+        assertInvalidArguments("@\n!\n2", "@\n!\n3", "@\n!\n1", "Thursday");
+        assertInvalidArguments("!\n@\n#\n1", "!\n@\n#\n1", "!\n@\n#\n1", "Monday");
 
-        assertInvalidArguments("3%|1", "5$|1", "2^2|1", "Monday");
-        assertInvalidArguments("2@ 3|4$|5+1|1", "4$ 6|7^ 1|1", "13 1|1", "Monday");
+        assertInvalidArguments("3%\n1", "5$\n1", "2^2\n1", "Monday");
+        assertInvalidArguments("3% 4\n(7-5)*2\n3", "8-1\n!\n2", "#5050\n7%2\n1", "Thursday");
+        assertInvalidArguments("2@ 3\n4$\n5+1\n4", "4$ 6\n7^ 1\n3", "13 1\n1", "Saturday");
+        assertInvalidArguments("(^.^)\nd=(^o^)=b\n(/--)/\n(・_・?)\n2", "#4\n|1|\n$2\n4$;\n2", "7^#%\n(0-0)\n1", "Wednesday");
     }
 
     @Test
     void invalidNumericTypeTest() {
-        assertInvalidArguments("1.3|1", "34.5|1", "21.4|1", "Monday");
-        assertInvalidArguments("587.57|0.56|1", "34.5|0.46|1", "21.4|0.48|1", "Monday");
-        assertInvalidArguments("57.39|0.4|-15.22|1", "34.5|0.465|-464.2|1", "21.4|0.26|-12.5|1", "Monday");
-        assertInvalidArguments("1.3|0.45|-5.23|.45|1", "34.5|0.45|-5.23|.45|1", "21.4|0.45|-5.23|.45|1", "Monday");
+        assertInvalidArguments("1.3\n1", "34.5\n1", "21.4\n1", "Monday");
+        assertInvalidArguments("587.57\n0.56\n1", "34.5\n0.46\n1", "21.4\n0.48\n1", "Monday");
+        assertInvalidArguments("57.39\n0.4\n-15.22\n1", "34.5\n0.465\n-464.2\n1", "21.4\n0.26\n-12.5\n1", "Monday");
+        assertInvalidArguments("1.3\n0.45\n-5.23\n.45\n1", "34.5\n0.45\n-5.23\n.45\n1", "21.4\n0.45\n-5.23\n.45\n1", "Monday");
 
-        assertInvalidArguments("1.3 1|1", "45.56 2|1", "5.5 5|1", "Monday");
-        assertInvalidArguments("1L 1|45.5|1", "-411.4 2|1", "-0.12 5|455.1|1", "Monday");
-        assertInvalidArguments("1.3 1|584.45 5|1", "45.56 2|430.1 12|1", "5.5 5|54.5|1", "Monday");
+        assertInvalidArguments("1.3 1\n1", "45.56 2\n1", "5.5 5\n1", "Monday");
+        assertInvalidArguments("1L 1\n45.5\n1", "-411.4 2\n1", "-0.12 5\n455.1\n1", "Monday");
+        assertInvalidArguments("1.3 1\n584.45 5\n1", "45.56 2\n430.1 12\n1", "5.5 5\n54.5\n1", "Monday");
 
-        assertInvalidArguments("#456236|1", "#596345|1", "#569812|1", "Monday");
-        assertInvalidArguments("#786215|#125621|1", "#786215|#125621|1", "#786215|#125621|1", "Monday");
-        assertInvalidArguments("#786215|#125621|#896546|1", "#786215|#125621|#786512|1", "#783236|#786215|#125621|1", "Monday");
+        assertInvalidArguments("#456236\n1", "#596345\n1", "#569812\n1", "Monday");
+        assertInvalidArguments("#786215\n#125621\n1", "#786215\n#125621\n1", "#786215\n#125621\n1", "Monday");
+        assertInvalidArguments("#786215\n#125621\n#896546\n1", "#786215\n#125621\n#786512\n1", "#783236\n#786215\n#125621\n1", "Monday");
 
-        assertInvalidArguments("#456236 5|1", "#596345 1|1", "#569812 5|1", "Monday");
-        assertInvalidArguments("#456236 7|1", "#596345 9|1", "#569812 7|1", "Monday");
-
+        assertInvalidArguments("#456236 5\n1", "#596345 1\n1", "#569812 5\n1", "Monday");
+        assertInvalidArguments("#456236 7\n 3 #459362 2\n1", "#596345 9\n 5 #761136\n1", "#569812 7\n1", "Monday");
+        assertInvalidArguments("0b01 2\n1", "0b11 2\n3", "0b110\n1", "Wednesday");
     }
 
     /**
@@ -169,36 +166,32 @@ public class CalendarMainTest extends CalendarTest {
      * @param dayOfStart the day of the week for the start of the year (e.g., Monday as 1)
      * @param day        the day of the month
      * @param month      the month of the year
-     * @return a string containing the weekday value, month value, and day, separated by line breaks
+     * @return a string containing the weekday value, month value, and day, separated by "\n"
      */
     private static String getInput(DayOfWeek dayOfStart, int day, Month month) {
-        return dayOfStart.getValue() + LINE_BREAK + month.getValue() + LINE_BREAK + day;
+        return dayOfStart.getValue() + "\n" + month.getValue() + "\n" + day;
     }
 
     /**
      * Asserts that the console output and error messages match the expected results for a sequence of invalid and valid
      * inputs for weekday, day, and month, simulating user interaction and validating the final result.
      *
-     * @param weekday  a string of pipe-separated weekday inputs (e.g., "8|0|1"), where the last value is valid
-     * @param day      a string of pipe-separated day inputs (e.g., "32|0|15"), where the last value is valid
-     * @param month    a string of pipe-separated month inputs (e.g., "13|0|6"), where the last value is valid
+     * @param weekday  a string of pipe-separated weekday inputs (e.g., "8\n0\n1"), where the last value is valid
+     * @param day      a string of pipe-separated day inputs (e.g., "32\n0\n15"), where the last value is valid
+     * @param month    a string of pipe-separated month inputs (e.g., "13\n0\n6"), where the last value is valid
      * @param expected the expected final output message (e.g., the computed day of the week)
      */
     public void assertInvalidArguments(String weekday, String day, String month, String expected) {
-        String[] weekdayInput = weekday.split("\\|");
-        String[] monthInput = month.split("\\|");
-        String[] dayInput = day.split("\\|");
+        int countWeekdayValues = getCount(weekday);
+        int countMonthValues = getCount(month);
+        int countDayValues = getCount(day);
 
-        int countWeekdayValues = weekdayInput.length;
-        int countMonthValues = monthInput.length;
-        int countDayValues = dayInput.length;
-
-        String invalidDayMessage = getDayWarning(monthInput);
+        String invalidDayMessage = getDayWarning(month);
         String dayAttempt = invalidDayMessage + PROMPT_DAY;
 
         String expectedResult = String.format("It is %s%n", expected);
 
-        String input = getInput(weekdayInput, dayInput, monthInput);
+        String input = String.join("\n", weekday, month, day);
 
         String expectedOutput = PROMPT_NEW_YEAR.repeat(countWeekdayValues) + PROMPT_MONTH.repeat(countMonthValues) +
                 PROMPT_DAY.repeat(countDayValues) + expectedResult;
@@ -212,29 +205,25 @@ public class CalendarMainTest extends CalendarTest {
     }
 
     /**
-     * Constructs a single input string by combining arrays of weekday, day, and month inputs, separated by line breaks.
+     * Method counts values in input string in which "\n" uses as separator
      *
-     * @param weekdayInput array of weekday input values
-     * @param dayInput     array of day input values
-     * @param monthInput   array of month input values
-     * @return a string containing all input values concatenated with line breaks
+     * @param stringInput string contains input values
+     * @return count of values in input string
      */
-    private static String getInput(String[] weekdayInput, String[] dayInput, String[] monthInput) {
-        String weekdayValues = String.join(LINE_BREAK, weekdayInput);
-        String monthValues = String.join(LINE_BREAK, monthInput);
-        String dayValues = String.join(LINE_BREAK, dayInput);
-
-        return weekdayValues + LINE_BREAK + monthValues + LINE_BREAK + dayValues;
+    private static int getCount(String stringInput) {
+        String[] values = stringInput.split("\n");
+        return values.length;
     }
 
     /**
      * Generates a warning message for invalid day input based on the maximum days in the specified month.
      *
-     * @param monthInput array of month input values, where the last value is assumed to be valid
+     * @param monthInput string contains month input values, where the last value is assumed to be valid
      * @return a formatted warning message indicating the valid day range for the given month
      */
-    private static String getDayWarning(String[] monthInput) {
-        String validMonth = monthInput[monthInput.length - 1];
+    private static String getDayWarning(String monthInput) {
+        String[] monthValues = monthInput.split("\n");
+        String validMonth = monthValues[monthValues.length - 1];
         int numberMonth = Integer.parseInt(validMonth);
 
         int maxDaysInMont = Month.of(numberMonth).length(false);

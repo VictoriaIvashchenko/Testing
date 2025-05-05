@@ -17,11 +17,6 @@ import static tools.ConsolePrintCheck.assertConsolePrint;
 public class FibonacciMainTest extends FibonacciTest {
 
     /**
-     * System-dependent line separator used for formatting expected test output.
-     */
-    private final static String LINE_BREAK = System.lineSeparator();
-
-    /**
      * A {@link Runnable} reference to the {@code main} method of {@link FibonacciMain}.
      *
      * <p>This runnable executes {@link FibonacciMain#main(String[])} with an empty argument array,
@@ -50,21 +45,21 @@ public class FibonacciMainTest extends FibonacciTest {
     @Test
     void overRangeInputTest() {
         assertInvalidTypeArguments("21475483648");
-        assertInvalidTypeArguments("21475483648|21475483649");
-        assertInvalidTypeArguments("21475483648|21475483649|21475483650");
-        assertInvalidTypeArguments("21475483648|21475483649|21475483650|21475483651");
-        assertInvalidTypeArguments("21475483648|21475483649|21475483650|21475483651|21475483652");
+        assertInvalidTypeArguments("21475483648\n21475483649");
+        assertInvalidTypeArguments("21475483648\n21475483649\n21475483650");
+        assertInvalidTypeArguments("21475483648\n21475483649\n21475483650\n21475483651");
+        assertInvalidTypeArguments("21475483648\n21475483649\n21475483650\n21475483651\n21475483652");
 
         assertInvalidTypeArguments("-21475483649");
-        assertInvalidTypeArguments("-21475483650|-21475483649");
-        assertInvalidTypeArguments("-21475483651|-21475483650|-21475483649");
-        assertInvalidTypeArguments("-21475483652|-21475483651|-21475483650|-21475483649");
-        assertInvalidTypeArguments("-21475483653|-21475483652|-21475483651|-21475483650|-21475483649");
+        assertInvalidTypeArguments("-21475483650\n-21475483649");
+        assertInvalidTypeArguments("-21475483651\n-21475483650\n-21475483649");
+        assertInvalidTypeArguments("-21475483652\n-21475483651\n-21475483650\n-21475483649");
+        assertInvalidTypeArguments("-21475483653\n-21475483652\n-21475483651\n-21475483650\n-21475483649");
 
         assertInvalidTypeArguments("21475483648 1");
         assertInvalidTypeArguments("-21475483649 1");
-        assertInvalidTypeArguments("21475483648 1 |1 2");
-        assertInvalidTypeArguments("-2147483649 1|7 2");
+        assertInvalidTypeArguments("21475483648 1 \n1 2");
+        assertInvalidTypeArguments("-2147483649 1\n7 2");
     }
 
     @Test
@@ -72,41 +67,42 @@ public class FibonacciMainTest extends FibonacciTest {
         assertInvalidTypeArguments("a");
         assertInvalidTypeArguments("z");
 
-        assertInvalidTypeArguments("a|b");
-        assertInvalidTypeArguments("a|b|c");
-        assertInvalidTypeArguments("a|b|c|d");
+        assertInvalidTypeArguments("a\nb");
+        assertInvalidTypeArguments("a\nb\nc");
+        assertInvalidTypeArguments("a\nb\nc\nd");
 
-        assertInvalidTypeArguments("y|z");
-        assertInvalidTypeArguments("x|y|z");
-        assertInvalidTypeArguments("w|x|y|z");
+        assertInvalidTypeArguments("y\nz");
+        assertInvalidTypeArguments("x\ny\nz");
+        assertInvalidTypeArguments("w\nx\ny\nz");
 
         assertInvalidTypeArguments("A");
         assertInvalidTypeArguments("Z");
 
         assertInvalidTypeArguments("B");
-        assertInvalidTypeArguments("A|B");
-        assertInvalidTypeArguments("A|B|C");
-        assertInvalidTypeArguments("A|B|C|D");
+        assertInvalidTypeArguments("A\nB");
+        assertInvalidTypeArguments("A\nB\nC");
+        assertInvalidTypeArguments("A\nB\nC\nD");
 
-        assertInvalidTypeArguments("Y|Z");
-        assertInvalidTypeArguments("X|Y|Z");
-        assertInvalidTypeArguments("W|X|Y|Z");
+        assertInvalidTypeArguments("Y\nZ");
+        assertInvalidTypeArguments("X\nY\nZ");
+        assertInvalidTypeArguments("W\nX\nY\nZ");
 
         assertInvalidTypeArguments("a 1");
         assertInvalidTypeArguments("1 a");
-        assertInvalidTypeArguments("pi 45|a 3|r");
-        assertInvalidTypeArguments("584 zero|one 34|two");
+        assertInvalidTypeArguments("pi 45\na 3\nr");
+        assertInvalidTypeArguments("584 zero\none 34\ntwo");
 
         assertInvalidTypeArguments("!");
         assertInvalidTypeArguments("@");
-        assertInvalidTypeArguments("#|$");
-        assertInvalidTypeArguments("#|$|%");
-        assertInvalidTypeArguments("^| |&|*");
+        assertInvalidTypeArguments("#\n$");
+        assertInvalidTypeArguments("#\n$\n%");
+        assertInvalidTypeArguments("^\n \n&\n*");
 
         assertInvalidTypeArguments("4 .");
         assertInvalidTypeArguments("2^10");
-        assertInvalidTypeArguments("1 @|3 &");
-        assertInvalidTypeArguments("23% 3|45*8");
+        assertInvalidTypeArguments("1 @\n3 &");
+        assertInvalidTypeArguments("23% 3\n45*8");
+        assertInvalidTypeArguments("(；￢＿￢)");
     }
 
     @Test
@@ -115,42 +111,40 @@ public class FibonacciMainTest extends FibonacciTest {
         assertInvalidTypeArguments("9856.23");
         assertInvalidTypeArguments("0.45");
         assertInvalidTypeArguments(".0546");
+        assertInvalidTypeArguments("-15.5");
         assertInvalidTypeArguments("0.0");
 
-        assertInvalidTypeArguments("1.2|1.5");
-        assertInvalidTypeArguments("178.29|541.5|0.25");
-        assertInvalidTypeArguments("2.14|17.85|0.256|78.53");
-        assertInvalidTypeArguments("42.57|189.7|59.57|56.58|558.5");
+        assertInvalidTypeArguments("1.2\n1.5");
+        assertInvalidTypeArguments("178.29\n541.5\n0.25");
+        assertInvalidTypeArguments("2.14\n17.85\n0.256\n78.53");
+        assertInvalidTypeArguments("42.57\n189.7\n59.57\n56.58\n558.5");
 
         assertInvalidTypeArguments("-1.5");
-        assertInvalidTypeArguments("-8.4|.24");
-        assertInvalidTypeArguments("-78.6|-0.25|-659.65");
-        assertInvalidTypeArguments("-1.5|-656.56|-46.562|-87.56");
+        assertInvalidTypeArguments("-8.4\n.24");
+        assertInvalidTypeArguments("-78.6\n-0.25\n-659.65");
+        assertInvalidTypeArguments("-1.5\n-656.56\n-46.562\n-87.56");
 
-        assertInvalidTypeArguments("#111111|#424543");
-        assertInvalidTypeArguments("#446564|#783223|#424543");
-        assertInvalidTypeArguments("#764613|#464689|#476643|#566396");
+        assertInvalidTypeArguments("#111111\n#424543");
+        assertInvalidTypeArguments("#446564\n#783223\n#424543");
+        assertInvalidTypeArguments("#764613\n#464689\n#476643\n#566396");
 
         assertInvalidTypeArguments("#424543");
-        assertInvalidTypeArguments("#111111|#424543");
-        assertInvalidTypeArguments("#446564|#783223|#424543");
-        assertInvalidTypeArguments("#764613|#464689|#476643|#566396");
+        assertInvalidTypeArguments("#111111\n#424543");
+        assertInvalidTypeArguments("#446564\n#783223\n#424543");
+        assertInvalidTypeArguments("#764613\n#464689\n#476643\n#566396");
 
         assertInvalidTypeArguments("1.5 2");
-        assertInvalidTypeArguments("a 2|3% 4");
-        assertInvalidTypeArguments("D 2|zero 7|3$");
-        assertInvalidTypeArguments("! 2|3.14 2|pi 1 8|5L");
+        assertInvalidTypeArguments("a 2\n3% 4");
+        assertInvalidTypeArguments("D 2\nzero 7\n3$");
+        assertInvalidTypeArguments("! 2\n3.14 2\npi 1 8\n5L");
         assertInvalidTypeArguments("% 2");
         assertInvalidTypeArguments("-56 2");
 
         assertInvalidTypeArguments("34 1");
-        assertInvalidTypeArguments("24 0");
-        assertInvalidTypeArguments("45 1.5");
-        assertInvalidTypeArguments("51 a");
-        assertInvalidTypeArguments("56 D 2");
-        assertInvalidTypeArguments("45 !");
-        assertInvalidTypeArguments("2 $");
-        assertInvalidTypeArguments("32 _");
+        assertInvalidTypeArguments("24 0\na 2");
+        assertInvalidTypeArguments("45 1.5\n4 a\n1.2 2");
+        assertInvalidTypeArguments("51 a\na 6\n8.3 7\n3 7%");
+        assertInvalidTypeArguments("56 D 2\n5 -1\n1 * 2\n5/5");
     }
 
     /**
@@ -177,20 +171,19 @@ public class FibonacciMainTest extends FibonacciTest {
      * Asserts that the console output and error messages match the expected results for a sequence of invalid index
      * inputs followed by a valid mock index, simulating user interaction and validating the final result.
      *
-     * @param rawInput a string of pipe-separated index inputs (e.g., "a|-1|invalid"), where the last input is ignored
-     *                 and replaced by a mock valid index (0)
+     * @param invalidValues a string of pipe-separated index inputs (e.g., "a\n-1\ninvalid"), where the last input is ignored
+     *                      and replaced by a mock valid index (0)
      */
-    public void assertInvalidTypeArguments(String rawInput) {
-        int mockIndex = 0;
+    public void assertInvalidTypeArguments(String invalidValues) {
+        String mockIndex = "0";
         String mockOutput = String.format(
-                "F(%d) = %d%n", mockIndex, 0
+                "F(%s) = %d%n", mockIndex, 0
         );
 
-        String[] inputValue = rawInput.split("\\|");
-        String invalidValues = String.join(LINE_BREAK, inputValue);
+        String[] inputValue = invalidValues.split("\n");
         int count = inputValue.length;
 
-        String input = invalidValues + LINE_BREAK + mockIndex;
+        String input = String.join("\n", invalidValues, mockIndex);
 
         String expectedOutput = PROMPT.repeat(count + 1) + mockOutput;
         String expectedErrorOutput = WARNING.repeat(count);

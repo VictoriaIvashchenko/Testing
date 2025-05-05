@@ -23,11 +23,6 @@ public class SwapMainTest extends SwapTest {
     private final static Runnable MAIN_METHOD = () -> SwapMain.main(new String[]{});
 
     /**
-     * System-dependent line separator used for formatting expected test output.
-     */
-    private final static String LINE_BREAK = System.lineSeparator();
-
-    /**
      * Prompt message for entering the x value.
      */
     private static final String PROMPT_X = String.format("Enter x:%n");
@@ -55,144 +50,141 @@ public class SwapMainTest extends SwapTest {
     @Test
     void overRangeInputTest() {
         //(MAX, MAX)
-        assertInvalidInput("2147483646", "2147483648|1");//(MAX - 1, MAX + 1)
-        assertInvalidInput("2147483647", "2147483648|1");//(MAX, MAX + 1)
-        assertInvalidInput("2147483648|1", "2147483648|1");//(MAX + 1, MAX + 1)
-        assertInvalidInput("2147483648|1", "2147483647");//(MAX + 1, MAX)
-        assertInvalidInput("2147483648|1", "2147483646");//(MAX + 1, MAX - 1)
+        assertInvalidInput("2147483646", "2147483648\n1");//(MAX - 1, MAX + 1)
+        assertInvalidInput("2147483647", "2147483648\n1");//(MAX, MAX + 1)
+        assertInvalidInput("2147483648\n1", "2147483648\n1");//(MAX + 1, MAX + 1)
+        assertInvalidInput("2147483648\n1", "2147483647");//(MAX + 1, MAX)
+        assertInvalidInput("2147483648\n1", "2147483646");//(MAX + 1, MAX - 1)
         //(MAX, MIN)
-        assertInvalidInput("2147483646", "-2147483649|1");//(MAX - 1, MIN - 1)
-        assertInvalidInput("2147483647", "-2147483649|1");//(MAX, MIN - 1)
-        assertInvalidInput("2147483648|1", "-2147483649|1");//(MAX + 1, MIN - 1)
-        assertInvalidInput("2147483648|1", "-2147483648");//(MAX + 1, MIN)
-        assertInvalidInput("2147483648|1", "-2147483647");//(MAX + 1, MIN + 1)
+        assertInvalidInput("2147483646", "-2147483649\n1");//(MAX - 1, MIN - 1)
+        assertInvalidInput("2147483647", "-2147483649\n1");//(MAX, MIN - 1)
+        assertInvalidInput("2147483648\n1", "-2147483649\n1");//(MAX + 1, MIN - 1)
+        assertInvalidInput("2147483648\n1", "-2147483648");//(MAX + 1, MIN)
+        assertInvalidInput("2147483648\n1", "-2147483647");//(MAX + 1, MIN + 1)
         //(MIN, MIN)
-        assertInvalidInput("-2147483647", "-2147483649|1");//(MIN + 1, MIN - 1)
-        assertInvalidInput("-2147483648", "-2147483649|1");//(MIN, MIN - 1)
-        assertInvalidInput("-2147483649|1", "-2147483649|1");//(MIN - 1, MIN - 1)
-        assertInvalidInput("-2147483649|1", "-2147483648");//(MIN - 1, MIN)
-        assertInvalidInput("-2147483649|1", "-2147483647");//(MIN - 1, MIN + 1)
+        assertInvalidInput("-2147483647", "-2147483649\n1");//(MIN + 1, MIN - 1)
+        assertInvalidInput("-2147483648", "-2147483649\n1");//(MIN, MIN - 1)
+        assertInvalidInput("-2147483649\n1", "-2147483649\n1");//(MIN - 1, MIN - 1)
+        assertInvalidInput("-2147483649\n1", "-2147483648");//(MIN - 1, MIN)
+        assertInvalidInput("-2147483649\n1", "-2147483647");//(MIN - 1, MIN + 1)
         //(MIN, MAX)
-        assertInvalidInput("-2147483647", "2147483648|1");//(MIN + 1, MAX + 1)
-        assertInvalidInput("-2147483648", "2147483648|1");//(MIN, MAX + 1)
-        assertInvalidInput("-2147483649|1", "2147483648|1");//(MIN - 1, MAX + 1)
-        assertInvalidInput("-2147483649|1", "2147483647");//(MIN - 1, MAX)
-        assertInvalidInput("-2147483649|1", "2147483646");//(MIN - 1, MAX - 1)
+        assertInvalidInput("-2147483647", "2147483648\n1");//(MIN + 1, MAX + 1)
+        assertInvalidInput("-2147483648", "2147483648\n1");//(MIN, MAX + 1)
+        assertInvalidInput("-2147483649\n1", "2147483648\n1");//(MIN - 1, MAX + 1)
+        assertInvalidInput("-2147483649\n1", "2147483647");//(MIN - 1, MAX)
+        assertInvalidInput("-2147483649\n1", "2147483646");//(MIN - 1, MAX - 1)
         //ребра
-        assertInvalidInput("1073741826", "2147483648|1");//(х, MAX + 1)
-        assertInvalidInput("2147483648|1", "1073741826");//(MAX + 1, y)
-        assertInvalidInput("2147483648|1", "-1073741826");//(MAX + 1, y)
-        assertInvalidInput("1073741826", "-2147483649|1");//(x, MIN - 1)
-        assertInvalidInput("-1073741826", "-2147483649|1");//(x, MIN - 1)
-        assertInvalidInput("-2147483649|1", "-1073741826");//(MIN - 1, y)
-        assertInvalidInput("-1073741826", "2147483648|1");//(x, MAX + 1)
-        assertInvalidInput("-2147483649|1", "1073741826");//(MIN - 1, y)
+        assertInvalidInput("1073741826", "2147483648\n1");//(х, MAX + 1)
+        assertInvalidInput("2147483648\n1", "1073741826");//(MAX + 1, y)
+        assertInvalidInput("2147483648\n1", "-1073741826");//(MAX + 1, y)
+        assertInvalidInput("1073741826", "-2147483649\n1");//(x, MIN - 1)
+        assertInvalidInput("-1073741826", "-2147483649\n1");//(x, MIN - 1)
+        assertInvalidInput("-2147483649\n1", "-1073741826");//(MIN - 1, y)
+        assertInvalidInput("-1073741826", "2147483648\n1");//(x, MAX + 1)
+        assertInvalidInput("-2147483649\n1", "1073741826");//(MIN - 1, y)
+
+        assertInvalidInput("2147483648\n2147483649\n2", "2147483648\n2147483649\n54");
+        assertInvalidInput("2147483648\n2147483649\n2147483650\n321", "2147483648\n2147483649\n2147483650\n123");
+        assertInvalidInput("2147483648\n2147483649\n2147483650\n2147483651\n2", "2147483648\n2147483649\n2147483650\n2147483651\n54");
+        assertInvalidInput("2147483648\n2147483649\n2147483650\n2147483651\n2147483652\n56", "2147483648\n2147483649\n2147483650\n2147483651\n2147483652\n54");
     }
 
     @Test
     public void charactersInputTest() {
-        assertInvalidInput("a|1", "1");
-        assertInvalidInput("a|b|1", "2");
-        assertInvalidInput("a|b|c|1", "1");
-        assertInvalidInput("a|b|c|d|1", "1");
+        assertInvalidInput("a\n1", "1");
+        assertInvalidInput("a\nb\n1", "2");
+        assertInvalidInput("a\nb\nc\n45", "78");
+        assertInvalidInput("a\nb\nc\nd\n1", "52");
+        assertInvalidInput("a\nb\nc\nd\nf\n123", "321");
 
-        assertInvalidInput("z|1", "1");
-        assertInvalidInput("y|z|1", "1");
-        assertInvalidInput("x|y|z|1", "1");
-        assertInvalidInput("w|x|y|z|1", "1");
+        assertInvalidInput("z\n1", "1");
+        assertInvalidInput("y\nz\n1", "1");
+        assertInvalidInput("x\ny\nz\n1", "1");
+        assertInvalidInput("w\nx\ny\nz\n1", "1");
 
-        assertInvalidInput("A|1", "1");
-        assertInvalidInput("Z|1", "1");
+        assertInvalidInput("A\n1", "1");
+        assertInvalidInput("Z\n1", "1");
 
-        assertInvalidInput("A|B|1", "1");
-        assertInvalidInput("A|B|C|1", "1");
-        assertInvalidInput("A|B|C|D|1", "1");
+        assertInvalidInput("A\nB\n1", "1");
+        assertInvalidInput("A\nB\nC\n1", "1");
+        assertInvalidInput("A\nB\nC\nD\n1", "1");
 
-        assertInvalidInput("Y|Z|1", "1");
-        assertInvalidInput("X|Y|Z|1", "1");
-        assertInvalidInput("W|X|Y|Z|1", "1");
+        assertInvalidInput("Y\nZ\n1", "1");
+        assertInvalidInput("X\nY\nZ\n1", "1");
+        assertInvalidInput("W\nX\nY\nZ\n1", "1");
 
-        assertInvalidInput("1", "a|1");
-        assertInvalidInput("2", "a|b|1");
-        assertInvalidInput("4", "a|b|c|1");
-        assertInvalidInput("5", "a|b|c|d|1");
+        assertInvalidInput("1", "a\n1");
+        assertInvalidInput("2", "a\nb\n1");
+        assertInvalidInput("4", "a\nb\nc\n1");
+        assertInvalidInput("5", "a\nb\nc\nd\n1");
 
-        assertInvalidInput("6", "z|1");
-        assertInvalidInput("7", "y|z|1");
-        assertInvalidInput("8", "x|y|z|1");
-        assertInvalidInput("24", "w|x|y|z|1");
+        assertInvalidInput("6", "z\n1");
+        assertInvalidInput("7", "y\nz\n1");
+        assertInvalidInput("8", "x\ny\nz\n1");
+        assertInvalidInput("24", "w\nx\ny\nz\n1");
 
-        assertInvalidInput("44", "A|1");
-        assertInvalidInput("2", "Z|1");
+        assertInvalidInput("44", "A\n1");
+        assertInvalidInput("2", "Z\n1");
 
-        assertInvalidInput("54", "A|B|1");
-        assertInvalidInput("67", "A|B|C|1");
-        assertInvalidInput("7", "A|B|C|D|1");
+        assertInvalidInput("54", "A\nB\n1");
+        assertInvalidInput("67", "A\nB\nC\n1");
+        assertInvalidInput("7", "A\nB\nC\nD\n1");
 
-        assertInvalidInput("-34", "Y|Z|1");
-        assertInvalidInput("54", "X|Y|Z|1");
-        assertInvalidInput("6", "W|X|Y|Z|1");
+        assertInvalidInput("-34", "Y\nZ\n1");
+        assertInvalidInput("54", "X\nY\nZ\n1");
+        assertInvalidInput("6", "W\nX\nY\nZ\n1");
 
-        assertInvalidInput("!|2", "1");
-        assertInvalidInput("@|!|3", "2");
-        assertInvalidInput("#|$|%|4", "3");
+        assertInvalidInput("!\n2", "1");
+        assertInvalidInput("@\n!\n3", "-743");
+        assertInvalidInput("#\n$\n%\n-464", "345");
+        assertInvalidInput("#\n$\n%\n^\n568", "895");
 
-        assertInvalidInput("1", "!|2");
-        assertInvalidInput("34", "!|@|2");
-        assertInvalidInput("5", "!|@|%|2");
-        assertInvalidInput("-123", "!|3^3| 4%5|99%|2");
+        assertInvalidInput("1", "!\n2");
+        assertInvalidInput("34", "!\n@\n2");
+        assertInvalidInput("5", "!\n@\n%\n2");
+        assertInvalidInput("-123", "!\n3^3\n 4%5\n99%\n2");
 
-        assertInvalidInput("1%|3", "3$|6");
-        assertInvalidInput("556^7|45&4|43", "955_566|23L|6");
-        assertInvalidInput("1_23%|45 6%|45 1#|3", "3m|6^2|45");
-        assertInvalidInput("23@45|12$ 45%|56^1/2|3", "3$|123");
-        assertInvalidInput("1#45 1|45% 100 56|3", "3$|6");
+        assertInvalidInput("1%\n3", "3$\n6");
+        assertInvalidInput("556^7\n45&4\n43", "955_566\n23L\n6");
+        assertInvalidInput("1_23%\n45 6%\n45 1#\n3", "3m\n6^2\n45");
+        assertInvalidInput("23@45\n12$ 45%\n56^1/2\n3", "3$\n123");
+        assertInvalidInput("1#45 1\n45% 100 56\n3", "3$\n6");
+        assertInvalidInput("~(゜゜;)＼(--;)\n\\(^^)/\n(-.-)y-~\n4", "(＠＾＾＠)／\n(._.)\n5");
 
     }
 
     @Test
     void invalidNumericTypeTest() {
-        assertInvalidInput("#245658|1", "2");
-        assertInvalidInput("#896456|#453296|2", "1");
-        assertInvalidInput("#865456|#455694|#479723|3", "1");
+        assertInvalidInput("#245658\n1", "2");
+        assertInvalidInput("#896456\n#453296\n2", "-7621");
+        assertInvalidInput("#478996\n#445954\n#479723\n3", "45");
+        assertInvalidInput("#865456\n#459423\n#348648\n#784531\n3", "1");
+        assertInvalidInput("#459879\n#455694\n#479723\n#479632\n#448783\n4", "489");
 
-        assertInvalidInput("12.8|1", "3");
-        assertInvalidInput("9856.23|.45|0.46|1", "316");
-        assertInvalidInput("95.1|45.46|-56.56|66.4|1", "15468745");
-        assertInvalidInput("-1.23|-.56|-569.654|85.56|1", "574254");
+        assertInvalidInput("12.8\n1", "3");
+        assertInvalidInput("9856.23\n.45\n0.46\n1", "316");
+        assertInvalidInput("95.1\n45.46\n-56.56\n66.4\n1", "15468745");
+        assertInvalidInput("-1.23\n-.56\n-569.654\n85.56\n1", "574254");
 
-        assertInvalidInput("1 1|1", "1");
-        assertInvalidInput("2147483647 56|1", "1");
-        assertInvalidInput("a a|14_|1", "1");
-        assertInvalidInput("a 1|1", "1");
-        assertInvalidInput("1 a|1", "1");
-        assertInvalidInput("! 1|1", "1");
-        assertInvalidInput("1 !|1", "2");
-        assertInvalidInput("! !|1", "2");
-        assertInvalidInput("12.3 1|1", "1");
-        assertInvalidInput("1 23.56|1", "1");
-        assertInvalidInput("12.3 123.85|1", "1");
+        assertInvalidInput("1 1\n1", "1");
+        assertInvalidInput("2147483647 56\n78 0\n5", "1");
+        assertInvalidInput("a a\n14_\n55L 55\n77", "88");
+        assertInvalidInput("a 1\nzero 0\n0b111\n47%7\n7+1-2\n1", "1");
+        assertInvalidInput("12.3 123.85\n-0.21\na\n(9)\n1", "1");
 
-        assertInvalidInput("2", "#245658|1");
-        assertInvalidInput("2", "#896456|#453296|1");
-        assertInvalidInput("2", "#865456|#455694|#479723|1");
+        assertInvalidInput("2", "#245658\n1");
+        assertInvalidInput("2", "#896456\n#453296\n1");
+        assertInvalidInput("2", "#865456\n#455694\n#479723\n1");
 
-        assertInvalidInput("2", "12.8|1");
-        assertInvalidInput("2", "9856.23|.45|0.46|1");
-        assertInvalidInput("2", "95.1|45.46|-56.56|66.4|1");
-        assertInvalidInput("2", "-1.23|-.56|-569.654|85.56|1");
+        assertInvalidInput("2", "12.8\n1");
+        assertInvalidInput("2", "9856.23\n.45\n0.46\n1");
+        assertInvalidInput("2", "95.1\n45.46\n-56.56\n66.4\n1");
+        assertInvalidInput("2", "-1.23\n-.56\n-569.654\n85.56\n1");
 
-        assertInvalidInput("2", "1 1|1");
-        assertInvalidInput("2", "2147483647 56|1");
-        assertInvalidInput("2", "a a|14_|1");
-        assertInvalidInput("2", "a 1|1");
-        assertInvalidInput("2", "1 a|1");
-        assertInvalidInput("2", "! 1|1");
-        assertInvalidInput("2", "1 !|1");
-        assertInvalidInput("2", "! !|1");
-        assertInvalidInput("2", "12.3 1|1");
-        assertInvalidInput("2", "1 23.56|1");
-        assertInvalidInput("2", "12.3 123.85|1");
+        assertInvalidInput("2", "1 1\n1");
+        assertInvalidInput("23", "2147483647 56\na 23\n1");
+        assertInvalidInput("68", "a a\n14_\n12$ 4\n445 f\n1");
+        assertInvalidInput("-15", "a 1\n№1 2\n45^2 -5\n56+4\n#1\n5");
     }
 
     /**
@@ -204,7 +196,7 @@ public class SwapMainTest extends SwapTest {
      */
     @Override
     public void assertSwapTwoNumbers(int num1, int num2) {
-        String input = num1 + LINE_BREAK + num2;
+        String input = num1 + "\n" + num2;
 
         String expectedOutput = String.format(
                 "%s%sBefore: x = %d y = %d%n" +
@@ -220,20 +212,17 @@ public class SwapMainTest extends SwapTest {
      * The method splits the input strings for x and y, counts invalid inputs, and constructs expected
      * console output and error output based on the number of invalid attempts.
      *
-     * @param x a string containing x input values separated by "|", where only the last value is valid
-     * @param y a string containing y input values separated by "|", where only the last value is valid
+     * @param x a string containing x input values separated by "\n", where only the last value is valid
+     * @param y a string containing y input values separated by "\n", where only the last value is valid
      */
     public void assertInvalidInput(String x, String y) {
-        String[] firstValueInput = x.split("\\|");
-        String[] secondValueInput = y.split("\\|");
-
-        int countXValues = firstValueInput.length;
-        int countYValues = secondValueInput.length;
+        int countXValues = getCount(x);
+        int countYValues = getCount(y);
         int countAllInvalidInputs = countXValues + countYValues - 2;//count of all invalid values
 
-        String input = getInput(firstValueInput, secondValueInput);
+        String input = String.join("\n", x, y);
 
-        String expectedResult = getExpectedResult(firstValueInput, secondValueInput);
+        String expectedResult = getExpectedResult(x, y);
 
         String expectedOutput = PROMPT_X.repeat(countXValues) + PROMPT_Y.repeat(countYValues) + expectedResult;
         String expectedErrorOutput = WARNING.repeat(countAllInvalidInputs);
@@ -244,26 +233,27 @@ public class SwapMainTest extends SwapTest {
     }
 
     /**
-     * Constructs the input string by combining x and y values with line breaks.
+     * Method counts values in input string in which "\n" uses as separator
      *
-     * @param firstValues  array of x input values
-     * @param secondValues array of y input values
-     * @return a string representing the combined input with line breaks
+     * @param stringInput string contains input values
+     * @return count of values in input string
      */
-    private static String getInput(String[] firstValues, String[] secondValues) {
-        String xValues = String.join(LINE_BREAK, firstValues);
-        String yValues = String.join(LINE_BREAK, secondValues);
-        return String.join(LINE_BREAK, xValues, yValues);
+    private static int getCount(String stringInput) {
+        String[] values = stringInput.split("\n");
+        return values.length;
     }
 
     /**
      * Generates the expected result string for valid x and y inputs, formatting the "Before" and "After" states.
      *
-     * @param xValues array of x input values, where only the last value is valid
-     * @param yValues array of y input values, where only the last value is valid
+     * @param x string contains x input values, where only the last value is valid
+     * @param y string contains y input values, where only the last value is valid
      * @return a formatted string showing the valid x and y values before and after swapping
      */
-    private static String getExpectedResult(String[] xValues, String[] yValues) {
+    private static String getExpectedResult(String x, String y) {
+        String[] xValues = x.split("\n");
+        String[] yValues = y.split("\n");
+
         String validX = xValues[xValues.length - 1];
         String validY = yValues[yValues.length - 1];
 
